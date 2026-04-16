@@ -819,6 +819,7 @@
 <!-- Tab Navigation -->
 <nav class="tab-nav">
   <button class="tab-button active" onclick="showTab('mission')">Business Technology Mission</button>
+  <button class="tab-button" onclick="showTab('portfolio')">Portfolio</button>
   <button class="tab-button" onclick="showTab('goals')">FY26 Goals</button>
   <button class="tab-button" onclick="showTab('engineering')">Engineering Delivery</button>
   <button class="tab-button" onclick="showTab('shiftleft')">Shift-Left</button>
@@ -871,7 +872,30 @@
   </div>
 </div>
 
-<!-- TAB 2: FY26 Goals -->
+<!-- TAB 2: Portfolio -->
+<div id="portfolio" class="tab-content">
+  <section class="hero">
+    <h1>Portfolio<br><span>Projects & Initiatives</span></h1>
+    <p class="hero-sub">Strategic initiatives, roadmap, and delivery tracking</p>
+  </section>
+
+  <div class="content-section">
+    <h2 class="section-title">Portfolio Overview</h2>
+    <div style="background: rgba(0,180,216,0.1); border-left: 4px solid var(--teal); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+      <p style="font-size: 1rem; line-height: 1.8; color: var(--white);">
+        This section will track active projects, strategic initiatives, roadmap milestones, and resource allocation across the Business Technology portfolio.
+      </p>
+    </div>
+
+    <div style="text-align: center; padding: 3rem 2rem; color: var(--text-muted);">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+      <h3 style="color: var(--white); margin-bottom: 0.5rem;">Portfolio Content Coming Soon</h3>
+      <p style="font-size: 15px;">Project portfolio, roadmap, and initiative tracking will be added here.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3: FY26 Goals -->
 <div id="goals" class="tab-content">
   <section class="hero">
     <h1>FY26 Goals<br><span>Q1 Status</span></h1>
@@ -1142,7 +1166,7 @@
   </div>
 </div>
 
-<!-- TAB 3: Engineering Delivery -->
+<!-- TAB 4: Engineering Delivery -->
 <div id="engineering" class="tab-content">
   <section class="hero">
     <h1>Engineering Delivery<br><span>Sprint Metrics</span></h1>
@@ -1385,7 +1409,7 @@
   </div>
 </div>
 
-<!-- TAB 4: Shift-Left -->
+<!-- TAB 5: Shift-Left -->
 <div id="shiftleft" class="tab-content">
   <section class="hero">
     <h1>Shift-Left<br><span>Tier-1 Automation</span></h1>
@@ -1853,13 +1877,18 @@ function generateResponse(question) {
     return `Cost Optimization Goal: $435K total annual savings through platform consolidation.\n\nQ2: $15K (ARM migration)\nQ3: $100K (logging consolidation)\nQ4: $320K (Asana + MuleSoft)\n\nQ1 Status: Pre-work and planning complete ✅`;
   }
 
+  // Portfolio
+  if (q.includes('portfolio') || q.includes('project') || q.includes('roadmap')) {
+    return `The Portfolio tab is currently being set up to track:\n\n• Active projects and initiatives\n• Strategic roadmap and milestones\n• Resource allocation\n• Delivery tracking\n\nContent coming soon! Check back for project portfolio updates.`;
+  }
+
   // General help
   if (q.includes('help') || q.includes('what can')) {
-    return `I can help you with:\n\n📊 FY26 Goals & Q1 status\n🔧 Engineering Delivery metrics & QBR Scorecard\n⚡ Shift-Left automation strategy\n🎯 Mission, vision, and strategic priorities\n💰 Cost optimization initiatives\n\nTry asking: "What are the FY26 goals?", "Show engineering metrics", "What's the shift-left strategy?", or "Tell me about cost savings"`;
+    return `I can help you with:\n\n📊 FY26 Goals & Q1 status\n📋 Portfolio (coming soon)\n🔧 Engineering Delivery metrics & QBR Scorecard\n⚡ Shift-Left automation strategy\n🎯 Mission, vision, and strategic priorities\n💰 Cost optimization initiatives\n\nTry asking: "What are the FY26 goals?", "Show engineering metrics", "What's the shift-left strategy?", or "Tell me about cost savings"`;
   }
 
   // Default response
-  return `I'm here to help with Business Technology information! Ask me about:\n\n• FY26 Goals and Q1 status\n• Engineering Delivery and QBR metrics\n• Shift-Left automation strategy\n• Mission and strategic priorities\n• Cost optimization\n\nWhat would you like to know?`;
+  return `I'm here to help with Business Technology information! Ask me about:\n\n• FY26 Goals and Q1 status\n• Portfolio and roadmap\n• Engineering Delivery and QBR metrics\n• Shift-Left automation strategy\n• Mission and strategic priorities\n• Cost optimization\n\nWhat would you like to know?`;
 }
 </script>
 
