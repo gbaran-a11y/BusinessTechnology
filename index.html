@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FY26 Business Technology — Q1 Goals Review</title>
+<title>Business Technology — FY26 Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -28,8 +28,8 @@
     background: var(--navy);
     color: var(--white);
     font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 17px;
+    line-height: 1.7;
     min-height: 100vh;
   }
 
@@ -51,7 +51,7 @@
 
   .logo {
     font-family: 'DM Mono', monospace;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--teal);
     letter-spacing: 0.1em;
@@ -73,7 +73,7 @@
   }
 
   .header-title {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 500;
     color: var(--white);
     opacity: 0.9;
@@ -81,10 +81,58 @@
 
   .header-meta {
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-size: 14px;
     color: var(--text-muted);
     text-align: right;
     line-height: 1.8;
+  }
+
+  /* ── Tab Navigation ── */
+  .tab-nav {
+    background: var(--navy-mid);
+    border-bottom: 2px solid var(--border);
+    padding: 0 3rem;
+    display: flex;
+    gap: 0;
+  }
+
+  .tab-button {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+    border-bottom: 3px solid transparent;
+  }
+
+  .tab-button:hover {
+    color: var(--white);
+    background: rgba(255,255,255,0.03);
+  }
+
+  .tab-button.active {
+    color: var(--teal);
+    border-bottom-color: var(--teal);
+  }
+
+  /* ── Tab Content ── */
+  .tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   /* ── Hero ── */
@@ -105,18 +153,71 @@
   .hero h1 span { color: var(--teal); }
 
   .hero-sub {
-    font-size: 14px;
+    font-size: 18px;
     color: var(--text-muted);
     max-width: 700px;
     margin-bottom: 2rem;
   }
 
-  /* ── Summary scorecard ── */
+  /* ── Content Section ── */
+  .content-section {
+    padding: 2.5rem 3rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 1rem;
+    border-bottom: 3px solid var(--teal);
+    padding-bottom: 0.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--teal);
+    margin: 2rem 0 1rem;
+  }
+
+  /* ── Mission Cards ── */
+  .mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .mission-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .mission-card:hover {
+    border-color: var(--teal);
+    transform: translateY(-2px);
+  }
+
+  .mission-card h3 {
+    font-size: 1.1rem;
+    color: var(--teal);
+    margin-bottom: 0.75rem;
+  }
+
+  .mission-card p {
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ── Scorecard ── */
   .scorecard {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 1rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2rem;
   }
 
   .score-card {
@@ -129,7 +230,7 @@
   .score-card:hover { border-color: rgba(255,255,255,0.18); }
 
   .score-label {
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 500;
     color: var(--text-muted);
     text-transform: uppercase;
@@ -138,7 +239,7 @@
   }
 
   .score-num {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 600;
     line-height: 1;
   }
@@ -146,22 +247,18 @@
   .score-num.red   { color: var(--red); }
 
   /* ── Strategy section headings ── */
-  .strategy-section {
-    padding: 2.5rem 3rem 0;
-  }
-
   .strategy-label {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 500;
     color: var(--yellow);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 1rem;
-    padding: 4px 10px;
+    padding: 6px 12px;
     border: 1px solid rgba(245,197,24,0.3);
     border-radius: 4px;
   }
@@ -194,17 +291,8 @@
   }
   .goal-col:last-child { border-right: none; }
 
-  .col-label {
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
-    margin-bottom: 0.4rem;
-  }
-
   .goal-name {
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 600;
     color: var(--white);
     line-height: 1.4;
@@ -213,13 +301,13 @@
 
   .goal-target {
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-size: 14px;
     color: var(--teal);
     margin-top: 0.3rem;
   }
 
   .value-text {
-    font-size: 12px;
+    font-size: 15px;
     color: var(--text-muted);
     line-height: 1.6;
   }
@@ -230,7 +318,7 @@
   .qtr-item {
     display: flex;
     gap: 8px;
-    font-size: 12px;
+    font-size: 15px;
     color: var(--text-muted);
     margin-bottom: 0.4rem;
     line-height: 1.5;
@@ -238,11 +326,11 @@
 
   .qtr-badge {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--navy-light);
     background: var(--text-muted);
-    padding: 1px 5px;
+    padding: 2px 7px;
     border-radius: 3px;
     flex-shrink: 0;
     height: fit-content;
@@ -262,7 +350,7 @@
   }
 
   .q1-actual-label {
-    font-size: 10px;
+    font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -272,7 +360,7 @@
   .q1-actual.red-actual .q1-actual-label { color: var(--red-light); }
 
   .q1-actual-text {
-    font-size: 12px;
+    font-size: 15px;
     color: rgba(168, 213, 181, 0.9);
     line-height: 1.5;
   }
@@ -283,7 +371,7 @@
     align-items: center;
     gap: 4px;
     margin-top: 6px;
-    font-size: 11px;
+    font-size: 14px;
     color: var(--teal);
     text-decoration: none;
     border-bottom: 1px solid rgba(0,180,216,0.3);
@@ -313,14 +401,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 6px 4px;
+    padding: 8px 6px;
     border-radius: 6px;
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-size: 13px;
     font-weight: 500;
     gap: 4px;
   }
-  .q-status .q-label { opacity: 0.7; font-size: 9px; }
+  .q-status .q-label { opacity: 0.7; font-size: 12px; }
 
   .q-green  { background: rgba(22,163,74,0.2);  color: #4ade80; border: 1px solid rgba(22,163,74,0.4); }
   .q-red    { background: rgba(220,38,38,0.2);   color: #f87171; border: 1px solid rgba(220,38,38,0.4); }
@@ -339,62 +427,93 @@
 
   .goals-header .gh {
     padding: 0 1.5rem;
-    font-size: 10px;
+    font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: rgba(255,255,255,0.6);
   }
 
-  /* ── Footer ── */
-  footer {
-    margin-top: 3rem;
-    padding: 2rem 3rem;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
+  /* ── Metric cards for Engineering Delivery ── */
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .metric-box {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+
+  .metric-box h4 {
+    font-size: 14px;
     color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
   }
 
-  .strategy-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    padding: 0 3rem 2rem;
+  .metric-value {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
   }
 
-  .pill {
-    font-size: 10px;
+  .metric-status {
+    font-size: 14px;
     padding: 4px 10px;
-    border: 1px solid rgba(245,197,24,0.3);
-    border-radius: 99px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  .status-green {
+    background: rgba(22,163,74,0.2);
+    color: #4ade80;
+  }
+
+  .status-red {
+    background: rgba(220,38,38,0.2);
+    color: #f87171;
+  }
+
+  .status-yellow {
+    background: rgba(245,197,24,0.2);
     color: var(--yellow);
-    font-weight: 500;
+  }
+
+  /* ── List styles ── */
+  ul.value-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  ul.value-list li {
+    padding: 0.5rem 0;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+  }
+
+  ul.value-list li:last-child {
+    border-bottom: none;
+  }
+
+  ul.value-list li strong {
+    color: var(--white);
   }
 
   /* ── Responsive ── */
   @media (max-width: 900px) {
     header { padding: 1rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-    .hero, .strategy-section { padding-left: 1.5rem; padding-right: 1.5rem; }
-    .strategy-pills { padding-left: 1.5rem; padding-right: 1.5rem; }
-    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; }
+    .tab-nav { padding: 0 1.5rem; overflow-x: auto; }
+    .hero, .content-section { padding-left: 1.5rem; padding-right: 1.5rem; }
     .goal-row, .goals-header { grid-template-columns: 1fr; }
     .goal-col { border-right: none; border-bottom: 1px solid var(--border); }
     .goals-header .gh:not(:first-child) { display: none; }
     .status-quarters { grid-template-columns: repeat(4, 1fr); }
-  }
-
-  /* ── Entry animations ── */
-  .goal-row {
-    opacity: 0;
-    transform: translateY(8px);
-    animation: fadeUp 0.4s ease forwards;
-  }
-  @keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
   }
 </style>
 </head>
@@ -403,7 +522,7 @@
 <header>
   <div class="header-left">
     <div class="logo">tenable</div>
-    <div class="header-title">Business Technology · FY26 Q1 Goals Review</div>
+    <div class="header-title">Business Technology Dashboard</div>
   </div>
   <div class="header-meta">
     Data as of April 16, 2026<br>
@@ -411,294 +530,563 @@
   </div>
 </header>
 
-<!-- Hero -->
-<section class="hero">
-  <h1>FY26 Business Technology<br><span>Goals — Q1 Status</span></h1>
-  <p class="hero-sub">Quarterly Business Review · Strategy & Roadmap · Solutions Design & Delivery</p>
+<!-- Tab Navigation -->
+<nav class="tab-nav">
+  <button class="tab-button active" onclick="showTab('mission')">Business Technology Mission</button>
+  <button class="tab-button" onclick="showTab('goals')">FY26 Goals</button>
+  <button class="tab-button" onclick="showTab('engineering')">Engineering Delivery</button>
+  <button class="tab-button" onclick="showTab('shiftleft')">Shift-Left</button>
+</nav>
 
-  <div class="scorecard">
-    <div class="score-card">
-      <div class="score-label">Total Goals</div>
-      <div class="score-num" style="color:var(--teal)">7</div>
+<!-- TAB 1: Mission -->
+<div id="mission" class="tab-content active">
+  <section class="hero">
+    <h1>Business Technology<br><span>Mission & Vision</span></h1>
+    <p class="hero-sub">Enabling Tenable to be the most trusted cybersecurity provider through innovative, efficient, and secure technology solutions.</p>
+  </section>
+
+  <div class="content-section">
+    <h2 class="section-title">Our Mission</h2>
+    <div style="background: rgba(0,180,216,0.1); border-left: 4px solid var(--teal); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+      <p style="font-size: 1.1rem; line-height: 1.8; color: var(--white);">
+        To deliver world-class technology solutions that empower Tenable employees, accelerate business outcomes, and strengthen our security posture — while driving operational excellence through innovation, automation, and continuous improvement.
+      </p>
     </div>
-    <div class="score-card">
-      <div class="score-label">On Track</div>
-      <div class="score-num green">6</div>
+
+    <h2 class="section-subtitle">Our Core Values</h2>
+    <div class="mission-grid">
+      <div class="mission-card">
+        <h3>🚀 Innovation First</h3>
+        <p>Embrace emerging technologies like AI and automation to transform how we work and deliver value across the enterprise.</p>
+      </div>
+      <div class="mission-card">
+        <h3>⚡ Operational Excellence</h3>
+        <p>Deliver predictable, high-quality results through disciplined execution, continuous measurement, and data-driven decisions.</p>
+      </div>
+      <div class="mission-card">
+        <h3>🔒 Security by Design</h3>
+        <p>Build trust through proactive risk management, robust governance, and industry-leading security practices.</p>
+      </div>
+      <div class="mission-card">
+        <h3>💰 Cost Optimization</h3>
+        <p>Maximize business value through strategic spend management, platform consolidation, and smart vendor partnerships.</p>
+      </div>
     </div>
-    <div class="score-card">
-      <div class="score-label">At Risk</div>
-      <div class="score-num red">1</div>
-    </div>
-    <div class="score-card">
-      <div class="score-label">Q1 Complete</div>
-      <div class="score-num" style="color:var(--white)">86%</div>
-    </div>
+
+    <h2 class="section-subtitle">Strategic Priorities</h2>
+    <ul class="value-list" style="max-width: 800px;">
+      <li><strong>Digital Workforce Transformation:</strong> Deploy AI agents to automate operational tasks and reclaim 20,000+ hours of employee capacity annually.</li>
+      <li><strong>Predictable Delivery:</strong> Achieve 90% on-time delivery rate for strategic initiatives through improved planning and execution discipline.</li>
+      <li><strong>Engineering Excellence:</strong> Increase sprint delivery rate from 27% to 90% and reduce carryover to enable confident roadmap commitments.</li>
+      <li><strong>Shift-Left Automation:</strong> Reduce Tier-1 operational workload by 35% through intelligent automation and self-service capabilities.</li>
+      <li><strong>Cost Leadership:</strong> Deliver $435K in annual savings through platform consolidation and vendor optimization.</li>
+      <li><strong>Governance & Risk:</strong> Maintain 90%+ Adaptive Shield score and strengthen application lifecycle governance across the enterprise.</li>
+    </ul>
   </div>
-</section>
-
-<!-- ── STRATEGY 1: Innovate through Emerging Tech ── -->
-<section class="strategy-section">
-  <div class="strategy-label">Innovate through Emerging Tech</div>
-
-  <div class="goals-grid">
-    <div class="goals-header">
-      <div class="gh">Goal</div>
-      <div class="gh">Value Drivers</div>
-      <div class="gh">Measurement / Deliverable / Outcome</div>
-      <div class="gh">Q Status</div>
-    </div>
-
-    <!-- Goal 1 -->
-    <div class="goal-row" style="animation-delay:0.05s">
-      <div class="goal-col">
-        <div class="goal-name">Digital Workforce Transformation (AI Doing Work)</div>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Deploy AI agents that automate operational tasks and reclaim measurable employee capacity.</p>
-        <div class="goal-target">Q1 – Q4</div>
-      </div>
-      <div class="goal-col">
-        <p class="value-text">Reduce manual labor costs, accelerate process throughput, redeploy headcount capacity to higher-value work, reduce human error in repetitive tasks.</p>
-      </div>
-      <div class="measurement-col">
-        <div class="qtr-item"><span class="qtr-badge">Q2</span>Deploy 2 AI agents automating 2 workflows. Achieve Automation Coverage ≥25%.</div>
-        <div class="qtr-item"><span class="qtr-badge">Q3</span>Deploy 4 AI agents. Achieve Automation Coverage ≥50% and Capacity Reclaimed ≥8,000 hrs annually.</div>
-        <div class="qtr-item"><span class="qtr-badge">Q4</span>Automate all 8–10 workflows. Achieve Automation Coverage ≥80–100% and Capacity Reclaimed ≥20,000 hrs annually.</div>
-        <div class="q1-actual">
-          <div class="q1-actual-label">Q1 Actual</div>
-          <div class="q1-actual-text">Use cases and workflows documented and ready to implement once Claude licensing is secured.</div>
-        </div>
-      </div>
-      <div class="status-col">
-        <div class="status-quarters">
-          <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Goal 2 -->
-    <div class="goal-row" style="animation-delay:0.1s">
-      <div class="goal-col">
-        <div class="goal-name">AI-Native Development Enablement (VIBE)</div>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Enable BT and business teams to build AI-powered solutions within secure guardrails.</p>
-        <div class="goal-target">Q2 – Q4</div>
-      </div>
-      <div class="goal-col">
-        <p class="value-text">Compress build cycles, reduce reliance on external vendors, democratize solution development across business units, lower cost-per-solution.</p>
-      </div>
-      <div class="measurement-col">
-        <div class="qtr-item"><span class="qtr-badge">Q2</span>VIBE platform deployed; baseline established. Deliver 2 BT-built VIBE solutions with ≥30% improvement in build cost and delivery time.</div>
-        <div class="qtr-item"><span class="qtr-badge">Q3</span>Deliver 2 additional BT-built VIBE solutions with ≥50% improvement.</div>
-        <div class="qtr-item"><span class="qtr-badge">Q4</span>2 business stakeholders independently deploy 2 VIBE solutions, achieving ≥50% faster time-to-market.</div>
-        <div class="q1-actual">
-          <div class="q1-actual-label">Q1 Actual</div>
-          <div class="q1-actual-text">Claude licensing expected to be available to the business in Q2. On track for Q2 start.</div>
-        </div>
-      </div>
-      <div class="status-col">
-        <div class="status-quarters">
-          <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── STRATEGY 2: Drive Operational Excellence ── -->
-<section class="strategy-section">
-  <div class="strategy-label">Drive Operational Excellence</div>
-
-  <div class="goals-grid">
-    <div class="goals-header">
-      <div class="gh">Goal</div>
-      <div class="gh">Value Drivers</div>
-      <div class="gh">Measurement / Deliverable / Outcome</div>
-      <div class="gh">Q Status</div>
-    </div>
-
-    <!-- Goal 3 -->
-    <div class="goal-row" style="animation-delay:0.15s">
-      <div class="goal-col">
-        <div class="goal-name">Project Delivery Excellence</div>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Ensure predictable delivery of strategic initiatives.</p>
-        <div class="goal-target">Q1 – Q4</div>
-      </div>
-      <div class="goal-col">
-        <p class="value-text">Protect revenue timelines tied to go-lives, reduce rework and scope creep costs, improve cross-functional trust and planning confidence.</p>
-      </div>
-      <div class="measurement-col">
-        <div class="qtr-item"><span class="qtr-badge">Q2</span>Achieve On-Time Delivery ≥70%.</div>
-        <div class="qtr-item"><span class="qtr-badge">Q3</span>Achieve On-Time Delivery ≥80%.</div>
-        <div class="qtr-item"><span class="qtr-badge">Q4</span>Achieve On-Time Delivery ≥90%.</div>
-        <div class="q1-actual">
-          <div class="q1-actual-label">Q1 Actual</div>
-          <div class="q1-actual-text">Baseline on-time delivery rate established. 1H portfolio locked with committed go-live months.</div>
-        </div>
-      </div>
-      <div class="status-col">
-        <div class="status-quarters">
-          <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Goal 4 — RED -->
-    <div class="goal-row" style="animation-delay:0.2s">
-      <div class="goal-col">
-        <div class="goal-name">Engineering Delivery Predictability</div>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Improve sprint delivery rate and extend planning horizon across BT engineering teams.</p>
-        <div class="goal-target">Q1 – Q4</div>
-      </div>
-      <div class="goal-col">
-        <p class="value-text">Increase throughput without adding headcount, reduce delivery delays caused by incomplete sprints, improve forecasting accuracy for roadmap commitments.</p>
-      </div>
-      <div class="measurement-col">
-        <div class="qtr-item"><span class="qtr-badge">Q2</span>Achieve Sprint delivery rate 80% (completed points / committed points).</div>
-        <div class="qtr-item"><span class="qtr-badge">Q3</span>Sprint delivery rate 85% and Carryover 25% or less.</div>
-        <div class="qtr-item"><span class="qtr-badge">Q4</span>Achieve Sprint delivery rate 90% and Carryover 20% or less.</div>
-        <div class="q1-actual red-actual">
-          <div class="q1-actual-label">Q1 Actual</div>
-          <div class="q1-actual-text">Sprint data downloaded and accessible. Deeper analysis still in progress — baseline not yet fully established.</div>
-          <a class="q1-link" href="jira-analysis.html" target="_blank">View BT JIRA Analysis Report</a>
-        </div>
-      </div>
-      <div class="status-col">
-        <div class="status-quarters">
-          <div class="q-status q-red"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Goal 5 -->
-    <div class="goal-row" style="animation-delay:0.25s">
-      <div class="goal-col">
-        <div class="goal-name">Shift-Left — Reduce Tier-1 Operational Workload</div>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Reduce Tier-1 operational workload through automation.</p>
-        <div class="goal-target">Q1 – Q4</div>
-      </div>
-      <div class="goal-col">
-        <p class="value-text">Free Tier-1 capacity for complex issues, improve employee and end-user experience through faster resolution, reduce per-ticket cost.</p>
-      </div>
-      <div class="measurement-col">
-        <div class="qtr-item"><span class="qtr-badge">Q2</span>Achieve Automated Resolution ≥10%.</div>
-        <div class="qtr-item"><span class="qtr-badge">Q3</span>Achieve Automated Resolution ≥20% and Ticket Reduction ≥10%.</div>
-        <div class="qtr-item"><span class="qtr-badge">Q4</span>Achieve Automated Resolution ≥35% and Ticket Reduction ≥20%.</div>
-        <div class="q1-actual">
-          <div class="q1-actual-label">Q1 Actual</div>
-          <div class="q1-actual-text">Top 10 ticket drivers documented. Baseline ticket volume established and 10 automation candidates identified and ranked.</div>
-          <a class="q1-link" href="jira-analysis.html#issue-types" target="_blank">View BT JIRA Analysis Report</a>
-        </div>
-      </div>
-      <div class="status-col">
-        <div class="status-quarters">
-          <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── STRATEGY 3 & 4 ── -->
-<section class="strategy-section" style="padding-bottom:3rem;">
-  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
-    <div class="strategy-label">Optimize Spend Across The Enterprise</div>
-    <div class="strategy-label" style="color:#93C5FD;border-color:rgba(147,197,253,0.3);">Be The Most Trusted Cybersecurity Provider</div>
-  </div>
-
-  <div class="goals-grid">
-    <div class="goals-header">
-      <div class="gh">Goal</div>
-      <div class="gh">Value Drivers</div>
-      <div class="gh">Measurement / Deliverable / Outcome</div>
-      <div class="gh">Q Status</div>
-    </div>
-
-    <!-- Goal 6 -->
-    <div class="goal-row" style="animation-delay:0.3s">
-      <div class="goal-col">
-        <div class="goal-name">Cost Optimization</div>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Reduce infrastructure and SaaS spend through platform consolidation.</p>
-        <div class="goal-target">Q2 – Q4</div>
-      </div>
-      <div class="goal-col">
-        <p class="value-text">Direct P&L impact through run-rate savings, reduce tool sprawl and integration complexity, improve vendor leverage and contract terms.</p>
-      </div>
-      <div class="measurement-col">
-        <div class="qtr-item"><span class="qtr-badge">Q2</span>Savings $15K (ARM migration).</div>
-        <div class="qtr-item"><span class="qtr-badge">Q3</span>Savings $100K (logging consolidation).</div>
-        <div class="qtr-item"><span class="qtr-badge">Q4</span>Savings $320K, FY26 + FY27 (Asana + MuleSoft).</div>
-        <div class="q1-actual">
-          <div class="q1-actual-label">Q1 Actual</div>
-          <div class="q1-actual-text">Pre-work and planning complete. On track for Q2 savings delivery.</div>
-        </div>
-      </div>
-      <div class="status-col">
-        <div class="status-quarters">
-          <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Goal 7 -->
-    <div class="goal-row" style="animation-delay:0.35s">
-      <div class="goal-col">
-        <div class="goal-name">Enterprise Governance & Risk Reduction</div>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Strengthen application lifecycle governance and expand security coverage.</p>
-        <div class="goal-target">Q1 – Q4</div>
-      </div>
-      <div class="goal-col">
-        <p class="value-text">Financial/reputational exposure, maintain compliance posture, shrink attack surface through expanded monitoring coverage.</p>
-      </div>
-      <div class="measurement-col">
-        <div class="qtr-item"><span class="qtr-badge">Q2</span>Adaptive Shield score &gt;= 90%.</div>
-        <div class="qtr-item"><span class="qtr-badge">Q3</span>Adaptive Shield score &gt;= 90%.</div>
-        <div class="qtr-item"><span class="qtr-badge">Q4</span>Adaptive Shield score &gt;= 90%.</div>
-        <div class="q1-actual">
-          <div class="q1-actual-label">Q1 Actual</div>
-          <div class="q1-actual-text">Adaptive Shield score &gt;= 90% achieved.</div>
-        </div>
-      </div>
-      <div class="status-col">
-        <div class="status-quarters">
-          <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
-          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Strategy pills -->
-<div class="strategy-pills">
-  <span class="pill">Drive Operational Excellence</span>
-  <span class="pill">Be The Most Trusted Cybersecurity Provider</span>
-  <span class="pill">Drive Revenue Growth</span>
-  <span class="pill">Optimize Spend Across The Enterprise</span>
-  <span class="pill">Innovate through Emerging Tech</span>
 </div>
 
-<footer>
-  <span>Business Technology · FY26 Q1 Goals Review · Greg Baran, VP Deputy CIO</span>
-  <span>Updated April 16, 2026</span>
-</footer>
+<!-- TAB 2: FY26 Goals -->
+<div id="goals" class="tab-content">
+  <section class="hero">
+    <h1>FY26 Business Technology<br><span>Goals — Q1 Status</span></h1>
+    <p class="hero-sub">Quarterly Business Review · Strategy & Roadmap · Solutions Design & Delivery</p>
+
+    <div class="scorecard">
+      <div class="score-card">
+        <div class="score-label">Total Goals</div>
+        <div class="score-num" style="color:var(--teal)">7</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">On Track</div>
+        <div class="score-num green">6</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">At Risk</div>
+        <div class="score-num red">1</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Q1 Complete</div>
+        <div class="score-num" style="color:var(--white)">86%</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content-section">
+    <div class="strategy-label">Innovate through Emerging Tech</div>
+
+    <div class="goals-grid">
+      <div class="goals-header">
+        <div class="gh">Goal</div>
+        <div class="gh">Value Drivers</div>
+        <div class="gh">Measurement / Deliverable / Outcome</div>
+        <div class="gh">Q Status</div>
+      </div>
+
+      <!-- Goal 1 -->
+      <div class="goal-row">
+        <div class="goal-col">
+          <div class="goal-name">Digital Workforce Transformation (AI Doing Work)</div>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Deploy AI agents that automate operational tasks and reclaim measurable employee capacity.</p>
+          <div class="goal-target">Q1 – Q4</div>
+        </div>
+        <div class="goal-col">
+          <p class="value-text">Reduce manual labor costs, accelerate process throughput, redeploy headcount capacity to higher-value work, reduce human error in repetitive tasks.</p>
+        </div>
+        <div class="measurement-col">
+          <div class="qtr-item"><span class="qtr-badge">Q2</span>Deploy 2 AI agents automating 2 workflows. Achieve Automation Coverage ≥25%.</div>
+          <div class="qtr-item"><span class="qtr-badge">Q3</span>Deploy 4 AI agents. Achieve Automation Coverage ≥50% and Capacity Reclaimed ≥8,000 hrs annually.</div>
+          <div class="qtr-item"><span class="qtr-badge">Q4</span>Automate all 8–10 workflows. Achieve Automation Coverage ≥80–100% and Capacity Reclaimed ≥20,000 hrs annually.</div>
+          <div class="q1-actual">
+            <div class="q1-actual-label">Q1 Actual</div>
+            <div class="q1-actual-text">Use cases and workflows documented and ready to implement once Claude licensing is secured.</div>
+          </div>
+        </div>
+        <div class="status-col">
+          <div class="status-quarters">
+            <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Goal 2 -->
+      <div class="goal-row">
+        <div class="goal-col">
+          <div class="goal-name">AI-Native Development Enablement (VIBE)</div>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Enable BT and business teams to build AI-powered solutions within secure guardrails.</p>
+          <div class="goal-target">Q2 – Q4</div>
+        </div>
+        <div class="goal-col">
+          <p class="value-text">Compress build cycles, reduce reliance on external vendors, democratize solution development across business units, lower cost-per-solution.</p>
+        </div>
+        <div class="measurement-col">
+          <div class="qtr-item"><span class="qtr-badge">Q2</span>VIBE platform deployed; baseline established. Deliver 2 BT-built VIBE solutions with ≥30% improvement in build cost and delivery time.</div>
+          <div class="qtr-item"><span class="qtr-badge">Q3</span>Deliver 2 additional BT-built VIBE solutions with ≥50% improvement.</div>
+          <div class="qtr-item"><span class="qtr-badge">Q4</span>2 business stakeholders independently deploy 2 VIBE solutions, achieving ≥50% faster time-to-market.</div>
+          <div class="q1-actual">
+            <div class="q1-actual-label">Q1 Actual</div>
+            <div class="q1-actual-text">Claude licensing expected to be available to the business in Q2. On track for Q2 start.</div>
+          </div>
+        </div>
+        <div class="status-col">
+          <div class="status-quarters">
+            <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="strategy-label">Drive Operational Excellence</div>
+
+    <div class="goals-grid">
+      <div class="goals-header">
+        <div class="gh">Goal</div>
+        <div class="gh">Value Drivers</div>
+        <div class="gh">Measurement / Deliverable / Outcome</div>
+        <div class="gh">Q Status</div>
+      </div>
+
+      <!-- Goal 3 -->
+      <div class="goal-row">
+        <div class="goal-col">
+          <div class="goal-name">Project Delivery Excellence</div>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Ensure predictable delivery of strategic initiatives.</p>
+          <div class="goal-target">Q1 – Q4</div>
+        </div>
+        <div class="goal-col">
+          <p class="value-text">Protect revenue timelines tied to go-lives, reduce rework and scope creep costs, improve cross-functional trust and planning confidence.</p>
+        </div>
+        <div class="measurement-col">
+          <div class="qtr-item"><span class="qtr-badge">Q2</span>Achieve On-Time Delivery ≥70%.</div>
+          <div class="qtr-item"><span class="qtr-badge">Q3</span>Achieve On-Time Delivery ≥80%.</div>
+          <div class="qtr-item"><span class="qtr-badge">Q4</span>Achieve On-Time Delivery ≥90%.</div>
+          <div class="q1-actual">
+            <div class="q1-actual-label">Q1 Actual</div>
+            <div class="q1-actual-text">Baseline on-time delivery rate established. 1H portfolio locked with committed go-live months.</div>
+          </div>
+        </div>
+        <div class="status-col">
+          <div class="status-quarters">
+            <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Goal 4 — RED -->
+      <div class="goal-row">
+        <div class="goal-col">
+          <div class="goal-name">Engineering Delivery Predictability</div>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Improve sprint delivery rate and extend planning horizon across BT engineering teams.</p>
+          <div class="goal-target">Q1 – Q4</div>
+        </div>
+        <div class="goal-col">
+          <p class="value-text">Increase throughput without adding headcount, reduce delivery delays caused by incomplete sprints, improve forecasting accuracy for roadmap commitments.</p>
+        </div>
+        <div class="measurement-col">
+          <div class="qtr-item"><span class="qtr-badge">Q2</span>Achieve Sprint delivery rate 80% (completed points / committed points).</div>
+          <div class="qtr-item"><span class="qtr-badge">Q3</span>Sprint delivery rate 85% and Carryover 25% or less.</div>
+          <div class="qtr-item"><span class="qtr-badge">Q4</span>Achieve Sprint delivery rate 90% and Carryover 20% or less.</div>
+          <div class="q1-actual red-actual">
+            <div class="q1-actual-label">Q1 Actual</div>
+            <div class="q1-actual-text">Sprint data downloaded and accessible. Deeper analysis still in progress — baseline not yet fully established.</div>
+            <a class="q1-link" href="#" onclick="showTab('engineering'); return false;">View Engineering Metrics</a>
+          </div>
+        </div>
+        <div class="status-col">
+          <div class="status-quarters">
+            <div class="q-status q-red"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Goal 5 -->
+      <div class="goal-row">
+        <div class="goal-col">
+          <div class="goal-name">Shift-Left — Reduce Tier-1 Operational Workload</div>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Reduce Tier-1 operational workload through automation.</p>
+          <div class="goal-target">Q1 – Q4</div>
+        </div>
+        <div class="goal-col">
+          <p class="value-text">Free Tier-1 capacity for complex issues, improve employee and end-user experience through faster resolution, reduce per-ticket cost.</p>
+        </div>
+        <div class="measurement-col">
+          <div class="qtr-item"><span class="qtr-badge">Q2</span>Achieve Automated Resolution ≥10%.</div>
+          <div class="qtr-item"><span class="qtr-badge">Q3</span>Achieve Automated Resolution ≥20% and Ticket Reduction ≥10%.</div>
+          <div class="qtr-item"><span class="qtr-badge">Q4</span>Achieve Automated Resolution ≥35% and Ticket Reduction ≥20%.</div>
+          <div class="q1-actual">
+            <div class="q1-actual-label">Q1 Actual</div>
+            <div class="q1-actual-text">Top 10 ticket drivers documented. Baseline ticket volume established and 10 automation candidates identified and ranked.</div>
+            <a class="q1-link" href="#" onclick="showTab('shiftleft'); return false;">View Shift-Left Analysis</a>
+          </div>
+        </div>
+        <div class="status-col">
+          <div class="status-quarters">
+            <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+      <div class="strategy-label">Optimize Spend Across The Enterprise</div>
+      <div class="strategy-label" style="color:#93C5FD;border-color:rgba(147,197,253,0.3);">Be The Most Trusted Cybersecurity Provider</div>
+    </div>
+
+    <div class="goals-grid">
+      <div class="goals-header">
+        <div class="gh">Goal</div>
+        <div class="gh">Value Drivers</div>
+        <div class="gh">Measurement / Deliverable / Outcome</div>
+        <div class="gh">Q Status</div>
+      </div>
+
+      <!-- Goal 6 -->
+      <div class="goal-row">
+        <div class="goal-col">
+          <div class="goal-name">Cost Optimization</div>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Reduce infrastructure and SaaS spend through platform consolidation.</p>
+          <div class="goal-target">Q2 – Q4</div>
+        </div>
+        <div class="goal-col">
+          <p class="value-text">Direct P&L impact through run-rate savings, reduce tool sprawl and integration complexity, improve vendor leverage and contract terms.</p>
+        </div>
+        <div class="measurement-col">
+          <div class="qtr-item"><span class="qtr-badge">Q2</span>Savings $15K (ARM migration).</div>
+          <div class="qtr-item"><span class="qtr-badge">Q3</span>Savings $100K (logging consolidation).</div>
+          <div class="qtr-item"><span class="qtr-badge">Q4</span>Savings $320K, FY26 + FY27 (Asana + MuleSoft).</div>
+          <div class="q1-actual">
+            <div class="q1-actual-label">Q1 Actual</div>
+            <div class="q1-actual-text">Pre-work and planning complete. On track for Q2 savings delivery.</div>
+          </div>
+        </div>
+        <div class="status-col">
+          <div class="status-quarters">
+            <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Goal 7 -->
+      <div class="goal-row">
+        <div class="goal-col">
+          <div class="goal-name">Enterprise Governance & Risk Reduction</div>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Strengthen application lifecycle governance and expand security coverage.</p>
+          <div class="goal-target">Q1 – Q4</div>
+        </div>
+        <div class="goal-col">
+          <p class="value-text">Financial/reputational exposure, maintain compliance posture, shrink attack surface through expanded monitoring coverage.</p>
+        </div>
+        <div class="measurement-col">
+          <div class="qtr-item"><span class="qtr-badge">Q2</span>Adaptive Shield score &gt;= 90%.</div>
+          <div class="qtr-item"><span class="qtr-badge">Q3</span>Adaptive Shield score &gt;= 90%.</div>
+          <div class="qtr-item"><span class="qtr-badge">Q4</span>Adaptive Shield score &gt;= 90%.</div>
+          <div class="q1-actual">
+            <div class="q1-actual-label">Q1 Actual</div>
+            <div class="q1-actual-text">Adaptive Shield score &gt;= 90% achieved.</div>
+          </div>
+        </div>
+        <div class="status-col">
+          <div class="status-quarters">
+            <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
+            <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3: Engineering Delivery -->
+<div id="engineering" class="tab-content">
+  <section class="hero">
+    <h1>Engineering Delivery<br><span>Sprint Metrics & QBR Scorecard</span></h1>
+    <p class="hero-sub">BT Project JIRA Analysis · Sprint Performance · Team Workload · Velocity Trends</p>
+  </section>
+
+  <div class="content-section">
+    <h2 class="section-title">Sprint Performance Overview</h2>
+
+    <div class="metric-grid">
+      <div class="metric-box">
+        <h4>Current Sprint</h4>
+        <div class="metric-value" style="color: var(--teal);">Sprint 9</div>
+        <div class="metric-status status-green">Day 2 of 13 — ACTIVE</div>
+      </div>
+      <div class="metric-box">
+        <h4>Sprint 8 Completion</h4>
+        <div class="metric-value" style="color: var(--red);">22.4%</div>
+        <div class="metric-status status-red">Completed 35 of 156 issues</div>
+      </div>
+      <div class="metric-box">
+        <h4>Active Team Members</h4>
+        <div class="metric-value" style="color: var(--white);">12</div>
+        <div class="metric-status status-green">All assigned</div>
+      </div>
+      <div class="metric-box">
+        <h4>Unassigned Issues</h4>
+        <div class="metric-value" style="color: var(--yellow);">100</div>
+        <div class="metric-status status-yellow">28% of open work</div>
+      </div>
+    </div>
+
+    <h2 class="section-subtitle">Portfolio Predictability — Sprint Completion Trends</h2>
+    <div style="background: rgba(220,38,38,0.1); border-left: 4px solid var(--red); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+      <p style="font-size: 0.95rem; line-height: 1.7; color: var(--white); margin-bottom: 1rem;">
+        <strong>🚨 Critical Issue:</strong> Sprint completion rate declining from 60.8% (Sprint 1) to 27.4% (Sprint 7 average). Currently at 22.4% for Sprint 8.
+      </p>
+      <p style="font-size: 0.9rem; color: var(--text-muted);">
+        <strong>Target:</strong> 80% completion rate by Q2, 90% by Q4<br>
+        <strong>Root Cause:</strong> Over-commitment (avg 194 issues/sprint vs 80 completed) + workload imbalance
+      </p>
+    </div>
+
+    <h2 class="section-subtitle">Key Findings</h2>
+    <ul class="value-list" style="max-width: 800px;">
+      <li><strong>Sprint 9 Status:</strong> Started April 15 with 22 pre-planned issues + ~120 carryover from Sprint 8 = 142 total (validate and right-size today)</li>
+      <li><strong>Workload Imbalance:</strong> Top contributor (Joe Catlett) has 100 issues assigned, while other key contributors are under-allocated</li>
+      <li><strong>Security Gap:</strong> 36 high-priority security vulnerabilities unassigned and requiring immediate attention</li>
+      <li><strong>Declining Velocity:</strong> Team averaging 80 completions/sprint but committing to 194 — need velocity-based capacity planning</li>
+      <li><strong>Portfolio Visibility:</strong> 28% of open issues unassigned impacts forecasting accuracy (target: &lt;10%)</li>
+    </ul>
+
+    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(0,180,216,0.1); border-radius: 8px;">
+      <h3 style="color: var(--teal); margin-bottom: 1rem;">📊 Full Analysis Available</h3>
+      <p style="color: var(--text-muted); margin-bottom: 1rem;">
+        View comprehensive sprint analysis, QBR Scorecard with 7 metrics, historical velocity trends (Sprints 1-7), team workload breakdown for all 12 members, and interactive data exploration.
+      </p>
+      <a href="jira-analysis.html" target="_blank" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--teal); color: var(--navy); text-decoration: none; border-radius: 6px; font-weight: 600;">
+        Open Full JIRA Analysis Report →
+      </a>
+    </div>
+
+    <h2 class="section-subtitle">Q2 Action Plan</h2>
+    <div class="mission-grid">
+      <div class="mission-card">
+        <h3>🎯 Right-Size Sprint Load</h3>
+        <p>Validate Sprint 9 workload (142 issues) and adjust based on 80-issue historical completion rate. Implement velocity-based planning for Sprint 10+.</p>
+      </div>
+      <div class="mission-card">
+        <h3>⚖️ Balance Workload</h3>
+        <p>Redistribute issues across team to address concentration risk and ensure all members are optimally allocated.</p>
+      </div>
+      <div class="mission-card">
+        <h3>🔒 Assign Security Issues</h3>
+        <p>Immediate triage and assignment of 36 unassigned security vulnerabilities with clear remediation timelines.</p>
+      </div>
+      <div class="mission-card">
+        <h3>📈 Improve Visibility</h3>
+        <p>Weekly backlog grooming to assign and prioritize all open issues. Reduce unassigned from 28% to &lt;10% within 2 sprints.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4: Shift-Left -->
+<div id="shiftleft" class="tab-content">
+  <section class="hero">
+    <h1>Shift-Left Strategy<br><span>Tier-1 Automation & Self-Service</span></h1>
+    <p class="hero-sub">Reducing operational workload through intelligent automation and empowering users with self-service capabilities.</p>
+  </section>
+
+  <div class="content-section">
+    <h2 class="section-title">Q1 Baseline Established</h2>
+
+    <div class="metric-grid">
+      <div class="metric-box">
+        <h4>Current Automation</h4>
+        <div class="metric-value" style="color: var(--text-muted);">0%</div>
+        <div class="metric-status status-red">Baseline established</div>
+      </div>
+      <div class="metric-box">
+        <h4>Q4 Target</h4>
+        <div class="metric-value" style="color: var(--green);">35%</div>
+        <div class="metric-status status-green">Automated resolution rate</div>
+      </div>
+      <div class="metric-box">
+        <h4>Ticket Reduction Goal</h4>
+        <div class="metric-value" style="color: var(--green);">20%</div>
+        <div class="metric-status status-green">Fewer Tier-1 tickets by Q4</div>
+      </div>
+      <div class="metric-box">
+        <h4>Automation Candidates</h4>
+        <div class="metric-value" style="color: var(--teal);">10</div>
+        <div class="metric-status status-green">Identified & ranked</div>
+      </div>
+    </div>
+
+    <h2 class="section-subtitle">The Shift-Left Vision</h2>
+    <div style="background: rgba(0,180,216,0.1); border-left: 4px solid var(--teal); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+      <p style="font-size: 1rem; line-height: 1.8; color: var(--white);">
+        Transform Tier-1 operations by automating repetitive requests, enabling intelligent self-service, and freeing engineers to focus on complex, high-value work that requires human expertise.
+      </p>
+    </div>
+
+    <h2 class="section-subtitle">Top 10 Automation Candidates</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+      Based on ticket volume analysis, these workflows represent the highest-impact opportunities for automation:
+    </p>
+
+    <div class="mission-grid">
+      <div class="mission-card">
+        <h3>1. Password Resets</h3>
+        <p><strong>Volume:</strong> High frequency<br><strong>Solution:</strong> Self-service portal with MFA verification</p>
+      </div>
+      <div class="mission-card">
+        <h3>2. Access Requests</h3>
+        <p><strong>Volume:</strong> High frequency<br><strong>Solution:</strong> Automated approval workflows with manager delegation</p>
+      </div>
+      <div class="mission-card">
+        <h3>3. Software Provisioning</h3>
+        <p><strong>Volume:</strong> Medium-high<br><strong>Solution:</strong> Self-service catalog with auto-provisioning</p>
+      </div>
+      <div class="mission-card">
+        <h3>4. VPN Troubleshooting</h3>
+        <p><strong>Volume:</strong> Medium<br><strong>Solution:</strong> AI-powered diagnostic bot with common fix automation</p>
+      </div>
+      <div class="mission-card">
+        <h3>5. Email Distribution Lists</h3>
+        <p><strong>Volume:</strong> Medium<br><strong>Solution:</strong> Self-service management portal</p>
+      </div>
+      <div class="mission-card">
+        <h3>6. Hardware Requests</h3>
+        <p><strong>Volume:</strong> Medium<br><strong>Solution:</strong> Automated approval + procurement integration</p>
+      </div>
+      <div class="mission-card">
+        <h3>7. License Management</h3>
+        <p><strong>Volume:</strong> Low-medium<br><strong>Solution:</strong> Automated reclamation + self-service assignment</p>
+      </div>
+      <div class="mission-card">
+        <h3>8. Onboarding Tasks</h3>
+        <p><strong>Volume:</strong> Steady<br><strong>Solution:</strong> Workflow automation with milestone tracking</p>
+      </div>
+      <div class="mission-card">
+        <h3>9. Status Checks</h3>
+        <p><strong>Volume:</strong> High frequency<br><strong>Solution:</strong> AI chatbot with real-time system integration</p>
+      </div>
+      <div class="mission-card">
+        <h3>10. Offboarding Tasks</h3>
+        <p><strong>Volume:</strong> Steady<br><strong>Solution:</strong> Automated revocation workflow</p>
+      </div>
+    </div>
+
+    <h2 class="section-subtitle">Quarterly Milestones</h2>
+    <ul class="value-list" style="max-width: 800px;">
+      <li><strong>Q2 (Apr-Jun 2026):</strong> Deploy first 2 automation solutions (password reset + access requests). Target: 10% automated resolution rate.</li>
+      <li><strong>Q3 (Jul-Sep 2026):</strong> Expand to 4 additional workflows (software provisioning, VPN troubleshooting, email lists, hardware requests). Target: 20% automated resolution + 10% ticket reduction.</li>
+      <li><strong>Q4 (Oct-Dec 2026):</strong> Complete remaining 4 workflows (license mgmt, onboarding, status checks, offboarding). Target: 35% automated resolution + 20% ticket reduction.</li>
+    </ul>
+
+    <h2 class="section-subtitle">Expected Business Impact</h2>
+    <div class="metric-grid">
+      <div class="mission-card">
+        <h3>⏱️ Faster Resolution</h3>
+        <p>Reduce average resolution time from hours/days to seconds for automated workflows. Improve employee satisfaction and productivity.</p>
+      </div>
+      <div class="mission-card">
+        <h3>💰 Cost Reduction</h3>
+        <p>Lower per-ticket cost through automation. Redirect Tier-1 capacity to complex issues requiring human expertise.</p>
+      </div>
+      <div class="mission-card">
+        <h3>📊 Better Insights</h3>
+        <p>Structured data capture from automated workflows enables trend analysis and proactive capacity planning.</p>
+      </div>
+      <div class="mission-card">
+        <h3>🎯 Scalability</h3>
+        <p>Handle volume growth without proportional headcount increase. Support business expansion efficiently.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(0,180,216,0.1); border-radius: 8px;">
+      <h3 style="color: var(--teal); margin-bottom: 1rem;">📊 Detailed Issue Analysis</h3>
+      <p style="color: var(--text-muted); margin-bottom: 1rem;">
+        View the complete JIRA issue type breakdown, ticket volume analysis, and automation opportunity ranking.
+      </p>
+      <a href="jira-analysis.html#issue-types" target="_blank" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--teal); color: var(--navy); text-decoration: none; border-radius: 6px; font-weight: 600;">
+        View Issue Type Analysis →
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+function showTab(tabName) {
+  // Hide all tabs
+  const tabs = document.querySelectorAll('.tab-content');
+  tabs.forEach(tab => tab.classList.remove('active'));
+
+  // Remove active state from all buttons
+  const buttons = document.querySelectorAll('.tab-button');
+  buttons.forEach(btn => btn.classList.remove('active'));
+
+  // Show selected tab
+  document.getElementById(tabName).classList.add('active');
+
+  // Set active button
+  event.target.classList.add('active');
+
+  // Scroll to top
+  window.scrollTo(0, 0);
+}
+</script>
 
 </body>
 </html>
