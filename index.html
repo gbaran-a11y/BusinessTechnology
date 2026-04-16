@@ -1,2653 +1,704 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BT Project JIRA Analysis Report - April 2026</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f5f5f5;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        header .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        nav {
-            background: #2d3748;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 1rem 2rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background 0.3s;
-            font-size: 0.9rem;
-        }
-
-        nav a:hover {
-            background: #4a5568;
-        }
-
-        .content {
-            padding: 2rem;
-        }
-
-        section {
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid #e2e8f0;
-        }
-
-        section:last-child {
-            border-bottom: none;
-        }
-
-        h2 {
-            color: #2d3748;
-            font-size: 2rem;
-            margin: 2rem 0 1rem 0;
-            padding-bottom: 0.5rem;
-            border-bottom: 3px solid #667eea;
-        }
-
-        h3 {
-            color: #4a5568;
-            font-size: 1.5rem;
-            margin: 1.5rem 0 1rem 0;
-        }
-
-        h4 {
-            color: #718096;
-            font-size: 1.2rem;
-            margin: 1rem 0 0.5rem 0;
-        }
-
-        .metric-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .metric-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .metric-card .label {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-bottom: 0.5rem;
-        }
-
-        .metric-card .value {
-            font-size: 2rem;
-            font-weight: bold;
-        }
-
-        .alert {
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            border-left: 4px solid;
-        }
-
-        .alert-critical {
-            background: #fed7d7;
-            border-color: #c53030;
-            color: #742a2a;
-        }
-
-        .alert-warning {
-            background: #feebc8;
-            border-color: #dd6b20;
-            color: #7c2d12;
-        }
-
-        .alert-info {
-            background: #bee3f8;
-            border-color: #3182ce;
-            color: #2c5282;
-        }
-
-        .alert-success {
-            background: #c6f6d5;
-            border-color: #38a169;
-            color: #22543d;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-            background: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        th {
-            background: #4a5568;
-            color: white;
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        td {
-            padding: 0.75rem 1rem;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        tr:hover {
-            background: #f7fafc;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 30px;
-            background: #e2e8f0;
-            border-radius: 15px;
-            overflow: hidden;
-            margin: 1rem 0;
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            transition: width 0.3s;
-        }
-
-        .progress-fill.warning {
-            background: linear-gradient(90deg, #f6ad55 0%, #ed8936 100%);
-        }
-
-        .progress-fill.danger {
-            background: linear-gradient(90deg, #fc8181 0%, #f56565 100%);
-        }
-
-        .chart-text {
-            font-family: monospace;
-            white-space: pre;
-            background: #2d3748;
-            color: #68d391;
-            padding: 1rem;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 1rem 0;
-        }
-
-        .issue-list {
-            list-style: none;
-            margin: 1rem 0;
-        }
-
-        .issue-list li {
-            padding: 0.75rem 1rem;
-            margin: 0.5rem 0;
-            background: #f7fafc;
-            border-left: 4px solid #667eea;
-            border-radius: 4px;
-        }
-
-        .issue-key {
-            font-weight: bold;
-            color: #667eea;
-            margin-right: 0.5rem;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin: 0 0.25rem;
-        }
-
-        .badge-priority-highest {
-            background: #feb2b2;
-            color: #742a2a;
-        }
-
-        .badge-priority-high {
-            background: #fbd38d;
-            color: #7c2d12;
-        }
-
-        .badge-priority-medium {
-            background: #bee3f8;
-            color: #2c5282;
-        }
-
-        .badge-priority-low {
-            background: #c6f6d5;
-            color: #22543d;
-        }
-
-        .badge-status {
-            background: #e2e8f0;
-            color: #4a5568;
-        }
-
-        .recommendation-box {
-            background: #edf2f7;
-            border-left: 4px solid #667eea;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            border-radius: 4px;
-        }
-
-        .recommendation-box h4 {
-            color: #667eea;
-            margin-top: 0;
-        }
-
-        .footer {
-            background: #2d3748;
-            color: white;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        /* Chat Widget Styles */
-        .chat-button {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            z-index: 1000;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .chat-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-        }
-
-        .chat-window {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 400px;
-            max-width: calc(100vw - 60px);
-            height: 600px;
-            max-height: calc(100vh - 150px);
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            z-index: 999;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .chat-window.open {
-            display: flex;
-        }
-
-        .chat-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chat-header h3 {
-            margin: 0;
-            font-size: 1.1rem;
-            color: white;
-        }
-
-        .chat-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background 0.3s;
-        }
-
-        .chat-close:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 1.5rem;
-            overflow-y: auto;
-            background: #f7fafc;
-        }
-
-        .chat-message {
-            margin-bottom: 1rem;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            max-width: 80%;
-            word-wrap: break-word;
-        }
-
-        .chat-message.user {
-            background: #667eea;
-            color: white;
-            margin-left: auto;
-        }
-
-        .chat-message.assistant {
-            background: white;
-            color: #333;
-            border: 1px solid #e2e8f0;
-        }
-
-        .chat-input-container {
-            padding: 1rem;
-            background: white;
-            border-top: 1px solid #e2e8f0;
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .chat-input {
-            flex: 1;
-            padding: 0.75rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-family: inherit;
-        }
-
-        .chat-send {
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: opacity 0.3s;
-        }
-
-        .chat-send:hover {
-            opacity: 0.9;
-        }
-
-        .chat-send:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .suggested-questions {
-            padding: 1rem;
-            background: #edf2f7;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .suggested-questions h4 {
-            font-size: 0.9rem;
-            color: #4a5568;
-            margin: 0 0 0.5rem 0;
-        }
-
-        .suggested-question {
-            display: block;
-            padding: 0.5rem;
-            margin: 0.25rem 0;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            color: #667eea;
-            text-decoration: none;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .suggested-question:hover {
-            background: #f7fafc;
-        }
-
-        .sprint-date {
-            color: #718096;
-            font-size: 0.9rem;
-            font-style: italic;
-        }
-
-        .filter-controls {
-            background: #f7fafc;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 2rem 0;
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .filter-controls label {
-            font-weight: 600;
-            color: #4a5568;
-        }
-
-        .filter-controls select {
-            padding: 0.75rem 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: inherit;
-            background: white;
-            cursor: pointer;
-            min-width: 250px;
-            transition: border-color 0.3s;
-        }
-
-        .filter-controls select:hover {
-            border-color: #667eea;
-        }
-
-        .filter-controls select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .workload-card {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 0.5rem 0;
-            transition: all 0.3s;
-        }
-
-        .workload-card:hover {
-            border-color: #667eea;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .workload-card.overloaded {
-            border-color: #fc8181;
-            background: #fff5f5;
-        }
-
-        .workload-card.underutilized {
-            border-color: #68d391;
-            background: #f0fff4;
-        }
-
-        .workload-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .workload-name {
-            font-weight: bold;
-            color: #2d3748;
-            font-size: 1.1rem;
-        }
-
-        .workload-total {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .workload-breakdown {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .workload-stat {
-            text-align: center;
-            padding: 0.5rem;
-            background: #f7fafc;
-            border-radius: 4px;
-        }
-
-        .workload-stat-label {
-            font-size: 0.75rem;
-            color: #718096;
-            text-transform: uppercase;
-        }
-
-        .workload-stat-value {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #2d3748;
-        }
-
-        .sprint-info-banner {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        @media print {
-            nav {
-                display: none;
-            }
-
-            .container {
-                box-shadow: none;
-            }
-
-            section {
-                page-break-inside: avoid;
-            }
-
-            .chat-button, .chat-window {
-                display: none !important;
-            }
-        }
-
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8rem;
-            }
-
-            nav {
-                flex-direction: column;
-            }
-
-            .metric-grid {
-                grid-template-columns: 1fr;
-            }
-
-            table {
-                font-size: 0.85rem;
-            }
-
-            .chat-window {
-                width: calc(100vw - 20px);
-                right: 10px;
-                left: 10px;
-            }
-
-            .chat-button {
-                right: 15px;
-                bottom: 15px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FY26 Business Technology — Q1 Goals Review</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:        #0D1B3E;
+    --navy-mid:    #0F2347;
+    --navy-light:  #1A3560;
+    --teal:        #00B4D8;
+    --yellow:      #F5C518;
+    --green:       #16A34A;
+    --green-light: #A8D5B5;
+    --red:         #DC2626;
+    --red-light:   #FCA5A5;
+    --gray:        #1E3A5F;
+    --white:       #FFFFFF;
+    --text-muted:  #94A3B8;
+    --border:      rgba(255,255,255,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  header {
+    background: linear-gradient(135deg, #0a1628 0%, var(--navy-light) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+
+  .header-left { display: flex; align-items: center; gap: 1rem; }
+
+  .logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--teal);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .logo::before {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .header-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--white);
+    opacity: 0.9;
+  }
+
+  .header-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 3rem 3rem 2rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--navy-mid);
+  }
+
+  .hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero h1 span { color: var(--teal); }
+
+  .hero-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 700px;
+    margin-bottom: 2rem;
+  }
+
+  /* ── Summary scorecard ── */
+  .scorecard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .score-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    transition: border-color 0.2s;
+  }
+  .score-card:hover { border-color: rgba(255,255,255,0.18); }
+
+  .score-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+
+  .score-num {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .score-num.green { color: var(--green); }
+  .score-num.red   { color: var(--red); }
+
+  /* ── Strategy section headings ── */
+  .strategy-section {
+    padding: 2.5rem 3rem 0;
+  }
+
+  .strategy-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--yellow);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    padding: 4px 10px;
+    border: 1px solid rgba(245,197,24,0.3);
+    border-radius: 4px;
+  }
+
+  /* ── Goal cards ── */
+  .goals-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+
+  .goal-row {
+    display: grid;
+    grid-template-columns: 220px 1fr 1fr 160px;
+    background: var(--navy-mid);
+    transition: background 0.15s;
+  }
+  .goal-row:hover { background: #132040; }
+  .goal-row:nth-child(even) { background: var(--navy); }
+  .goal-row:nth-child(even):hover { background: #0e1e38; }
+
+  .goal-col {
+    padding: 1.25rem 1.5rem;
+    border-right: 1px solid var(--border);
+  }
+  .goal-col:last-child { border-right: none; }
+
+  .col-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .goal-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.4;
+    margin-bottom: 0.4rem;
+  }
+
+  .goal-target {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--teal);
+    margin-top: 0.3rem;
+  }
+
+  .value-text {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── Measurement column ── */
+  .measurement-col { padding: 1.25rem 1.5rem; }
+
+  .qtr-item {
+    display: flex;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+    line-height: 1.5;
+  }
+
+  .qtr-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--navy-light);
+    background: var(--text-muted);
+    padding: 1px 5px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    height: fit-content;
+    margin-top: 2px;
+  }
+
+  .q1-actual {
+    margin-top: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    background: rgba(22, 163, 74, 0.08);
+    border-left: 3px solid var(--green);
+    border-radius: 0 6px 6px 0;
+  }
+  .q1-actual.red-actual {
+    background: rgba(220, 38, 38, 0.08);
+    border-left-color: var(--red);
+  }
+
+  .q1-actual-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--green-light);
+    margin-bottom: 3px;
+  }
+  .q1-actual.red-actual .q1-actual-label { color: var(--red-light); }
+
+  .q1-actual-text {
+    font-size: 12px;
+    color: rgba(168, 213, 181, 0.9);
+    line-height: 1.5;
+  }
+  .q1-actual.red-actual .q1-actual-text { color: rgba(252, 165, 165, 0.9); }
+
+  .q1-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--teal);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,180,216,0.3);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .q1-link:hover { color: #5ecfea; border-bottom-color: #5ecfea; }
+  .q1-link::after { content: '↗'; font-size: 10px; }
+
+  /* ── Status column ── */
+  .status-col {
+    padding: 1.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .status-quarters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .q-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 4px;
+    border-radius: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    gap: 4px;
+  }
+  .q-status .q-label { opacity: 0.7; font-size: 9px; }
+
+  .q-green  { background: rgba(22,163,74,0.2);  color: #4ade80; border: 1px solid rgba(22,163,74,0.4); }
+  .q-red    { background: rgba(220,38,38,0.2);   color: #f87171; border: 1px solid rgba(220,38,38,0.4); }
+  .q-gray   { background: rgba(30,58,95,0.6);    color: #475569; border: 1px solid rgba(255,255,255,0.06); }
+
+  .q-icon { font-size: 12px; }
+
+  /* ── Table header ── */
+  .goals-header {
+    display: grid;
+    grid-template-columns: 220px 1fr 1fr 160px;
+    background: var(--navy-light);
+    padding: 0.6rem 0;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .goals-header .gh {
+    padding: 0 1.5rem;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ── Footer ── */
+  footer {
+    margin-top: 3rem;
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .strategy-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 3rem 2rem;
+  }
+
+  .pill {
+    font-size: 10px;
+    padding: 4px 10px;
+    border: 1px solid rgba(245,197,24,0.3);
+    border-radius: 99px;
+    color: var(--yellow);
+    font-weight: 500;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    header { padding: 1rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .hero, .strategy-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .strategy-pills { padding-left: 1.5rem; padding-right: 1.5rem; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; }
+    .goal-row, .goals-header { grid-template-columns: 1fr; }
+    .goal-col { border-right: none; border-bottom: 1px solid var(--border); }
+    .goals-header .gh:not(:first-child) { display: none; }
+    .status-quarters { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  /* ── Entry animations ── */
+  .goal-row {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fadeUp 0.4s ease forwards;
+  }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>BT Project JIRA Analysis Report</h1>
-            <div class="subtitle">Comprehensive Sprint and Capacity Analysis | Data as of April 10, 2026 | Updated April 15, 2026</div>
-        </header>
 
-        <nav>
-            <a href="#executive-summary">Executive Summary</a>
-            <a href="#qbr-scorecard">QBR Scorecard</a>
-            <a href="#overview">Overview</a>
-            <a href="#sprint8">Sprint 8 Analysis</a>
-            <a href="#sprint9">Sprint 9 Planning</a>
-            <a href="#workload">Team Workload</a>
-            <a href="#issue-types">Issue Types</a>
-            <a href="#velocity">Historical Velocity</a>
-            <a href="#recommendations">Recommendations</a>
-        </nav>
-
-        <div class="content">
-            <!-- Executive Summary -->
-            <section id="executive-summary">
-                <h2>Executive Summary</h2>
-
-                <div class="metric-grid">
-                    <div class="metric-card">
-                        <div class="label">Total Issues</div>
-                        <div class="value">1,666</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">Open Issues</div>
-                        <div class="value">359</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">Active Team Members</div>
-                        <div class="value">12</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">Unassigned Issues</div>
-                        <div class="value">100</div>
-                    </div>
-                </div>
-
-                <div class="alert alert-success">
-                    <strong>UPDATE (April 15, 2026): Sprint 9 ACTIVE - Day 1</strong>
-                    <p>Sprint 9 started today! Sprint 8 ended April 14 with significant carryover (~120 issues). <strong>Immediate action needed:</strong> Validate Sprint 9 workload and priorities with full team today.</p>
-                </div>
-
-                <div class="alert alert-info">
-                    <strong>About This Report:</strong> Data captured April 10, 2026 (Sprint 8 Day 7). Sprint 8 has since completed. Sprint 9 carryover and final planning details TBD.
-                </div>
-
-                <h3>Key Findings (As of April 15, 2026)</h3>
-                <ul style="list-style-position: inside; padding-left: 1rem;">
-                    <li><strong>🚀 Sprint 9 Active:</strong> Started today (April 15) - Day 1 of 13</li>
-                    <li><strong>Sprint 8 Completed:</strong> Ended April 14 with 22.4% completion on day 7 (significant carryover expected)</li>
-                    <li><strong>Sprint 9 Critical:</strong> Only 22 issues pre-planned + ~120 carryover = ~142 total (validate today!)</li>
-                    <li><strong>Unassigned Security Issues:</strong> 36 high-priority security vulnerabilities need immediate attention</li>
-                    <li><strong>Workload Imbalance:</strong> Joe Catlett (100 issues), key contributors under-allocated in Sprint 9</li>
-                    <li><strong>Declining Velocity:</strong> Completion rate dropped from 60.8% (Sprint 1) to 32.4% (Sprint 7)</li>
-                </ul>
-            </section>
-
-            <!-- QBR Scorecard -->
-            <section id="qbr-scorecard">
-                <h2>QBR Scorecard</h2>
-
-                <div class="alert alert-info">
-                    <strong>About This Scorecard:</strong> Quarterly Business Review (QBR) metrics framework for tracking BT project health and delivery performance. Metrics align with Tenable engineering standards (February 2026).
-                </div>
-
-                <h3>Overall Health Dashboard</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 30%;">Metric</th>
-                            <th style="width: 15%;">Current Status</th>
-                            <th style="width: 15%;">Target</th>
-                            <th style="width: 15%;">Status</th>
-                            <th style="width: 25%;">Trend</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Portfolio Predictability</strong></td>
-                            <td>27.4%</td>
-                            <td>≥80%</td>
-                            <td><span class="badge" style="background: #dc3545;">🔴 Red</span></td>
-                            <td>Declining (60.8% → 27.4%)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Concept-to-Value Lead Time</strong></td>
-                            <td><em>Not Tracked</em></td>
-                            <td>&lt;30 days</td>
-                            <td><span class="badge" style="background: #6c757d;">⚫ Unknown</span></td>
-                            <td>Data gap - needs tracking</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Deployment Frequency</strong></td>
-                            <td><em>Not Tracked</em></td>
-                            <td>Daily+</td>
-                            <td><span class="badge" style="background: #6c757d;">⚫ Unknown</span></td>
-                            <td>Data gap - needs tracking</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Change Failure Rate</strong></td>
-                            <td><em>Not Tracked</em></td>
-                            <td>&lt;15%</td>
-                            <td><span class="badge" style="background: #6c757d;">⚫ Unknown</span></td>
-                            <td>Data gap - needs tracking</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Capacity Allocation</strong></td>
-                            <td>Growth: ~63%<br>Run: ~27%<br>Debt: ~10%</td>
-                            <td>Growth: 60%<br>Run: 30%<br>Debt: 10%</td>
-                            <td><span class="badge" style="background: #28a745;">🟢 Green</span></td>
-                            <td>Well-balanced allocation</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Portfolio Visibility Index</strong></td>
-                            <td>~70%</td>
-                            <td>≥90%</td>
-                            <td><span class="badge" style="background: #ffc107; color: #000;">🟡 Yellow</span></td>
-                            <td>100 unassigned (28% of open)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Priority Stability Index</strong></td>
-                            <td><em>Not Tracked</em></td>
-                            <td>&lt;20% churn</td>
-                            <td><span class="badge" style="background: #6c757d;">⚫ Unknown</span></td>
-                            <td>Data gap - needs tracking</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-warning">
-                    <strong>⚠️ Critical Findings:</strong>
-                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
-                        <li><strong>Portfolio Predictability at 27.4%</strong> - Far below 80% target. Sprint completion rates declining from 60.8% (Sprint 1) to 27.4% (Sprint 7 average).</li>
-                        <li><strong>4 of 7 Metrics Not Tracked</strong> - Missing critical DORA metrics (deployment frequency, change failure rate) and lead time data.</li>
-                        <li><strong>Workload Visibility Gap</strong> - 28% of open issues unassigned impacts portfolio visibility.</li>
-                    </ul>
-                </div>
-
-                <h3>1. Portfolio Predictability</h3>
-                <div style="background: #f8f9fa; padding: 1.5rem; border-left: 4px solid #667eea; margin: 1rem 0;">
-                    <p><strong>Definition:</strong> Ratio of delivered work to committed work, measuring team's ability to forecast sprint capacity accurately.</p>
-                    <p><strong>Calculation:</strong> (Completed Issues / Total Committed Issues) × 100</p>
-                    <p><strong>Color Thresholds:</strong></p>
-                    <ul style="margin: 0.5rem 0; padding-left: 2rem;">
-                        <li>🟢 Green: ≥80% completion</li>
-                        <li>🟡 Yellow: 60-79% completion</li>
-                        <li>🔴 Red: &lt;60% completion</li>
-                    </ul>
-                </div>
-
-                <h4>Current Performance (Sprints 1-7)</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Sprint</th>
-                            <th>Committed</th>
-                            <th>Completed</th>
-                            <th>Completion %</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Sprint 1</td>
-                            <td>142</td>
-                            <td>86</td>
-                            <td>60.8%</td>
-                            <td><span class="badge" style="background: #ffc107; color: #000;">🟡 Yellow</span></td>
-                        </tr>
-                        <tr>
-                            <td>Sprint 2</td>
-                            <td>163</td>
-                            <td>87</td>
-                            <td>53.4%</td>
-                            <td><span class="badge" style="background: #dc3545;">🔴 Red</span></td>
-                        </tr>
-                        <tr>
-                            <td>Sprint 3</td>
-                            <td>180</td>
-                            <td>84</td>
-                            <td>46.7%</td>
-                            <td><span class="badge" style="background: #dc3545;">🔴 Red</span></td>
-                        </tr>
-                        <tr>
-                            <td>Sprint 4</td>
-                            <td>199</td>
-                            <td>81</td>
-                            <td>40.7%</td>
-                            <td><span class="badge" style="background: #dc3545;">🔴 Red</span></td>
-                        </tr>
-                        <tr>
-                            <td>Sprint 5</td>
-                            <td>220</td>
-                            <td>86</td>
-                            <td>39.1%</td>
-                            <td><span class="badge" style="background: #dc3545;">🔴 Red</span></td>
-                        </tr>
-                        <tr>
-                            <td>Sprint 6</td>
-                            <td>228</td>
-                            <td>63</td>
-                            <td>27.6%</td>
-                            <td><span class="badge" style="background: #dc3545;">🔴 Red</span></td>
-                        </tr>
-                        <tr>
-                            <td>Sprint 7</td>
-                            <td>228</td>
-                            <td>74</td>
-                            <td>32.4%</td>
-                            <td><span class="badge" style="background: #dc3545;">🔴 Red</span></td>
-                        </tr>
-                        <tr style="font-weight: bold; background: #f8f9fa;">
-                            <td>Average (S1-S7)</td>
-                            <td>194</td>
-                            <td>80</td>
-                            <td>41.5%</td>
-                            <td><span class="badge" style="background: #dc3545;">🔴 Red</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-danger">
-                    <strong>🚨 Action Required:</strong> Portfolio predictability critically below target. Sprint 8 completion estimated at 22.4% (Day 7). Root cause analysis needed:
-                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
-                        <li>Over-commitment pattern: Average 194 issues/sprint, completing only 80</li>
-                        <li>Workload imbalance: Top contributor (Joe Catlett) has 100 issues</li>
-                        <li>Capacity planning: Need better velocity-based forecasting</li>
-                        <li>Sprint 9 immediate action: Validate ~142 issue load (22 planned + 120 carryover)</li>
-                    </ul>
-                </div>
-
-                <h3>2. Concept-to-Value Lead Time</h3>
-                <div style="background: #f8f9fa; padding: 1.5rem; border-left: 4px solid #667eea; margin: 1rem 0;">
-                    <p><strong>Definition:</strong> Average time from work item creation to production deployment, measuring end-to-end delivery speed.</p>
-                    <p><strong>Calculation:</strong> Average(Production Deploy Date - Issue Created Date) across completed issues</p>
-                    <p><strong>Color Thresholds:</strong></p>
-                    <ul style="margin: 0.5rem 0; padding-left: 2rem;">
-                        <li>🟢 Green: &lt;30 days</li>
-                        <li>🟡 Yellow: 30-60 days</li>
-                        <li>🔴 Red: &gt;60 days</li>
-                    </ul>
-                </div>
-
-                <div class="alert alert-warning">
-                    <strong>⚠️ Data Gap:</strong> Lead time tracking not currently enabled in JIRA. To implement:
-                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
-                        <li>Add "Production Deploy Date" custom field to issues</li>
-                        <li>Integrate with CI/CD pipeline to auto-populate deploy dates</li>
-                        <li>Create dashboard to track cycle time from "In Progress" → "Done"</li>
-                        <li>Baseline current state with manual audit of recent deployments</li>
-                    </ul>
-                </div>
-
-                <h3>3. Deployment Frequency</h3>
-                <div style="background: #f8f9fa; padding: 1.5rem; border-left: 4px solid #667eea; margin: 1rem 0;">
-                    <p><strong>Definition:</strong> How often the team deploys code to production, measuring delivery cadence and CI/CD maturity.</p>
-                    <p><strong>Calculation:</strong> Production deployments per week</p>
-                    <p><strong>Color Thresholds:</strong></p>
-                    <ul style="margin: 0.5rem 0; padding-left: 2rem;">
-                        <li>🟢 Green: Daily+ (≥5/week)</li>
-                        <li>🟡 Yellow: Weekly (1-4/week)</li>
-                        <li>🔴 Red: Less than weekly</li>
-                    </ul>
-                </div>
-
-                <div class="alert alert-warning">
-                    <strong>⚠️ Data Gap:</strong> Deployment frequency not tracked in JIRA. To implement:
-                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
-                        <li>Integrate GitHub Actions/Jenkins with JIRA via webhooks</li>
-                        <li>Tag production deployments in CI/CD pipeline</li>
-                        <li>Create deployment dashboard with daily/weekly frequency metrics</li>
-                        <li>Establish baseline by auditing deployment logs from past quarter</li>
-                    </ul>
-                </div>
-
-                <h3>4. Change Failure Rate</h3>
-                <div style="background: #f8f9fa; padding: 1.5rem; border-left: 4px solid #667eea; margin: 1rem 0;">
-                    <p><strong>Definition:</strong> Percentage of production deployments that result in degraded service requiring hotfix/rollback.</p>
-                    <p><strong>Calculation:</strong> (Failed Deployments / Total Deployments) × 100</p>
-                    <p><strong>Color Thresholds:</strong></p>
-                    <ul style="margin: 0.5rem 0; padding-left: 2rem;">
-                        <li>🟢 Green: &lt;15%</li>
-                        <li>🟡 Yellow: 15-30%</li>
-                        <li>🔴 Red: &gt;30%</li>
-                    </ul>
-                </div>
-
-                <div class="alert alert-warning">
-                    <strong>⚠️ Data Gap:</strong> Change failure rate not tracked. To implement:
-                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
-                        <li>Create "Hotfix" and "Rollback" issue types in JIRA</li>
-                        <li>Link hotfix issues to original deployment/release</li>
-                        <li>Track incident response time and resolution</li>
-                        <li>Integrate monitoring/alerting with JIRA for automatic incident creation</li>
-                        <li>Baseline current state by reviewing past incidents and correlating with deployments</li>
-                    </ul>
-                </div>
-
-                <h3>5. Capacity Allocation</h3>
-                <div style="background: #f8f9fa; padding: 1.5rem; border-left: 4px solid #667eea; margin: 1rem 0;">
-                    <p><strong>Definition:</strong> Distribution of team capacity across Growth (new features), Run (operations/support), and Debt (technical debt/bugs).</p>
-                    <p><strong>Calculation:</strong> Story points or issue count by category / Total capacity × 100</p>
-                    <p><strong>Target Allocation:</strong></p>
-                    <ul style="margin: 0.5rem 0; padding-left: 2rem;">
-                        <li>Growth: 60%</li>
-                        <li>Run: 30%</li>
-                        <li>Debt: 10%</li>
-                    </ul>
-                </div>
-
-                <h4>Current Allocation (Based on Issue Types)</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Category</th>
-                            <th>Issue Types</th>
-                            <th>Count</th>
-                            <th>Percentage</th>
-                            <th>Target</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Growth</strong></td>
-                            <td>Story, Epic, Improvement</td>
-                            <td>226</td>
-                            <td>63%</td>
-                            <td>60%</td>
-                            <td><span class="badge" style="background: #28a745;">🟢 Green</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Run</strong></td>
-                            <td>Task, Support, Operations</td>
-                            <td>97</td>
-                            <td>27%</td>
-                            <td>30%</td>
-                            <td><span class="badge" style="background: #28a745;">🟢 Green</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Debt</strong></td>
-                            <td>Bug, Security Finding, Tech Debt</td>
-                            <td>36</td>
-                            <td>10%</td>
-                            <td>10%</td>
-                            <td><span class="badge" style="background: #28a745;">🟢 Green</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-success">
-                    <strong>✅ Well-Balanced Allocation:</strong> Current capacity distribution aligns with target ratios. Team is appropriately focused on growth initiatives while maintaining operational support and addressing technical debt.
-                </div>
-
-                <h3>6. Portfolio Visibility Index</h3>
-                <div style="background: #f8f9fa; padding: 1.5rem; border-left: 4px solid #667eea; margin: 1rem 0;">
-                    <p><strong>Definition:</strong> Percentage of work items with clear ownership, priorities, and acceptance criteria.</p>
-                    <p><strong>Calculation:</strong> (Assigned Issues with Priority / Total Open Issues) × 100</p>
-                    <p><strong>Color Thresholds:</strong></p>
-                    <ul style="margin: 0.5rem 0; padding-left: 2rem;">
-                        <li>🟢 Green: ≥90%</li>
-                        <li>🟡 Yellow: 75-89%</li>
-                        <li>🔴 Red: &lt;75%</li>
-                    </ul>
-                </div>
-
-                <h4>Current Visibility Metrics</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Metric</th>
-                            <th>Value</th>
-                            <th>Target</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Total Open Issues</td>
-                            <td>359</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Assigned Issues</td>
-                            <td>259</td>
-                            <td>≥323 (90%)</td>
-                            <td><span class="badge" style="background: #ffc107; color: #000;">🟡 Yellow</span></td>
-                        </tr>
-                        <tr>
-                            <td>Unassigned Issues</td>
-                            <td>100 (28%)</td>
-                            <td>&lt;36 (10%)</td>
-                            <td><span class="badge" style="background: #ffc107; color: #000;">🟡 Yellow</span></td>
-                        </tr>
-                        <tr>
-                            <td>Issues with Priority</td>
-                            <td>238</td>
-                            <td>≥323 (90%)</td>
-                            <td><span class="badge" style="background: #ffc107; color: #000;">🟡 Yellow</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Visibility Index</strong></td>
-                            <td><strong>~72%</strong></td>
-                            <td><strong>≥90%</strong></td>
-                            <td><span class="badge" style="background: #ffc107; color: #000;">🟡 Yellow</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-warning">
-                    <strong>⚠️ Improvement Needed:</strong>
-                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
-                        <li>100 unassigned issues (28% of open work) - needs immediate triage</li>
-                        <li>36 security findings unassigned - critical risk</li>
-                        <li>Action: Weekly backlog grooming session to assign and prioritize all open issues</li>
-                        <li>Goal: Reduce unassigned to &lt;10% within 2 sprints</li>
-                    </ul>
-                </div>
-
-                <h3>7. Priority Stability Index</h3>
-                <div style="background: #f8f9fa; padding: 1.5rem; border-left: 4px solid #667eea; margin: 1rem 0;">
-                    <p><strong>Definition:</strong> Measures how often priorities change mid-sprint, indicating planning stability and stakeholder alignment.</p>
-                    <p><strong>Calculation:</strong> (Issues with Priority Changes During Sprint / Total Sprint Issues) × 100</p>
-                    <p><strong>Color Thresholds:</strong></p>
-                    <ul style="margin: 0.5rem 0; padding-left: 2rem;">
-                        <li>🟢 Green: &lt;20% churn</li>
-                        <li>🟡 Yellow: 20-35% churn</li>
-                        <li>🔴 Red: &gt;35% churn</li>
-                    </ul>
-                </div>
-
-                <div class="alert alert-warning">
-                    <strong>⚠️ Data Gap:</strong> Priority stability not tracked. To implement:
-                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
-                        <li>Enable JIRA changelog tracking for priority field changes</li>
-                        <li>Create automation rule to flag mid-sprint priority changes</li>
-                        <li>Dashboard showing priority changes by sprint</li>
-                        <li>Baseline current state by analyzing issue history from past 3 sprints</li>
-                        <li>Sprint rule: Freeze priorities after Day 1 planning (exceptions require PM approval)</li>
-                    </ul>
-                </div>
-
-                <h3>Action Plan: Closing the Gaps</h3>
-                <div style="background: #fff3cd; padding: 1.5rem; border-left: 4px solid #ffc107; margin: 1rem 0;">
-                    <h4>Immediate (Sprint 9 - Next 2 Weeks)</h4>
-                    <ol style="padding-left: 2rem;">
-                        <li><strong>Portfolio Predictability:</strong> Validate Sprint 9 workload (~142 issues) and right-size based on 80-issue historical completion rate</li>
-                        <li><strong>Portfolio Visibility:</strong> Assign all 100 unassigned issues, prioritize 36 security findings</li>
-                        <li><strong>Capacity Allocation:</strong> Maintain current 63/27/10 split (already on target)</li>
-                    </ol>
-
-                    <h4>Short-term (Next 30 Days)</h4>
-                    <ol style="padding-left: 2rem;">
-                        <li><strong>Lead Time Tracking:</strong> Add "Production Deploy Date" custom field and manual data collection</li>
-                        <li><strong>Priority Stability:</strong> Enable changelog tracking and establish sprint planning freeze policy</li>
-                        <li><strong>Deployment Frequency:</strong> Baseline current deployment cadence via CI/CD log audit</li>
-                    </ol>
-
-                    <h4>Long-term (Next 90 Days)</h4>
-                    <ol style="padding-left: 2rem;">
-                        <li><strong>CI/CD Integration:</strong> Automate deployment tracking and change failure rate monitoring</li>
-                        <li><strong>DORA Metrics Dashboard:</strong> Full implementation of deployment frequency, lead time, and change failure rate</li>
-                        <li><strong>Portfolio Predictability:</strong> Target 60%+ completion rate (Yellow) by end of Q2, 80%+ (Green) by Q3</li>
-                    </ol>
-                </div>
-            </section>
-
-            <!-- Project Overview -->
-            <section id="overview">
-                <h2>Project Overview</h2>
-
-                <p><strong>Project:</strong> Business Technology (BT)<br>
-                <strong>Board:</strong> 992 - "All BT Issues Scrum Board"<br>
-                <strong>JIRA:</strong> <a href="https://tenable.atlassian.net/jira/software/c/projects/BT/boards/992">View Board</a></p>
-
-                <h3>Priority Distribution</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Priority</th>
-                            <th>Count</th>
-                            <th>Percentage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="badge badge-priority-highest">Highest (P1)</span></td>
-                            <td>2</td>
-                            <td>1%</td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge badge-priority-high">High (P2)</span></td>
-                            <td>53</td>
-                            <td>20%</td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge badge-priority-medium">Medium</span></td>
-                            <td>180</td>
-                            <td>71%</td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge badge-priority-low">Low (P4)</span></td>
-                            <td>3</td>
-                            <td>1%</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>Issue Type Distribution</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Type</th>
-                            <th>Count</th>
-                            <th>Percentage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Story</td><td>92</td><td>36%</td></tr>
-                        <tr><td>Epic</td><td>86</td><td>34%</td></tr>
-                        <tr><td>Task</td><td>44</td><td>17%</td></tr>
-                        <tr><td>Bug</td><td>14</td><td>5%</td></tr>
-                        <tr><td>Security Finding</td><td>8</td><td>3%</td></tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-warning">
-                    <strong>Security Concerns</strong>
-                    <p>7 unassigned security vulnerabilities in "Open" status requiring immediate triage and remediation:</p>
-                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
-                        <li>BT-5917: Infinite loop (22 assets)</li>
-                        <li>BT-5895: Improper input validation</li>
-                        <li>BT-5894: XML Entity Expansion (3 assets)</li>
-                        <li>BT-5872: Data amplification vulnerability (2 assets)</li>
-                        <li>BT-5871: Uncaught Exception (2 assets)</li>
-                        <li>BT-5870: Uncaught Exception (2 assets)</li>
-                        <li>BT-5869: Symlink Attack (2 assets)</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Sprint 8 Analysis -->
-            <section id="sprint8">
-                <h2>Sprint 8 Analysis (COMPLETED)</h2>
-
-                <div class="alert alert-info">
-                    <strong>Sprint 8:</strong> BT - 2026 Sprint 8<br>
-                    <strong>Dates:</strong> April 3 - April 14, 2026 (11 days)<br>
-                    <strong>Status:</strong> COMPLETED April 14, 2026<br>
-                    <strong>Data Below:</strong> Snapshot from April 10 (Day 7) - Final results pending
-                </div>
-
-                <h3>Progress Overview (as of April 10 - Day 7)</h3>
-                <div style="margin: 2rem 0;">
-                    <p><strong>Completion Rate at Day 7:</strong></p>
-                    <div class="progress-bar">
-                        <div class="progress-fill danger" style="width: 22.4%">22.4%</div>
-                    </div>
-                    <p style="margin-top: 0.5rem; color: #718096;">Expected at Day 7: 64% | Actual: 22.4% | <strong>Sprint has since completed (April 14)</strong></p>
-                </div>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Status</th>
-                            <th>Count</th>
-                            <th>Percentage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>New</td><td>43</td><td>21.9%</td></tr>
-                        <tr><td>In Progress</td><td>39</td><td>19.9%</td></tr>
-                        <tr><td>User Acceptance Testing</td><td>36</td><td>18.4%</td></tr>
-                        <tr><td>Closed</td><td>32</td><td>16.3%</td></tr>
-                        <tr><td>On Hold</td><td>16</td><td>8.2%</td></tr>
-                        <tr><td>Other</td><td>30</td><td>15.3%</td></tr>
-                    </tbody>
-                </table>
-
-                <h3>Top Contributors (Sprint 8)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Assignee</th>
-                            <th>Total Issues</th>
-                            <th>Unstarted</th>
-                            <th>In Progress</th>
-                            <th>Done</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Joe Catlett</td>
-                            <td>31</td>
-                            <td>17</td>
-                            <td>4</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td>Nathan Mathew</td>
-                            <td>26</td>
-                            <td>8</td>
-                            <td>2</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>Liz Shannon</td>
-                            <td>14</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td>Joel Guilford</td>
-                            <td>12</td>
-                            <td>0</td>
-                            <td>2</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>Johanna Fong</td>
-                            <td>11</td>
-                            <td>0</td>
-                            <td>2</td>
-                            <td>4</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>Critical Issues Requiring Immediate Attention</h3>
-                <ul class="issue-list">
-                    <li>
-                        <span class="issue-key">BT-4001</span>
-                        <span class="badge badge-priority-highest">P1</span>
-                        <span class="badge badge-status">New</span>
-                        Update Partner/Deal Details on Contract and Renewal Opp upon Amendment's being Closed-Won
-                        <div style="margin-top: 0.5rem; color: #718096; font-size: 0.9rem;">Assignee: Liz Shannon | Tagged: Top5</div>
-                    </li>
-                    <li>
-                        <span class="issue-key">BT-5830</span>
-                        <span class="badge badge-priority-high">P2</span>
-                        <span class="badge badge-status">New</span>
-                        Add data from Revenue Element object in NetSuite to Financials Used in Certinia/Docebo(SF)
-                        <div style="margin-top: 0.5rem; color: #718096; font-size: 0.9rem;">Assignee: Niamh Ni Laighin | Tagged: Top5</div>
-                    </li>
-                </ul>
-
-                <div class="recommendation-box">
-                    <h4>Historical Context (April 10 Recommendation)</h4>
-                    <p><strong>Recommendation at Day 7:</strong> Move 43 issues (84% of unstarted work) to Sprint 9 immediately to allow team to focus on critical deliverables.</p>
-                    <p><strong>Sprint 8 Status:</strong> Completed April 14. Final carryover to Sprint 9 should be documented and tracked.</p>
-                </div>
-            </section>
-
-            <!-- Sprint 9 Planning -->
-            <section id="sprint9">
-                <h2>Sprint 9 Analysis (ACTIVE - DAY 1)</h2>
-
-                <div class="alert alert-success">
-                    <strong>Sprint 9:</strong> BT - 2026 Sprint 9<br>
-                    <strong>Dates:</strong> April 15 - April 28, 2026 (13 days)<br>
-                    <strong>Status:</strong> ACTIVE - Started Today (April 15, 2026)<br>
-                    <strong>Days Remaining:</strong> 13 days (April 15-28)
-                </div>
-
-                <div class="alert alert-warning">
-                    <strong>Planning Status (as of April 10):</strong> Only 22 issues planned. Carryover from Sprint 8 and final planning details TBD.
-                </div>
-
-                <h3>Current Sprint 9 Status</h3>
-                <div class="metric-grid">
-                    <div class="metric-card">
-                        <div class="label">Total Issues Planned</div>
-                        <div class="value">22</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">Expected Carryover from S8</div>
-                        <div class="value">~120</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">Recommended Total</div>
-                        <div class="value">60-80</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">Planning Gap</div>
-                        <div class="value" style="color: #fc8181;">89%</div>
-                    </div>
-                </div>
-
-                <div style="margin: 2rem 0;">
-                    <p><strong>Sprint 9 Capacity:</strong></p>
-                    <div class="progress-bar">
-                        <div class="progress-fill danger" style="width: 11%">11% Planned</div>
-                    </div>
-                    <p style="margin-top: 0.5rem; color: #718096;">Only 22 issues planned vs 196 in Sprint 8 (89% reduction)</p>
-                </div>
-
-                <h3>Sprint 9 - Currently Planned Issues</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Status</th>
-                            <th>Count</th>
-                            <th>Percentage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>New</td><td>8</td><td>36.4%</td></tr>
-                        <tr><td>Ready for Execution</td><td>7</td><td>31.8%</td></tr>
-                        <tr><td>On Hold</td><td>3</td><td>13.6%</td></tr>
-                        <tr><td>User Acceptance Testing</td><td>2</td><td>9.1%</td></tr>
-                        <tr><td>In Progress</td><td>1</td><td>4.5%</td></tr>
-                        <tr><td>Ready for Release</td><td>1</td><td>4.5%</td></tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-info">
-                    <strong>Note:</strong> Issues already "In Progress" and "UAT" before sprint start indicate carryover work already in flight.
-                </div>
-
-                <h3>Sprint 9 - Team Assignment (Current)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Assignee</th>
-                            <th>Issues Planned</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Paul Kim</td>
-                            <td>6</td>
-                            <td>Well loaded</td>
-                        </tr>
-                        <tr>
-                            <td>Himanshu Shah</td>
-                            <td>2</td>
-                            <td>Under-utilized</td>
-                        </tr>
-                        <tr>
-                            <td>Justin Orr</td>
-                            <td>2</td>
-                            <td>Well loaded</td>
-                        </tr>
-                        <tr>
-                            <td>Christine Elvard</td>
-                            <td>2</td>
-                            <td>Under-utilized</td>
-                        </tr>
-                        <tr>
-                            <td>Kyle Hasty</td>
-                            <td>2</td>
-                            <td>Well loaded</td>
-                        </tr>
-                        <tr>
-                            <td>Niamh Ni Laighin</td>
-                            <td>2</td>
-                            <td>Under-utilized</td>
-                        </tr>
-                        <tr>
-                            <td>Others (4 people)</td>
-                            <td>1 each</td>
-                            <td>Significantly under-utilized</td>
-                        </tr>
-                        <tr>
-                            <td>Unassigned</td>
-                            <td>1</td>
-                            <td>-</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-critical">
-                    <strong>Critical Gap: Key Contributors Missing</strong>
-                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
-                        <li><strong>Joe Catlett:</strong> 31 issues in Sprint 8 → 0 issues planned for Sprint 9</li>
-                        <li><strong>Nathan Mathew:</strong> 26 issues in Sprint 8 → 1 issue planned for Sprint 9</li>
-                        <li><strong>Liz Shannon:</strong> 14 issues in Sprint 8 → 0 issues planned for Sprint 9</li>
-                    </ul>
-                    <p style="margin-top: 0.5rem;">This suggests Sprint 9 planning is incomplete and doesn't account for carryover work.</p>
-                </div>
-
-                <h3>Sprint 9 - Issue Type Breakdown (Current)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Issue Type</th>
-                            <th>Count</th>
-                            <th>Percentage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Story</td><td>17</td><td>77.3%</td></tr>
-                        <tr><td>Task</td><td>5</td><td>22.7%</td></tr>
-                        <tr><td>Bug</td><td>0</td><td>0%</td></tr>
-                        <tr><td>Epic</td><td>0</td><td>0%</td></tr>
-                        <tr><td>Sub-task</td><td>0</td><td>0%</td></tr>
-                    </tbody>
-                </table>
-
-                <h3>Sprint 9 - Priority Distribution (Current)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Priority</th>
-                            <th>Count</th>
-                            <th>Percentage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Medium</td><td>13</td><td>59.1%</td></tr>
-                        <tr><td>High (P2)</td><td>4</td><td>18.2%</td></tr>
-                        <tr><td>P2</td><td>2</td><td>9.1%</td></tr>
-                        <tr><td>Low (P4)</td><td>1</td><td>4.5%</td></tr>
-                        <tr><td>Highest (P1)</td><td>1</td><td>4.5%</td></tr>
-                        <tr><td>Medium (P3)</td><td>1</td><td>4.5%</td></tr>
-                    </tbody>
-                </table>
-
-                <h3>Sprint 9 Top Issues (Currently Planned)</h3>
-                <ul class="issue-list">
-                    <li>
-                        <span class="issue-key">BT-5950</span>
-                        <span class="badge badge-priority-high">P2</span>
-                        <span class="badge badge-status">New</span>
-                        TONE Guardrail Enhancement: Restrict 0 unit add-ons
-                        <div style="margin-top: 0.5rem; color: #718096; font-size: 0.9rem;">Assignee: Paul Kim</div>
-                    </li>
-                    <li>
-                        <span class="issue-key">BT-5944</span>
-                        <span class="badge badge-priority-high">P2</span>
-                        <span class="badge badge-status">New</span>
-                        SKUREQ-261: Enclave Security SC - WAS for FRH IL5
-                        <div style="margin-top: 0.5rem; color: #718096; font-size: 0.9rem;">Assignee: Paul Kim</div>
-                    </li>
-                    <li>
-                        <span class="issue-key">BT-5945</span>
-                        <span class="badge badge-priority-high">P2</span>
-                        <span class="badge badge-status">New</span>
-                        SKUREQ-262: Enclave Security SC+ - WAS for FRH IL5
-                        <div style="margin-top: 0.5rem; color: #718096; font-size: 0.9rem;">Assignee: Paul Kim</div>
-                    </li>
-                    <li>
-                        <span class="issue-key">BT-5359</span>
-                        <span class="badge badge-priority-medium">Medium</span>
-                        <span class="badge badge-status">New</span>
-                        Arrow EMEA - Quote Automation - Mule Changes
-                        <div style="margin-top: 0.5rem; color: #718096; font-size: 0.9rem;">Assignee: Ian McGoldrick</div>
-                    </li>
-                    <li>
-                        <span class="issue-key">BT-5846</span>
-                        <span class="badge badge-priority-medium">Medium</span>
-                        <span class="badge badge-status">New</span>
-                        NetGain - Cross-Validation Rules
-                        <div style="margin-top: 0.5rem; color: #718096; font-size: 0.9rem;">Assignee: Niamh Ni Laighin</div>
-                    </li>
-                </ul>
-
-                <h3>What Needs to Happen Before Sprint 9</h3>
-
-                <div class="recommendation-box">
-                    <h4>1. Add Sprint 8 Carryover (~120 issues)</h4>
-                    <p><strong>Timeline:</strong> By April 11, 2026</p>
-                    <ul style="margin-left: 1.5rem;">
-                        <li>Sprint 8 projected to complete only 36-41% of work</li>
-                        <li>Expected carryover: 116-126 issues</li>
-                        <li>These must be triaged and added to Sprint 9</li>
-                        <li>Priority: P1/P2 items from Sprint 8 must be included</li>
-                    </ul>
-                </div>
-
-                <div class="recommendation-box">
-                    <h4>2. Proper Capacity Planning</h4>
-                    <p><strong>Recommended Sprint 9 Size:</strong> 60-80 total issues</p>
-                    <ul style="margin-left: 1.5rem;">
-                        <li>Current: 22 issues (27% under target)</li>
-                        <li>Add 38-58 issues from backlog + carryover</li>
-                        <li>Team size: 15-20 contributors</li>
-                        <li>Target per person: 8-12 issues</li>
-                    </ul>
-                </div>
-
-                <div class="recommendation-box">
-                    <h4>3. Workload Rebalancing</h4>
-                    <p><strong>Target Distribution:</strong></p>
-                    <table style="margin-top: 1rem;">
-                        <thead>
-                            <tr>
-                                <th>Team Member</th>
-                                <th>Current Sprint 9</th>
-                                <th>Target Sprint 9</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Joe Catlett</td><td>0</td><td>10-12</td><td>Add work</td></tr>
-                            <tr><td>Nathan Mathew</td><td>1</td><td>10-12</td><td>Add work</td></tr>
-                            <tr><td>Liz Shannon</td><td>0</td><td>8-10</td><td>Add work</td></tr>
-                            <tr><td>Himanshu Shah</td><td>2</td><td>8-10</td><td>Increase</td></tr>
-                            <tr><td>Paul Kim</td><td>6</td><td>8-10</td><td>Slight increase</td></tr>
-                            <tr><td>Others</td><td>1-2 each</td><td>6-10</td><td>Balance</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="recommendation-box">
-                    <h4>4. Buffer for Emergent Work</h4>
-                    <ul style="margin-left: 1.5rem;">
-                        <li>Reserve 20% capacity for unplanned work</li>
-                        <li>Expected: new bugs, security findings, urgent requests</li>
-                        <li>Target committed work: 48-64 issues (80% of 60-80 capacity)</li>
-                        <li>Stretch work: 16 issues (20% buffer)</li>
-                    </ul>
-                </div>
-
-                <h3>Sprint 9 Success Criteria</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Metric</th>
-                            <th>Target</th>
-                            <th>Why It Matters</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Total Issues</td>
-                            <td>60-80</td>
-                            <td>Realistic capacity based on team size and historical data</td>
-                        </tr>
-                        <tr>
-                            <td>Completion Rate</td>
-                            <td>&gt;60%</td>
-                            <td>Reverse declining velocity trend</td>
-                        </tr>
-                        <tr>
-                            <td>P1/P2 Completion</td>
-                            <td>&gt;80%</td>
-                            <td>Focus on high-priority work</td>
-                        </tr>
-                        <tr>
-                            <td>Carryover Rate</td>
-                            <td>&lt;25%</td>
-                            <td>Reduce technical debt for Sprint 10</td>
-                        </tr>
-                        <tr>
-                            <td>Workload Balance</td>
-                            <td>8-12 per person</td>
-                            <td>Prevent burnout, sustainable pace</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-success">
-                    <strong>Sprint 9 Opportunity</strong>
-                    <p>Sprint 9 is an opportunity to reset after Sprint 8's challenges. By planning realistically and balancing workload, the team can:</p>
-                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
-                        <li>Rebuild team confidence with achievable goals</li>
-                        <li>Establish sustainable velocity baseline</li>
-                        <li>Reduce carryover and technical debt</li>
-                        <li>Improve predictability for stakeholders</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Team Workload -->
-            <section id="workload">
-                <h2>Team Workload Analysis</h2>
-
-                <p>Interactive workload breakdown by sprint and team member. Select a sprint to see detailed assignments.</p>
-
-                <!-- Sprint Filter -->
-                <div class="filter-controls">
-                    <div>
-                        <label for="sprintFilter">Select Sprint:</label>
-                    </div>
-                    <select id="sprintFilter" onchange="filterBySprint(this.value)">
-                        <option value="all">All Open Issues (Overall)</option>
-                        <option value="sprint8">Sprint 8 (Apr 3-14, 2026) - COMPLETED</option>
-                        <option value="sprint9" selected>Sprint 9 (Apr 15-28, 2026) - ACTIVE ⭐</option>
-                        <option value="sprint10">Sprint 10 (Upcoming)</option>
-                    </select>
-                </div>
-
-                <!-- Sprint Info Banner -->
-                <div class="sprint-info-banner" id="sprintInfoBanner">
-                    <div>
-                        <strong id="sprintName">Sprint 9 - ACTIVE</strong>
-                        <div id="sprintDates" style="font-size: 0.9rem; opacity: 0.9;">April 15 - April 28, 2026 (13 days) | Day 1 - 13 days remaining</div>
-                    </div>
-                    <div style="text-align: right;">
-                        <div style="font-size: 1.5rem; font-weight: bold;" id="sprintTotal">22</div>
-                        <div style="font-size: 0.85rem;">issues planned</div>
-                    </div>
-                </div>
-
-                <!-- Overall Metrics -->
-                <div class="metric-grid" id="overallMetrics">
-                    <div class="metric-card">
-                        <div class="label">Total Assigned</div>
-                        <div class="value" id="totalAssigned">22</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">Team Members</div>
-                        <div class="value" id="teamMemberCount">10</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">Avg per Person</div>
-                        <div class="value" id="avgPerPerson">2.2</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">Unassigned</div>
-                        <div class="value" id="unassignedCount">1</div>
-                    </div>
-                </div>
-
-                <div class="alert alert-info" style="margin: 2rem 0;">
-                    <strong>💡 Color Legend:</strong>
-                    <span style="color: #c53030;">Red border</span> = Overloaded (&gt;15 issues) |
-                    <span style="color: #38a169;">Green border</span> = Under-utilized (&lt;5 issues) |
-                    White = Normal load
-                </div>
-
-                <!-- Team Members Workload -->
-                <h3 id="workloadTitle">All Team Members - Sprint 9 Workload</h3>
-                <div id="teamWorkloadContainer">
-                    <!-- Will be populated by JavaScript -->
-                </div>
-            </section>
-
-            <!-- Issue Types Breakdown -->
-            <section id="issue-types">
-                <h2>Issue Types Breakdown</h2>
-
-                <p>Comprehensive analysis of all issues by type across the BT project.</p>
-
-                <h3>Overall Issue Type Distribution</h3>
-                <div class="metric-grid">
-                    <div class="metric-card">
-                        <div class="label">Stories</div>
-                        <div class="value">163</div>
-                        <div class="label" style="margin-top: 0.5rem;">62.9% of total</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">Tasks</div>
-                        <div class="value">31</div>
-                        <div class="label" style="margin-top: 0.5rem;">12.0% of total</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">Bugs</div>
-                        <div class="value">27</div>
-                        <div class="label" style="margin-top: 0.5rem;">10.4% of total</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="label">Epics</div>
-                        <div class="value">23</div>
-                        <div class="label" style="margin-top: 0.5rem;">8.9% of total</div>
-                    </div>
-                </div>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Issue Type</th>
-                            <th>Total Count</th>
-                            <th>Percentage</th>
-                            <th>Open</th>
-                            <th>In Progress</th>
-                            <th>Closed</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Story</strong></td>
-                            <td>163</td>
-                            <td>62.9%</td>
-                            <td>82</td>
-                            <td>41</td>
-                            <td>40</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Task</strong></td>
-                            <td>31</td>
-                            <td>12.0%</td>
-                            <td>15</td>
-                            <td>8</td>
-                            <td>8</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Bug</strong></td>
-                            <td>27</td>
-                            <td>10.4%</td>
-                            <td>14</td>
-                            <td>7</td>
-                            <td>6</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Epic</strong></td>
-                            <td>23</td>
-                            <td>8.9%</td>
-                            <td>12</td>
-                            <td>6</td>
-                            <td>5</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Sub-task</strong></td>
-                            <td>15</td>
-                            <td>5.8%</td>
-                            <td>7</td>
-                            <td>4</td>
-                            <td>4</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Security Finding</strong></td>
-                            <td>36</td>
-                            <td>-</td>
-                            <td>36</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-critical">
-                    <strong>Security Findings Alert</strong>
-                    <p>36 Security Finding issues are all in "Open" status with 0 in progress or completed. These require immediate triage and assignment.</p>
-                </div>
-
-                <h3>Sprint 8 - Issue Types Breakdown</h3>
-                <p class="sprint-date">Sprint 8: April 3-14, 2026</p>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Issue Type</th>
-                            <th>Total in Sprint</th>
-                            <th>% of Sprint</th>
-                            <th>Completed</th>
-                            <th>In Progress</th>
-                            <th>Not Started</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Story</strong></td>
-                            <td>117</td>
-                            <td>59.7%</td>
-                            <td>19</td>
-                            <td>23</td>
-                            <td>75</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Task</strong></td>
-                            <td>42</td>
-                            <td>21.4%</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>27</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Sub-task</strong></td>
-                            <td>21</td>
-                            <td>10.7%</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Bug</strong></td>
-                            <td>9</td>
-                            <td>4.6%</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>6</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Epic</strong></td>
-                            <td>7</td>
-                            <td>3.6%</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>5</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>Historical Velocity by Issue Type</h3>
-                <p>Completion rates across Sprints 1-7 by issue type:</p>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Issue Type</th>
-                            <th>Avg Completion Rate</th>
-                            <th>Total Committed (S1-S7)</th>
-                            <th>Total Completed (S1-S7)</th>
-                            <th>Trend</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Story</strong></td>
-                            <td>55.2%</td>
-                            <td>1,128</td>
-                            <td>623</td>
-                            <td>📉 Declining</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Task</strong></td>
-                            <td>58.7%</td>
-                            <td>312</td>
-                            <td>183</td>
-                            <td>📊 Stable</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Bug</strong></td>
-                            <td>48.3%</td>
-                            <td>189</td>
-                            <td>91</td>
-                            <td>📉 Declining</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Epic</strong></td>
-                            <td>42.1%</td>
-                            <td>156</td>
-                            <td>66</td>
-                            <td>📉 Declining</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Sub-task</strong></td>
-                            <td>62.4%</td>
-                            <td>147</td>
-                            <td>92</td>
-                            <td>📈 Improving</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>Priority Distribution by Issue Type</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Issue Type</th>
-                            <th>P1 (Highest)</th>
-                            <th>P2 (High)</th>
-                            <th>P3 (Medium)</th>
-                            <th>P4 (Low)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Story</strong></td>
-                            <td>3</td>
-                            <td>18</td>
-                            <td>118</td>
-                            <td>4</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Task</strong></td>
-                            <td>1</td>
-                            <td>8</td>
-                            <td>19</td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Bug</strong></td>
-                            <td>0</td>
-                            <td>4</td>
-                            <td>21</td>
-                            <td>2</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Epic</strong></td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>18</td>
-                            <td>2</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Security Finding</strong></td>
-                            <td>6</td>
-                            <td>27</td>
-                            <td>3</td>
-                            <td>0</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-warning">
-                    <strong>High-Priority Security Findings</strong>
-                    <p>33 Security Findings are marked as P1/P2 priority (91.7% of all security issues). This represents the highest concentration of critical work in any issue type.</p>
-                </div>
-
-                <h3>Team Workload by Issue Type</h3>
-                <p>Top contributors for each issue type:</p>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
-                    <div style="background: #f7fafc; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #667eea;">
-                        <h4 style="margin-top: 0; color: #667eea;">Stories</h4>
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">Joe Catlett: <strong>59 stories</strong></li>
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">Himanshu Shah: <strong>27 stories</strong></li>
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">Vickie Wong: <strong>18 stories</strong></li>
-                        </ul>
-                    </div>
-
-                    <div style="background: #f7fafc; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #48bb78;">
-                        <h4 style="margin-top: 0; color: #48bb78;">Tasks</h4>
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">Nathan Mathew: <strong>15 tasks</strong></li>
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">Niamh Ni Laighin: <strong>7 tasks</strong></li>
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">Vickie Wong: <strong>3 tasks</strong></li>
-                        </ul>
-                    </div>
-
-                    <div style="background: #f7fafc; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #f6ad55;">
-                        <h4 style="margin-top: 0; color: #f6ad55;">Bugs</h4>
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">Joe Catlett: <strong>21 bugs</strong></li>
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">Vickie Wong: <strong>4 bugs</strong></li>
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">Christine Elvard: <strong>1 bug</strong></li>
-                        </ul>
-                    </div>
-
-                    <div style="background: #f7fafc; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #fc8181;">
-                        <h4 style="margin-top: 0; color: #fc8181;">Security Findings</h4>
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;"><strong>Unassigned: 36</strong></li>
-                            <li style="padding: 0.5rem 0; color: #718096;">⚠️ All security findings need assignment</li>
-                        </ul>
-                    </div>
-
-                    <div style="background: #f7fafc; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #9f7aea;">
-                        <h4 style="margin-top: 0; color: #9f7aea;">Epics</h4>
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">Joe Catlett: <strong>14 epics</strong></li>
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">Paul Kim: <strong>2 epics</strong></li>
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">Nathan Mathew: <strong>2 epics</strong></li>
-                        </ul>
-                    </div>
-
-                    <div style="background: #f7fafc; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #4299e1;">
-                        <h4 style="margin-top: 0; color: #4299e1;">Sub-tasks</h4>
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">Alex Protani: <strong>6 sub-tasks</strong></li>
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">Joe Catlett: <strong>6 sub-tasks</strong></li>
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">Nathan Mathew: <strong>2 sub-tasks</strong></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <h3>Issue Type Analysis & Insights</h3>
-
-                <div class="recommendation-box">
-                    <h4>Stories (62.9% of workload)</h4>
-                    <p><strong>Status:</strong> Primary work type with declining completion rates</p>
-                    <ul style="margin-left: 1.5rem;">
-                        <li>Average completion: 55.2% (below target)</li>
-                        <li>Joe Catlett owns 59 stories (36% of all stories)</li>
-                        <li>Trend: Declining over past 7 sprints</li>
-                        <li><strong>Action:</strong> Break large stories into smaller chunks, redistribute Joe's stories</li>
-                    </ul>
-                </div>
-
-                <div class="recommendation-box">
-                    <h4>Bugs (10.4% of workload)</h4>
-                    <p><strong>Status:</strong> Below-average completion with concentration issues</p>
-                    <ul style="margin-left: 1.5rem;">
-                        <li>Average completion: 48.3% (needs improvement)</li>
-                        <li>Joe Catlett owns 21 bugs (78% of all bugs)</li>
-                        <li>Trend: Declining, indicating potential technical debt accumulation</li>
-                        <li><strong>Action:</strong> Establish bug SLA, distribute across team, allocate 15% sprint capacity to bugs</li>
-                    </ul>
-                </div>
-
-                <div class="recommendation-box">
-                    <h4>Security Findings (36 total - CRITICAL)</h4>
-                    <p><strong>Status:</strong> 100% unassigned and open</p>
-                    <ul style="margin-left: 1.5rem;">
-                        <li>0% completion rate (none in progress or completed)</li>
-                        <li>All 36 are unassigned</li>
-                        <li>33 are P1/P2 priority (critical)</li>
-                        <li><strong>Action:</strong> IMMEDIATE triage and assignment required, establish security response SLA</li>
-                    </ul>
-                </div>
-
-                <div class="recommendation-box">
-                    <h4>Sub-tasks (5.8% of workload)</h4>
-                    <p><strong>Status:</strong> Best performing issue type</p>
-                    <ul style="margin-left: 1.5rem;">
-                        <li>Average completion: 62.4% (above target)</li>
-                        <li>Trend: Improving over time</li>
-                        <li>Well-distributed across team</li>
-                        <li><strong>Insight:</strong> Smaller, well-defined work completes more reliably - consider breaking stories into sub-tasks</li>
-                    </ul>
-                </div>
-
-                <h3>Recommendations by Issue Type</h3>
-                <ol style="padding-left: 2rem;">
-                    <li><strong>Immediately assign all 36 Security Findings</strong> - This is a critical security and compliance risk</li>
-                    <li><strong>Redistribute Stories</strong> - Move 30-40 stories from Joe Catlett to other team members</li>
-                    <li><strong>Establish Bug SLA</strong> - Target: resolve bugs within 2 sprints of creation</li>
-                    <li><strong>Break down Epics</strong> - Epics have 42.1% completion rate, break into smaller stories</li>
-                    <li><strong>Increase sub-task usage</strong> - Best completion rate (62.4%), use as model for breaking down work</li>
-                </ol>
-            </section>
-
-            <!-- Historical Velocity -->
-            <section id="velocity">
-                <h2>Historical Velocity Analysis</h2>
-
-                <h3>Sprint Completion Trend (Sprints 1-7)</h3>
-                <div class="chart-text">Completion Rate by Sprint
-70% |●
-60% |  ●●
-50% |      ●●
-40% |          ●
-30% |            ●
-20% |
-10% |
-    +--------------------------------
-     S1  S2  S3  S4  S5  S6  S7
-
-● Actual Completion Rate</div>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Sprint</th>
-                            <th>Dates</th>
-                            <th>Committed</th>
-                            <th>Completed</th>
-                            <th>Rate</th>
-                            <th>Carryover</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Sprint 1</td>
-                            <td class="sprint-date">Dec 24, 2025 - Jan 6, 2026</td>
-                            <td>301</td>
-                            <td>183</td>
-                            <td>60.8%</td>
-                            <td>118</td>
-                        </tr>
-                        <tr>
-                            <td>Sprint 2</td>
-                            <td class="sprint-date">Jan 7 - Jan 20, 2026</td>
-                            <td>314</td>
-                            <td>190</td>
-                            <td>60.5%</td>
-                            <td>124</td>
-                        </tr>
-                        <tr>
-                            <td>Sprint 3</td>
-                            <td class="sprint-date">Jan 21 - Feb 3, 2026</td>
-                            <td>304</td>
-                            <td>176</td>
-                            <td>57.9%</td>
-                            <td>128</td>
-                        </tr>
-                        <tr>
-                            <td>Sprint 4</td>
-                            <td class="sprint-date">Feb 4 - Feb 17, 2026</td>
-                            <td>292</td>
-                            <td>169</td>
-                            <td>57.9%</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>Sprint 5</td>
-                            <td class="sprint-date">Feb 18 - Mar 3, 2026</td>
-                            <td>251</td>
-                            <td>130</td>
-                            <td>51.8%</td>
-                            <td>121</td>
-                        </tr>
-                        <tr>
-                            <td>Sprint 6</td>
-                            <td class="sprint-date">Mar 4 - Mar 17, 2026</td>
-                            <td>227</td>
-                            <td>106</td>
-                            <td>46.7%</td>
-                            <td>121</td>
-                        </tr>
-                        <tr>
-                            <td>Sprint 7</td>
-                            <td class="sprint-date">Mar 18 - Mar 31, 2026</td>
-                            <td>213</td>
-                            <td>69</td>
-                            <td>32.4%</td>
-                            <td>144</td>
-                        </tr>
-                        <tr style="background: #edf2f7; font-weight: bold;">
-                            <td>Average</td>
-                            <td class="sprint-date">-</td>
-                            <td>257</td>
-                            <td>146</td>
-                            <td>52.6%</td>
-                            <td>126</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-critical">
-                    <strong>Critical Velocity Decline</strong>
-                    <p>Completion rate dropped 28.4 percentage points from Sprint 1 (60.8%) to Sprint 7 (32.4%). This represents a 47% decline in team velocity over 7 sprints.</p>
-                </div>
-
-                <h3>Key Findings</h3>
-                <ul style="list-style-position: inside; padding-left: 1rem;">
-                    <li><strong>Chronic Over-Commitment:</strong> Team consistently commits to 40-70% more work than can be completed</li>
-                    <li><strong>Escalating WIP:</strong> Work-in-progress increased from 14% to 38% of sprint work</li>
-                    <li><strong>Individual Productivity Decline:</strong> Issues per person dropped from 6.6 to 2.5 (62% decline)</li>
-                    <li><strong>High Carryover Rate:</strong> Average 49% carryover rate is unsustainable</li>
-                    <li><strong>Increasing Reactive Work:</strong> High-priority work increased 56% in recent sprints</li>
-                </ul>
-            </section>
-
-            <!-- Recommendations -->
-            <section id="recommendations">
-                <h2>Recommendations & Action Plan</h2>
-
-                <h3>Immediate Actions (This Week)</h3>
-                <div class="recommendation-box">
-                    <h4>1. Sprint 8 Scope Reduction (TODAY)</h4>
-                    <p><strong>Priority:</strong> CRITICAL</p>
-                    <ul style="margin-left: 1.5rem;">
-                        <li>Hold emergency sprint planning meeting</li>
-                        <li>Move 43 issues (84% of unstarted work) to Sprint 9</li>
-                        <li>Focus only on P1/P2 priority items for remainder of sprint</li>
-                        <li>Target: Complete 2 critical issues + items in UAT</li>
-                    </ul>
-                    <p><strong>Expected Outcome:</strong> Sprint 8 reduced to ~80-100 total issues, more realistic completion target</p>
-                </div>
-
-                <div class="recommendation-box">
-                    <h4>2. Sprint 9 Planning Completion (By April 11)</h4>
-                    <p><strong>Sprint 9 Dates:</strong> April 15 - April 28, 2026 (13 days)</p>
-                    <p><strong>Priority:</strong> CRITICAL</p>
-                    <ul style="margin-left: 1.5rem;">
-                        <li>Add Sprint 8 carryover items to Sprint 9 backlog</li>
-                        <li>Target total: 60-80 issues (not 22)</li>
-                        <li>Balance workload: 8-12 issues per person maximum</li>
-                        <li>Ensure Joe Catlett and Nathan Mathew have realistic loads</li>
-                    </ul>
-                    <p><strong>Expected Outcome:</strong> Sprint 9 properly planned with balanced team capacity</p>
-                </div>
-
-                <h3>Success Metrics</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Metric</th>
-                            <th>Current</th>
-                            <th>Target (3 months)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Sprint Completion Rate</td><td>32.4%</td><td>65-70%</td></tr>
-                        <tr><td>Carryover Rate</td><td>59-64%</td><td>&lt;20%</td></tr>
-                        <tr><td>Issues Per Person</td><td>2.5</td><td>5-6</td></tr>
-                        <tr><td>Sprint Sizing</td><td>196 issues</td><td>48-72 issues</td></tr>
-                        <tr><td>WIP %</td><td>38%</td><td>&lt;20%</td></tr>
-                    </tbody>
-                </table>
-            </section>
-        </div>
-
-        <footer class="footer">
-            <p><strong>BT Project JIRA Analysis Report</strong></p>
-            <p>Data Captured: April 10, 2026 | Updated: April 15, 2026 | Data Source: Tenable JIRA (Board 992)</p>
-            <p><strong>Current Status:</strong> Sprint 9 Active (Day 1) - Sprint 8 Completed April 14</p>
-            <p>For questions or updates, contact the BT Project Management Team</p>
-        </footer>
+<header>
+  <div class="header-left">
+    <div class="logo">tenable</div>
+    <div class="header-title">Business Technology · FY26 Q1 Goals Review</div>
+  </div>
+  <div class="header-meta">
+    Data as of April 16, 2026<br>
+    Greg Baran · VP Deputy CIO
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>FY26 Business Technology<br><span>Goals — Q1 Status</span></h1>
+  <p class="hero-sub">Quarterly Business Review · Strategy & Roadmap · Solutions Design & Delivery</p>
+
+  <div class="scorecard">
+    <div class="score-card">
+      <div class="score-label">Total Goals</div>
+      <div class="score-num" style="color:var(--teal)">7</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">On Track</div>
+      <div class="score-num green">6</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">At Risk</div>
+      <div class="score-num red">1</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">Q1 Complete</div>
+      <div class="score-num" style="color:var(--white)">86%</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STRATEGY 1: Innovate through Emerging Tech ── -->
+<section class="strategy-section">
+  <div class="strategy-label">Innovate through Emerging Tech</div>
+
+  <div class="goals-grid">
+    <div class="goals-header">
+      <div class="gh">Goal</div>
+      <div class="gh">Value Drivers</div>
+      <div class="gh">Measurement / Deliverable / Outcome</div>
+      <div class="gh">Q Status</div>
     </div>
 
-    <!-- Chat Widget -->
-    <button class="chat-button" id="chatButton" onclick="toggleChat()">💬</button>
-
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-            <h3>Ask About the Data</h3>
-            <button class="chat-close" onclick="toggleChat()">×</button>
+    <!-- Goal 1 -->
+    <div class="goal-row" style="animation-delay:0.05s">
+      <div class="goal-col">
+        <div class="goal-name">Digital Workforce Transformation (AI Doing Work)</div>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Deploy AI agents that automate operational tasks and reclaim measurable employee capacity.</p>
+        <div class="goal-target">Q1 – Q4</div>
+      </div>
+      <div class="goal-col">
+        <p class="value-text">Reduce manual labor costs, accelerate process throughput, redeploy headcount capacity to higher-value work, reduce human error in repetitive tasks.</p>
+      </div>
+      <div class="measurement-col">
+        <div class="qtr-item"><span class="qtr-badge">Q2</span>Deploy 2 AI agents automating 2 workflows. Achieve Automation Coverage ≥25%.</div>
+        <div class="qtr-item"><span class="qtr-badge">Q3</span>Deploy 4 AI agents. Achieve Automation Coverage ≥50% and Capacity Reclaimed ≥8,000 hrs annually.</div>
+        <div class="qtr-item"><span class="qtr-badge">Q4</span>Automate all 8–10 workflows. Achieve Automation Coverage ≥80–100% and Capacity Reclaimed ≥20,000 hrs annually.</div>
+        <div class="q1-actual">
+          <div class="q1-actual-label">Q1 Actual</div>
+          <div class="q1-actual-text">Use cases and workflows documented and ready to implement once Claude licensing is secured.</div>
         </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="suggested-questions">
-                <h4>Suggested Questions:</h4>
-                <a class="suggested-question" onclick="askQuestion('What is the current sprint status?')">What is the current sprint status?</a>
-                <a class="suggested-question" onclick="askQuestion('How did Sprint 8 end?')">How did Sprint 8 end?</a>
-                <a class="suggested-question" onclick="askQuestion('Is Sprint 9 ready?')">Is Sprint 9 ready?</a>
-                <a class="suggested-question" onclick="askQuestion('Who are the most overloaded team members?')">Who are the most overloaded team members?</a>
-                <a class="suggested-question" onclick="askQuestion('Show me issue type breakdown')">Show me issue type breakdown</a>
-                <a class="suggested-question" onclick="askQuestion('What are the critical security issues?')">What are the critical security issues?</a>
-            </div>
-            <div class="chat-message assistant">
-                <strong>AI Assistant</strong><br>
-                Hi! Sprint 9 started today (April 15)! 🚀 I'm here to help you understand the JIRA analysis data. Ask me about Sprint 8 results, Sprint 9 status, team workload, issue types, velocity trends, or recommendations.
-            </div>
+      </div>
+      <div class="status-col">
+        <div class="status-quarters">
+          <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
         </div>
-        <div class="chat-input-container">
-            <input type="text" class="chat-input" id="chatInput" placeholder="Ask a question..." onkeypress="handleKeyPress(event)">
-            <button class="chat-send" id="chatSend" onclick="sendMessage()">Send</button>
-        </div>
+      </div>
     </div>
 
-    <script>
-        // JIRA Data for AI responses
-        const jiraData = {
-            totalIssues: 1666,
-            openIssues: 359,
-            unassignedIssues: 100,
-            teamMembers: 12,
-            sprint8: {
-                name: "Sprint 8",
-                dates: "April 3-14, 2026",
-                totalIssues: 196,
-                completionRate: 22.4,
-                daysRemaining: 0,
-                currentDay: 11,
-                totalDays: 11,
-                unstarted: 51,
-                inProgress: 39,
-                uat: 36,
-                closed: 32,
-                onHold: 16,
-                status: "Completed April 14, 2026"
-            },
-            sprint9: {
-                name: "Sprint 9",
-                dates: "April 15-28, 2026",
-                totalDays: 13,
-                currentDay: 1,
-                daysRemaining: 13,
-                plannedIssues: 22,
-                recommendedIssues: "60-80",
-                expectedCarryover: 120,
-                planningGap: 89,
-                status: "ACTIVE - Day 1",
-                keyGap: "Joe Catlett (0 issues), Nathan Mathew (1 issue), Liz Shannon (0 issues)"
-            },
-            topLoadedMembers: [
-                { name: "Joe Catlett", issues: 100 },
-                { name: "Himanshu Shah", issues: 28 },
-                { name: "Nathan Mathew", issues: 28 },
-                { name: "Vickie Wong", issues: 27 },
-                { name: "Christine Elvard", issues: 16 }
-            ],
-            securityIssues: [
-                "BT-5917: Infinite loop (22 assets)",
-                "BT-5895: Improper input validation",
-                "BT-5894: XML Entity Expansion (3 assets)",
-                "BT-5872: Data amplification vulnerability",
-                "BT-5871: Uncaught Exception",
-                "BT-5870: Uncaught Exception",
-                "BT-5869: Symlink Attack"
-            ],
-            velocityTrend: [
-                { sprint: 1, dates: "Dec 24, 2025 - Jan 6, 2026", rate: 60.8, committed: 301, completed: 183 },
-                { sprint: 2, dates: "Jan 7-20, 2026", rate: 60.5, committed: 314, completed: 190 },
-                { sprint: 3, dates: "Jan 21 - Feb 3, 2026", rate: 57.9, committed: 304, completed: 176 },
-                { sprint: 4, dates: "Feb 4-17, 2026", rate: 57.9, committed: 292, completed: 169 },
-                { sprint: 5, dates: "Feb 18 - Mar 3, 2026", rate: 51.8, committed: 251, completed: 130 },
-                { sprint: 6, dates: "Mar 4-17, 2026", rate: 46.7, committed: 227, completed: 106 },
-                { sprint: 7, dates: "Mar 18-31, 2026", rate: 32.4, committed: 213, completed: 69 }
-            ],
-            recommendations: {
-                sprint8: "Move 43 issues to Sprint 9 immediately",
-                sprint9: "Plan for 60-80 issues (currently only 22)",
-                workload: "Rebalance Joe Catlett's 100 issues across team",
-                target: "65-70% completion rate within 3 months"
-            },
-            issueTypes: {
-                story: { count: 163, percentage: 62.9, completionRate: 55.2, trend: "Declining" },
-                task: { count: 31, percentage: 12.0, completionRate: 58.7, trend: "Stable" },
-                bug: { count: 27, percentage: 10.4, completionRate: 48.3, trend: "Declining" },
-                epic: { count: 23, percentage: 8.9, completionRate: 42.1, trend: "Declining" },
-                subtask: { count: 15, percentage: 5.8, completionRate: 62.4, trend: "Improving" },
-                securityFinding: { count: 36, percentage: 0, completionRate: 0, unassigned: 36, highPriority: 33 }
-            },
-            teamWorkload: {
-                all: {
-                    name: "All Open Issues",
-                    dates: "Overall",
-                    totalIssues: 259,
-                    unassigned: 100,
-                    members: [
-                        { name: "Joe Catlett", total: 100, new: 78, inProgress: 7, uat: 2, done: 0, onHold: 4, other: 9 },
-                        { name: "Himanshu Shah", total: 28, new: 5, inProgress: 3, uat: 13, done: 0, onHold: 1, other: 6 },
-                        { name: "Nathan Mathew", total: 28, new: 17, inProgress: 4, uat: 2, done: 0, onHold: 3, other: 2 },
-                        { name: "Vickie Wong", total: 27, new: 11, inProgress: 7, uat: 1, done: 0, onHold: 5, other: 3 },
-                        { name: "Christine Elvard", total: 16, new: 4, inProgress: 2, uat: 7, done: 0, onHold: 1, other: 2 },
-                        { name: "Paul Kim", total: 14, new: 7, inProgress: 1, uat: 3, done: 0, onHold: 2, other: 1 },
-                        { name: "Niamh Ni Laighin", total: 13, new: 3, inProgress: 4, uat: 4, done: 0, onHold: 0, other: 2 },
-                        { name: "Alex Protani", total: 10, new: 2, inProgress: 2, uat: 0, done: 0, onHold: 6, other: 0 },
-                        { name: "Aubrey Danielson", total: 9, new: 0, inProgress: 0, uat: 0, done: 0, onHold: 1, other: 8 },
-                        { name: "Ian McGoldrick", total: 6, new: 3, inProgress: 0, uat: 2, done: 0, onHold: 0, other: 1 },
-                        { name: "Naama Moshe", total: 6, new: 3, inProgress: 2, uat: 0, done: 0, onHold: 0, other: 1 },
-                        { name: "Leonard Chiem", total: 2, new: 1, inProgress: 1, uat: 0, done: 0, onHold: 0, other: 0 }
-                    ]
-                },
-                sprint8: {
-                    name: "Sprint 8 (COMPLETED)",
-                    dates: "April 3-14, 2026",
-                    totalIssues: 196,
-                    unassigned: 0,
-                    members: [
-                        { name: "Joe Catlett", total: 31, new: 15, inProgress: 4, uat: 0, done: 0, onHold: 2, other: 10 },
-                        { name: "Nathan Mathew", total: 26, new: 7, inProgress: 2, uat: 0, done: 1, onHold: 0, other: 16 },
-                        { name: "Liz Shannon", total: 14, new: 2, inProgress: 0, uat: 0, done: 0, onHold: 0, other: 12 },
-                        { name: "Joel Guilford", total: 12, new: 0, inProgress: 2, uat: 0, done: 1, onHold: 0, other: 9 },
-                        { name: "Johanna Fong", total: 11, new: 0, inProgress: 2, uat: 0, done: 4, onHold: 0, other: 5 },
-                        { name: "Alex Protani", total: 11, new: 0, inProgress: 0, uat: 0, done: 0, onHold: 6, other: 5 },
-                        { name: "Himanshu Shah", total: 10, new: 0, inProgress: 0, uat: 0, done: 2, onHold: 0, other: 8 },
-                        { name: "Niamh Ni Laighin", total: 10, new: 1, inProgress: 1, uat: 0, done: 1, onHold: 0, other: 7 },
-                        { name: "Christine Elvard", total: 9, new: 1, inProgress: 1, uat: 0, done: 1, onHold: 0, other: 6 },
-                        { name: "Jonathan Smelkinson", total: 8, new: 0, inProgress: 2, uat: 0, done: 1, onHold: 0, other: 5 },
-                        { name: "Rohit Wadne", total: 7, new: 0, inProgress: 1, uat: 0, done: 0, onHold: 0, other: 6 },
-                        { name: "Kyle Hasty", total: 7, new: 1, inProgress: 1, uat: 0, done: 1, onHold: 0, other: 4 },
-                        { name: "Ian McGoldrick", total: 5, new: 0, inProgress: 0, uat: 0, done: 2, onHold: 0, other: 3 },
-                        { name: "Vickie Wong", total: 5, new: 0, inProgress: 2, uat: 0, done: 0, onHold: 0, other: 3 },
-                        { name: "Paul Kim", total: 4, new: 0, inProgress: 1, uat: 0, done: 0, onHold: 0, other: 3 },
-                        { name: "Rishabh Kulhare", total: 3, new: 0, inProgress: 0, uat: 0, done: 0, onHold: 0, other: 3 },
-                        { name: "Naama Moshe", total: 2, new: 1, inProgress: 0, uat: 0, done: 0, onHold: 0, other: 1 },
-                        { name: "Erin Ruby", total: 1, new: 0, inProgress: 0, uat: 0, done: 0, onHold: 0, other: 1 },
-                        { name: "Leonard Chiem", total: 1, new: 0, inProgress: 1, uat: 0, done: 0, onHold: 0, other: 0 }
-                    ]
-                },
-                sprint9: {
-                    name: "Sprint 9 (ACTIVE)",
-                    dates: "April 15-28, 2026",
-                    totalIssues: 22,
-                    unassigned: 1,
-                    members: [
-                        { name: "Paul Kim", total: 6, new: 3, inProgress: 0, uat: 0, done: 0, onHold: 0, other: 3 },
-                        { name: "Himanshu Shah", total: 2, new: 1, inProgress: 0, uat: 0, done: 0, onHold: 0, other: 1 },
-                        { name: "Justin Orr", total: 2, new: 0, inProgress: 0, uat: 0, done: 0, onHold: 0, other: 2 },
-                        { name: "Christine Elvard", total: 2, new: 0, inProgress: 0, uat: 1, done: 0, onHold: 0, other: 1 },
-                        { name: "Kyle Hasty", total: 2, new: 0, inProgress: 0, uat: 0, done: 0, onHold: 1, other: 1 },
-                        { name: "Niamh Ni Laighin", total: 2, new: 1, inProgress: 0, uat: 0, done: 0, onHold: 0, other: 1 },
-                        { name: "Joel Guilford", total: 1, new: 0, inProgress: 0, uat: 0, done: 0, onHold: 0, other: 1 },
-                        { name: "Johanna Fong", total: 1, new: 0, inProgress: 0, uat: 0, done: 0, onHold: 1, other: 0 },
-                        { name: "Ian McGoldrick", total: 1, new: 1, inProgress: 0, uat: 0, done: 0, onHold: 0, other: 0 },
-                        { name: "Nathan Mathew", total: 1, new: 1, inProgress: 0, uat: 0, done: 0, onHold: 0, other: 0 },
-                        { name: "Joe Catlett", total: 0, new: 0, inProgress: 0, uat: 0, done: 0, onHold: 0, other: 0 },
-                        { name: "Liz Shannon", total: 0, new: 0, inProgress: 0, uat: 0, done: 0, onHold: 0, other: 0 }
-                    ]
-                },
-                sprint10: {
-                    name: "Sprint 10 (Upcoming)",
-                    dates: "TBD",
-                    totalIssues: 8,
-                    unassigned: 1,
-                    members: [
-                        { name: "Himanshu Shah", total: 4, new: 2, inProgress: 2, uat: 0, done: 0, onHold: 0, other: 0 },
-                        { name: "Aubrey Danielson", total: 1, new: 0, inProgress: 0, uat: 0, done: 0, onHold: 0, other: 1 },
-                        { name: "Niamh Ni Laighin", total: 1, new: 0, inProgress: 0, uat: 0, done: 0, onHold: 0, other: 1 },
-                        { name: "Ian McGoldrick", total: 1, new: 0, inProgress: 0, uat: 0, done: 0, onHold: 1, other: 0 }
-                    ]
-                }
-            }
-        };
+    <!-- Goal 2 -->
+    <div class="goal-row" style="animation-delay:0.1s">
+      <div class="goal-col">
+        <div class="goal-name">AI-Native Development Enablement (VIBE)</div>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Enable BT and business teams to build AI-powered solutions within secure guardrails.</p>
+        <div class="goal-target">Q2 – Q4</div>
+      </div>
+      <div class="goal-col">
+        <p class="value-text">Compress build cycles, reduce reliance on external vendors, democratize solution development across business units, lower cost-per-solution.</p>
+      </div>
+      <div class="measurement-col">
+        <div class="qtr-item"><span class="qtr-badge">Q2</span>VIBE platform deployed; baseline established. Deliver 2 BT-built VIBE solutions with ≥30% improvement in build cost and delivery time.</div>
+        <div class="qtr-item"><span class="qtr-badge">Q3</span>Deliver 2 additional BT-built VIBE solutions with ≥50% improvement.</div>
+        <div class="qtr-item"><span class="qtr-badge">Q4</span>2 business stakeholders independently deploy 2 VIBE solutions, achieving ≥50% faster time-to-market.</div>
+        <div class="q1-actual">
+          <div class="q1-actual-label">Q1 Actual</div>
+          <div class="q1-actual-text">Claude licensing expected to be available to the business in Q2. On track for Q2 start.</div>
+        </div>
+      </div>
+      <div class="status-col">
+        <div class="status-quarters">
+          <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        function toggleChat() {
-            const chatWindow = document.getElementById('chatWindow');
-            chatWindow.classList.toggle('open');
-            if (chatWindow.classList.contains('open')) {
-                document.getElementById('chatInput').focus();
-            }
-        }
+<!-- ── STRATEGY 2: Drive Operational Excellence ── -->
+<section class="strategy-section">
+  <div class="strategy-label">Drive Operational Excellence</div>
 
-        function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        }
+  <div class="goals-grid">
+    <div class="goals-header">
+      <div class="gh">Goal</div>
+      <div class="gh">Value Drivers</div>
+      <div class="gh">Measurement / Deliverable / Outcome</div>
+      <div class="gh">Q Status</div>
+    </div>
 
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
+    <!-- Goal 3 -->
+    <div class="goal-row" style="animation-delay:0.15s">
+      <div class="goal-col">
+        <div class="goal-name">Project Delivery Excellence</div>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Ensure predictable delivery of strategic initiatives.</p>
+        <div class="goal-target">Q1 – Q4</div>
+      </div>
+      <div class="goal-col">
+        <p class="value-text">Protect revenue timelines tied to go-lives, reduce rework and scope creep costs, improve cross-functional trust and planning confidence.</p>
+      </div>
+      <div class="measurement-col">
+        <div class="qtr-item"><span class="qtr-badge">Q2</span>Achieve On-Time Delivery ≥70%.</div>
+        <div class="qtr-item"><span class="qtr-badge">Q3</span>Achieve On-Time Delivery ≥80%.</div>
+        <div class="qtr-item"><span class="qtr-badge">Q4</span>Achieve On-Time Delivery ≥90%.</div>
+        <div class="q1-actual">
+          <div class="q1-actual-label">Q1 Actual</div>
+          <div class="q1-actual-text">Baseline on-time delivery rate established. 1H portfolio locked with committed go-live months.</div>
+        </div>
+      </div>
+      <div class="status-col">
+        <div class="status-quarters">
+          <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
+        </div>
+      </div>
+    </div>
 
-            if (message === '') return;
+    <!-- Goal 4 — RED -->
+    <div class="goal-row" style="animation-delay:0.2s">
+      <div class="goal-col">
+        <div class="goal-name">Engineering Delivery Predictability</div>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Improve sprint delivery rate and extend planning horizon across BT engineering teams.</p>
+        <div class="goal-target">Q1 – Q4</div>
+      </div>
+      <div class="goal-col">
+        <p class="value-text">Increase throughput without adding headcount, reduce delivery delays caused by incomplete sprints, improve forecasting accuracy for roadmap commitments.</p>
+      </div>
+      <div class="measurement-col">
+        <div class="qtr-item"><span class="qtr-badge">Q2</span>Achieve Sprint delivery rate 80% (completed points / committed points).</div>
+        <div class="qtr-item"><span class="qtr-badge">Q3</span>Sprint delivery rate 85% and Carryover 25% or less.</div>
+        <div class="qtr-item"><span class="qtr-badge">Q4</span>Achieve Sprint delivery rate 90% and Carryover 20% or less.</div>
+        <div class="q1-actual red-actual">
+          <div class="q1-actual-label">Q1 Actual</div>
+          <div class="q1-actual-text">Sprint data downloaded and accessible. Deeper analysis still in progress — baseline not yet fully established.</div>
+          <a class="q1-link" href="jira-analysis.html" target="_blank">View BT JIRA Analysis Report</a>
+        </div>
+      </div>
+      <div class="status-col">
+        <div class="status-quarters">
+          <div class="q-status q-red"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
+        </div>
+      </div>
+    </div>
 
-            addMessage(message, 'user');
-            input.value = '';
+    <!-- Goal 5 -->
+    <div class="goal-row" style="animation-delay:0.25s">
+      <div class="goal-col">
+        <div class="goal-name">Shift-Left — Reduce Tier-1 Operational Workload</div>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Reduce Tier-1 operational workload through automation.</p>
+        <div class="goal-target">Q1 – Q4</div>
+      </div>
+      <div class="goal-col">
+        <p class="value-text">Free Tier-1 capacity for complex issues, improve employee and end-user experience through faster resolution, reduce per-ticket cost.</p>
+      </div>
+      <div class="measurement-col">
+        <div class="qtr-item"><span class="qtr-badge">Q2</span>Achieve Automated Resolution ≥10%.</div>
+        <div class="qtr-item"><span class="qtr-badge">Q3</span>Achieve Automated Resolution ≥20% and Ticket Reduction ≥10%.</div>
+        <div class="qtr-item"><span class="qtr-badge">Q4</span>Achieve Automated Resolution ≥35% and Ticket Reduction ≥20%.</div>
+        <div class="q1-actual">
+          <div class="q1-actual-label">Q1 Actual</div>
+          <div class="q1-actual-text">Top 10 ticket drivers documented. Baseline ticket volume established and 10 automation candidates identified and ranked.</div>
+          <a class="q1-link" href="jira-analysis.html#issue-types" target="_blank">View BT JIRA Analysis Report</a>
+        </div>
+      </div>
+      <div class="status-col">
+        <div class="status-quarters">
+          <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            setTimeout(() => {
-                const response = generateResponse(message);
-                addMessage(response, 'assistant');
-            }, 500);
-        }
+<!-- ── STRATEGY 3 & 4 ── -->
+<section class="strategy-section" style="padding-bottom:3rem;">
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+    <div class="strategy-label">Optimize Spend Across The Enterprise</div>
+    <div class="strategy-label" style="color:#93C5FD;border-color:rgba(147,197,253,0.3);">Be The Most Trusted Cybersecurity Provider</div>
+  </div>
 
-        function askQuestion(question) {
-            document.getElementById('chatInput').value = question;
-            sendMessage();
-        }
+  <div class="goals-grid">
+    <div class="goals-header">
+      <div class="gh">Goal</div>
+      <div class="gh">Value Drivers</div>
+      <div class="gh">Measurement / Deliverable / Outcome</div>
+      <div class="gh">Q Status</div>
+    </div>
 
-        function addMessage(text, type) {
-            const messagesContainer = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `chat-message ${type}`;
+    <!-- Goal 6 -->
+    <div class="goal-row" style="animation-delay:0.3s">
+      <div class="goal-col">
+        <div class="goal-name">Cost Optimization</div>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Reduce infrastructure and SaaS spend through platform consolidation.</p>
+        <div class="goal-target">Q2 – Q4</div>
+      </div>
+      <div class="goal-col">
+        <p class="value-text">Direct P&L impact through run-rate savings, reduce tool sprawl and integration complexity, improve vendor leverage and contract terms.</p>
+      </div>
+      <div class="measurement-col">
+        <div class="qtr-item"><span class="qtr-badge">Q2</span>Savings $15K (ARM migration).</div>
+        <div class="qtr-item"><span class="qtr-badge">Q3</span>Savings $100K (logging consolidation).</div>
+        <div class="qtr-item"><span class="qtr-badge">Q4</span>Savings $320K, FY26 + FY27 (Asana + MuleSoft).</div>
+        <div class="q1-actual">
+          <div class="q1-actual-label">Q1 Actual</div>
+          <div class="q1-actual-text">Pre-work and planning complete. On track for Q2 savings delivery.</div>
+        </div>
+      </div>
+      <div class="status-col">
+        <div class="status-quarters">
+          <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
+        </div>
+      </div>
+    </div>
 
-            if (type === 'assistant') {
-                messageDiv.innerHTML = `<strong>AI Assistant</strong><br>${text}`;
-            } else {
-                messageDiv.textContent = text;
-            }
+    <!-- Goal 7 -->
+    <div class="goal-row" style="animation-delay:0.35s">
+      <div class="goal-col">
+        <div class="goal-name">Enterprise Governance & Risk Reduction</div>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Strengthen application lifecycle governance and expand security coverage.</p>
+        <div class="goal-target">Q1 – Q4</div>
+      </div>
+      <div class="goal-col">
+        <p class="value-text">Financial/reputational exposure, maintain compliance posture, shrink attack surface through expanded monitoring coverage.</p>
+      </div>
+      <div class="measurement-col">
+        <div class="qtr-item"><span class="qtr-badge">Q2</span>Adaptive Shield score &gt;= 90%.</div>
+        <div class="qtr-item"><span class="qtr-badge">Q3</span>Adaptive Shield score &gt;= 90%.</div>
+        <div class="qtr-item"><span class="qtr-badge">Q4</span>Adaptive Shield score &gt;= 90%.</div>
+        <div class="q1-actual">
+          <div class="q1-actual-label">Q1 Actual</div>
+          <div class="q1-actual-text">Adaptive Shield score &gt;= 90% achieved.</div>
+        </div>
+      </div>
+      <div class="status-col">
+        <div class="status-quarters">
+          <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
+          <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            messagesContainer.appendChild(messageDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
+<!-- Strategy pills -->
+<div class="strategy-pills">
+  <span class="pill">Drive Operational Excellence</span>
+  <span class="pill">Be The Most Trusted Cybersecurity Provider</span>
+  <span class="pill">Drive Revenue Growth</span>
+  <span class="pill">Optimize Spend Across The Enterprise</span>
+  <span class="pill">Innovate through Emerging Tech</span>
+</div>
 
-        function generateResponse(question) {
-            const q = question.toLowerCase();
+<footer>
+  <span>Business Technology · FY26 Q1 Goals Review · Greg Baran, VP Deputy CIO</span>
+  <span>Updated April 16, 2026</span>
+</footer>
 
-            // Sprint 8 questions
-            if (q.includes('sprint 8')) {
-                if (q.includes('completion') || q.includes('progress') || q.includes('result')) {
-                    return `Sprint 8 (${jiraData.sprint8.dates}) ${jiraData.sprint8.status}.\n\nSnapshot from April 10 (Day 7):\n• Completion: ${jiraData.sprint8.completionRate}% (significantly behind 64% target)\n• ${jiraData.sprint8.closed} closed, ${jiraData.sprint8.inProgress} in progress, ${jiraData.sprint8.uat} in UAT\n• ${jiraData.sprint8.unstarted} not started, ${jiraData.sprint8.onHold} on hold\n\nFinal completion results pending. Sprint 9 is now active (started April 15).`;
-                }
-                if (q.includes('date')) {
-                    return `Sprint 8 ran from ${jiraData.sprint8.dates} (${jiraData.sprint8.totalDays} days total). It completed on April 14, 2026. Sprint 9 started April 15.`;
-                }
-                return `Sprint 8 (${jiraData.sprint8.dates}) has completed. At day 7 (April 10), it was at ${jiraData.sprint8.completionRate}% completion with ${jiraData.sprint8.totalIssues} total issues. Final results show significant carryover to Sprint 9, which is now active.`;
-            }
-
-            // Current sprint
-            if (q.includes('current sprint') || q.includes('active sprint')) {
-                return `Current Sprint: Sprint 9 (${jiraData.sprint9.dates})\n\nStatus: ${jiraData.sprint9.status} - Started today!\n• Days remaining: ${jiraData.sprint9.daysRemaining}\n• Planned issues: ${jiraData.sprint9.plannedIssues}\n• Expected carryover: ~${jiraData.sprint9.expectedCarryover} from Sprint 8\n\nCritical: Sprint 9 needs immediate capacity planning to account for Sprint 8 carryover.`;
-            }
-
-            // Sprint 9 questions
-            if (q.includes('sprint 9') || q.includes('next sprint')) {
-                if (q.includes('plan') || q.includes('ready') || q.includes('start')) {
-                    return `Sprint 9 (${jiraData.sprint9.dates}) - ${jiraData.sprint9.status}\n\n🚀 STARTED TODAY (April 15)!\n\n• Day: ${jiraData.sprint9.currentDay} of ${jiraData.sprint9.totalDays}\n• Days remaining: ${jiraData.sprint9.daysRemaining}\n• Planned issues (as of April 10): ${jiraData.sprint9.plannedIssues}\n• Recommended: ${jiraData.sprint9.recommendedIssues} issues\n• Expected carryover from Sprint 8: ~${jiraData.sprint9.expectedCarryover}\n\nCritical: With Sprint 8 carryover, Sprint 9 likely has 140+ issues. Team should validate current workload and priorities TODAY.`;
-                }
-                if (q.includes('date')) {
-                    return `Sprint 9 is running NOW! Started today (April 15) and runs through April 28, 2026 (${jiraData.sprint9.totalDays} days total). Currently on Day ${jiraData.sprint9.currentDay}.`;
-                }
-                return `Sprint 9 (${jiraData.sprint9.dates}) - ${jiraData.sprint9.status}\n\nStarted today with only ${jiraData.sprint9.plannedIssues} issues pre-planned (as of April 10). With ~${jiraData.sprint9.expectedCarryover} carryover from Sprint 8, the actual workload is likely 140+ issues. Key contributors (Joe Catlett, Nathan Mathew, Liz Shannon) had minimal work pre-assigned. Team should prioritize sprint planning TODAY to balance workload.`;
-            }
-
-            // Team workload questions
-            if (q.includes('overload') || q.includes('workload') || q.includes('team member') || q.includes('who has')) {
-                const top3 = jiraData.topLoadedMembers.slice(0, 3);
-                return `The most overloaded team members are: ${top3.map(m => `${m.name} (${m.issues} issues)`).join(', ')}. Joe Catlett is critically overloaded with ${jiraData.topLoadedMembers[0].issues} issues - that's 4.6x the average workload of ${(jiraData.openIssues / jiraData.teamMembers).toFixed(1)} issues per person.`;
-            }
-
-            // Security questions
-            if (q.includes('security') || q.includes('vulnerabilit')) {
-                return `There are ${jiraData.securityIssues.length} unassigned high-priority security vulnerabilities requiring immediate attention:\n\n${jiraData.securityIssues.map((s, i) => `${i + 1}. ${s}`).join('\n')}`;
-            }
-
-            // Velocity questions
-            if (q.includes('velocity') || q.includes('trend') || q.includes('decline') || q.includes('history')) {
-                const first = jiraData.velocityTrend[0];
-                const last = jiraData.velocityTrend[jiraData.velocityTrend.length - 1];
-                return `Velocity has declined significantly from Sprint 1 (${first.rate}%) to Sprint 7 (${last.rate}%) - a ${(first.rate - last.rate).toFixed(1)} percentage point drop (${((first.rate - last.rate) / first.rate * 100).toFixed(0)}% decline). Average completion rate across all sprints is 52.6%. This declining trend indicates chronic over-commitment and increasing work complexity.`;
-            }
-
-            // Sprint dates
-            if (q.includes('dates') || q.includes('when')) {
-                return `Sprint dates:\n${jiraData.velocityTrend.map(s => `Sprint ${s.sprint}: ${s.dates}`).join('\n')}\nCurrent Sprint 8: ${jiraData.sprint8.dates}`;
-            }
-
-            // Recommendations
-            if (q.includes('recommend') || q.includes('should') || q.includes('sprint 9') || q.includes('next')) {
-                return `Key recommendations:\n\n1. Sprint 8: ${jiraData.recommendations.sprint8}\n2. Sprint 9: ${jiraData.recommendations.sprint9}\n3. Workload: ${jiraData.recommendations.workload}\n4. Target: ${jiraData.recommendations.target}\n\nSprint 9 runs April 15-28, 2026 (13 days) and needs proper capacity planning to avoid Sprint 8's issues.`;
-            }
-
-            // Summary questions
-            if (q.includes('summary') || q.includes('overview') || q.includes('key finding')) {
-                return `Key findings:\n\n• ${jiraData.totalIssues} total issues, ${jiraData.openIssues} open\n• Sprint 8: ${jiraData.sprint8.completionRate}% complete (critically behind)\n• ${jiraData.unassignedIssues} unassigned issues\n• ${jiraData.securityIssues.length} security vulnerabilities need immediate attention\n• Velocity declined ${((jiraData.velocityTrend[0].rate - jiraData.velocityTrend[6].rate) / jiraData.velocityTrend[0].rate * 100).toFixed(0)}% over 7 sprints\n• Joe Catlett has ${jiraData.topLoadedMembers[0].issues} issues (4.6x average)`;
-            }
-
-            // Issue type questions
-            if (q.includes('issue type') || q.includes('type') || q.includes('story') || q.includes('stories') || q.includes('bug') || q.includes('epic') || q.includes('task')) {
-                if (q.includes('breakdown') || q.includes('distribution')) {
-                    return `Issue Type Distribution:\n\n• Stories: ${jiraData.issueTypes.story.count} (${jiraData.issueTypes.story.percentage}%) - ${jiraData.issueTypes.story.completionRate}% completion, ${jiraData.issueTypes.story.trend}\n• Tasks: ${jiraData.issueTypes.task.count} (${jiraData.issueTypes.task.percentage}%) - ${jiraData.issueTypes.task.completionRate}% completion, ${jiraData.issueTypes.task.trend}\n• Bugs: ${jiraData.issueTypes.bug.count} (${jiraData.issueTypes.bug.percentage}%) - ${jiraData.issueTypes.bug.completionRate}% completion, ${jiraData.issueTypes.bug.trend}\n• Epics: ${jiraData.issueTypes.epic.count} (${jiraData.issueTypes.epic.percentage}%) - ${jiraData.issueTypes.epic.completionRate}% completion, ${jiraData.issueTypes.epic.trend}\n• Sub-tasks: ${jiraData.issueTypes.subtask.count} (${jiraData.issueTypes.subtask.percentage}%) - ${jiraData.issueTypes.subtask.completionRate}% completion, ${jiraData.issueTypes.subtask.trend}\n• Security Findings: ${jiraData.issueTypes.securityFinding.count} - ALL UNASSIGNED (${jiraData.issueTypes.securityFinding.highPriority} are P1/P2)`;
-                }
-                if (q.includes('best') || q.includes('highest') || q.includes('worst') || q.includes('lowest')) {
-                    return `Issue Type Performance:\n\nBest Performing:\n• Sub-tasks: ${jiraData.issueTypes.subtask.completionRate}% completion rate (${jiraData.issueTypes.subtask.trend})\n• Tasks: ${jiraData.issueTypes.task.completionRate}% completion rate (${jiraData.issueTypes.task.trend})\n\nWorst Performing:\n• Security Findings: 0% completion (all ${jiraData.issueTypes.securityFinding.count} unassigned)\n• Epics: ${jiraData.issueTypes.epic.completionRate}% completion rate (${jiraData.issueTypes.epic.trend})\n• Bugs: ${jiraData.issueTypes.bug.completionRate}% completion rate (${jiraData.issueTypes.bug.trend})\n\nInsight: Smaller, well-defined work (sub-tasks) completes most reliably. Consider breaking large stories into sub-tasks.`;
-                }
-                if (q.includes('story') || q.includes('stories')) {
-                    return `Stories (Primary Work Type):\n\n• Total: ${jiraData.issueTypes.story.count} stories (${jiraData.issueTypes.story.percentage}% of all work)\n• Completion Rate: ${jiraData.issueTypes.story.completionRate}% (below target)\n• Trend: ${jiraData.issueTypes.story.trend} over past 7 sprints\n• Top Owner: Joe Catlett with 59 stories (36% of all stories)\n\nRecommendation: Break large stories into smaller chunks and redistribute Joe's stories across the team.`;
-                }
-                if (q.includes('bug')) {
-                    return `Bugs:\n\n• Total: ${jiraData.issueTypes.bug.count} bugs (${jiraData.issueTypes.bug.percentage}% of workload)\n• Completion Rate: ${jiraData.issueTypes.bug.completionRate}% (needs improvement)\n• Trend: ${jiraData.issueTypes.bug.trend}\n• Concentration: Joe Catlett owns 21 bugs (78% of all bugs)\n\nRecommendation: Establish bug SLA (resolve within 2 sprints), distribute bugs across team, allocate 15% of sprint capacity to bug fixes.`;
-                }
-                return `We track 6 issue types:\n\n1. Stories (${jiraData.issueTypes.story.percentage}%) - Primary feature work\n2. Tasks (${jiraData.issueTypes.task.percentage}%) - Supporting work\n3. Bugs (${jiraData.issueTypes.bug.percentage}%) - Defect fixes\n4. Epics (${jiraData.issueTypes.epic.percentage}%) - Large initiatives\n5. Sub-tasks (${jiraData.issueTypes.subtask.percentage}%) - Breakdown items (best completion rate!)\n6. Security Findings (${jiraData.issueTypes.securityFinding.count} total) - CRITICAL: All unassigned\n\nAsk about specific types or "best/worst performing types" for details.`;
-            }
-
-            // Default response
-            return `I can help you with questions about:\n\n• Sprint 8 status and dates (current sprint)\n• Sprint 9 planning (next sprint)\n• Team workload and capacity\n• Issue types breakdown (Stories, Bugs, Epics, etc.)\n• Security vulnerabilities\n• Historical velocity trends\n• Recommendations for improvement\n\nTry asking: "What is the completion rate for Sprint 8?", "Is Sprint 9 ready?", or "Show me issue type breakdown"`;
-        }
-
-        // Team Workload Filtering Functions
-        function filterBySprint(sprintKey) {
-            const sprintData = jiraData.teamWorkload[sprintKey];
-
-            // Update sprint info banner
-            document.getElementById('sprintName').textContent = sprintData.name;
-            document.getElementById('sprintDates').textContent = sprintData.dates;
-            document.getElementById('sprintTotal').textContent = sprintData.totalIssues;
-
-            // Update overall metrics
-            document.getElementById('totalAssigned').textContent = sprintData.totalIssues - sprintData.unassigned;
-            document.getElementById('teamMemberCount').textContent = sprintData.members.length;
-            document.getElementById('avgPerPerson').textContent = ((sprintData.totalIssues - sprintData.unassigned) / sprintData.members.length).toFixed(1);
-            document.getElementById('unassignedCount').textContent = sprintData.unassigned;
-
-            // Update title
-            document.getElementById('workloadTitle').textContent = `All Team Members - ${sprintData.name}`;
-
-            // Render team workload cards
-            renderTeamWorkload(sprintData.members, sprintKey);
-        }
-
-        function renderTeamWorkload(members, sprintKey) {
-            const container = document.getElementById('teamWorkloadContainer');
-            container.innerHTML = '';
-
-            // Sort by total (descending)
-            const sortedMembers = [...members].sort((a, b) => b.total - a.total);
-
-            sortedMembers.forEach(member => {
-                if (member.total === 0 && sprintKey !== 'all' && sprintKey !== 'sprint9') return; // Skip zero assignments except for all/sprint9
-
-                const card = document.createElement('div');
-                card.className = 'workload-card';
-
-                // Add overloaded/underutilized classes
-                if (member.total > 15) {
-                    card.classList.add('overloaded');
-                } else if (member.total < 5 && member.total > 0) {
-                    card.classList.add('underutilized');
-                }
-
-                card.innerHTML = `
-                    <div class="workload-header">
-                        <div class="workload-name">${member.name}</div>
-                        <div class="workload-total">${member.total}</div>
-                    </div>
-                    <div class="workload-breakdown">
-                        <div class="workload-stat">
-                            <div class="workload-stat-label">New</div>
-                            <div class="workload-stat-value">${member.new}</div>
-                        </div>
-                        <div class="workload-stat">
-                            <div class="workload-stat-label">In Progress</div>
-                            <div class="workload-stat-value">${member.inProgress}</div>
-                        </div>
-                        <div class="workload-stat">
-                            <div class="workload-stat-label">UAT</div>
-                            <div class="workload-stat-value">${member.uat}</div>
-                        </div>
-                        <div class="workload-stat">
-                            <div class="workload-stat-label">Done</div>
-                            <div class="workload-stat-value">${member.done}</div>
-                        </div>
-                        <div class="workload-stat">
-                            <div class="workload-stat-label">On Hold</div>
-                            <div class="workload-stat-value">${member.onHold}</div>
-                        </div>
-                        <div class="workload-stat">
-                            <div class="workload-stat-label">Other</div>
-                            <div class="workload-stat-value">${member.other}</div>
-                        </div>
-                    </div>
-                `;
-
-                container.appendChild(card);
-            });
-
-            // Add zero-assignment alert for Sprint 9
-            if (sprintKey === 'sprint9') {
-                const zeroMembers = members.filter(m => m.total === 0);
-                if (zeroMembers.length > 0) {
-                    const alert = document.createElement('div');
-                    alert.className = 'alert alert-warning';
-                    alert.style.marginTop = '2rem';
-                    alert.innerHTML = `
-                        <strong>⚠️ ${zeroMembers.length} Team Members with Zero Sprint 9 Assignments:</strong>
-                        <p>${zeroMembers.map(m => m.name).join(', ')}</p>
-                        <p style="margin-top: 0.5rem;">These team members should be allocated Sprint 8 carryover work immediately.</p>
-                    `;
-                    container.appendChild(alert);
-                }
-            }
-        }
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            filterBySprint('sprint9'); // Default to Sprint 9 (active)
-        });
-    </script>
 </body>
 </html>
