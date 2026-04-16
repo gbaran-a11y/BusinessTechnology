@@ -940,19 +940,61 @@
   }
 
   /* ── Responsive ── */
-  @media (max-width: 900px) {
-    header { padding: 1rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  @media (max-width: 1024px) {
+    header { padding: 1.5rem 2rem; }
+    .tab-nav { padding: 0 2rem; }
+    .hero { padding: 3rem 2rem 2rem; }
+    .hero h1 { font-size: 2rem; }
+    .content-section { padding: 3rem 2rem; }
+    .automation-chart { padding: 2rem; }
+  }
+
+  @media (max-width: 768px) {
+    header { padding: 1rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 0.75rem; }
     .tab-nav { padding: 0 1.5rem; overflow-x: auto; }
-    .hero, .content-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .tab-button { padding: 1rem 1.25rem; font-size: 14px; }
+    .hero { padding: 2.5rem 1.5rem 2rem; }
+    .hero h1 { font-size: 1.75rem; }
+    .hero-sub { font-size: 16px; }
+    .content-section { padding: 2.5rem 1.5rem; }
+    .section-title { font-size: 1.5rem; }
+    .section-subtitle { font-size: 1.25rem; }
+
     .goal-row, .goals-header { grid-template-columns: 1fr; }
-    .goal-col { border-right: none; border-bottom: 1px solid var(--border); }
+    .goal-col { border-right: none; border-bottom: 1px solid var(--gray-200); padding: 1.5rem; }
+    .goal-col:last-child { border-bottom: none; }
     .goals-header .gh:not(:first-child) { display: none; }
-    .status-quarters { grid-template-columns: repeat(4, 1fr); }
-    .chat-window { width: calc(100vw - 40px); right: 20px; bottom: 80px; height: 500px; }
-    .chat-button { right: 20px; bottom: 20px; }
-    .chart-header, .chart-row { grid-template-columns: 1.5fr 0.8fr 0.8fr 0.8fr 0.8fr; font-size: 11px; padding: 0.75rem 0.5rem; }
-    .workflow-name { font-size: 13px; }
-    .metric-value { font-size: 16px; }
+    .status-quarters { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+
+    .scorecard { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .score-num { font-size: 2.5rem; }
+
+    .mission-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .metric-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+
+    .chart-header, .chart-row {
+      grid-template-columns: 1.5fr 0.8fr 0.8fr 0.8fr 0.8fr;
+      font-size: 11px;
+      padding: 1rem;
+      gap: 0.75rem;
+    }
+    .workflow-name { font-size: 14px; }
+    .metric-value { font-size: 18px; }
+    .automation-chart { padding: 1.5rem; }
+
+    .chat-window { width: calc(100vw - 48px); right: 24px; bottom: 90px; height: 500px; }
+    .chat-button { right: 24px; bottom: 24px; width: 56px; height: 56px; }
+  }
+
+  @media (max-width: 480px) {
+    .scorecard { grid-template-columns: 1fr; }
+    .metric-grid { grid-template-columns: 1fr; }
+    .chart-header { display: none; }
+    .chart-row {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    .chart-row > div { text-align: left !important; }
   }
 </style>
 </head>
@@ -997,7 +1039,7 @@
 
   <div class="content-section">
     <h2 class="section-title">Our Mission</h2>
-    <div style="background: rgba(0,180,216,0.1); border-left: 4px solid var(--teal); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+    <div style="background: var(--gray-50); border-left: 4px solid var(--black); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
       <p style="font-size: 1.1rem; line-height: 1.8; color: var(--white);">
         To deliver world-class technology solutions that empower Tenable employees, accelerate business outcomes, and strengthen our security posture — while driving operational excellence through innovation, automation, and continuous improvement.
       </p>
@@ -1044,7 +1086,7 @@
 
   <div class="content-section">
     <h2 class="section-title">HR Projects — Roadmap</h2>
-    <div style="background: rgba(0,180,216,0.1); border-left: 4px solid var(--teal); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+    <div style="background: var(--gray-50); border-left: 4px solid var(--black); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
       <p style="font-size: 1rem; line-height: 1.8; color: var(--white);">
         Active HR projects and initiatives with timeline, milestones, and delivery tracking.
       </p>
@@ -1066,7 +1108,7 @@
       </div>
     </div>
 
-    <div style="background: rgba(245,197,24,0.1); border-left: 4px solid var(--yellow); padding: 1.5rem; border-radius: 8px;">
+    <div style="background: var(--gray-50); border-left: 4px solid var(--black); padding: 1.5rem; border-radius: 8px;">
       <h3 style="color: var(--yellow); margin-bottom: 0.75rem; font-size: 16px;">📌 Next Steps</h3>
       <ul style="list-style: none; padding-left: 0; color: var(--text-muted);">
         <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">• Review project timelines and dependencies</li>
@@ -1403,7 +1445,7 @@
     </ul>
 
     <h2 class="section-subtitle" style="margin-top: 3rem;">QBR Scorecard — Engineering Metrics</h2>
-    <div style="background: rgba(0,180,216,0.1); border-left: 4px solid var(--teal); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+    <div style="background: var(--gray-50); border-left: 4px solid var(--black); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
       <p style="font-size: 1rem; line-height: 1.7; color: var(--white);">
         Quarterly Business Review metrics framework for tracking BT project health and delivery performance. Metrics align with Tenable engineering standards (February 2026).
       </p>
@@ -1601,7 +1643,7 @@
 
   <div class="content-section">
     <h2 class="section-title">The Shift-Left Vision</h2>
-    <div style="background: rgba(0,180,216,0.1); border-left: 4px solid var(--teal); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+    <div style="background: var(--gray-50); border-left: 4px solid var(--black); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
       <p style="font-size: 1rem; line-height: 1.8; color: var(--white);">
         Transform Tier-1 operations by automating repetitive requests, enabling intelligent self-service, and freeing engineers to focus on complex, high-value work that requires human expertise.
       </p>
