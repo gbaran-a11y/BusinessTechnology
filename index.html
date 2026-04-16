@@ -684,6 +684,108 @@
     background: #f7fafc;
   }
 
+  /* ── Automation Chart Styles ── */
+  .automation-chart {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+
+  .chart-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--navy-light);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .chart-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background: rgba(255,255,255,0.02);
+    border-radius: 8px;
+    align-items: center;
+    transition: background 0.2s;
+  }
+
+  .chart-row:hover {
+    background: rgba(255,255,255,0.06);
+  }
+
+  .workflow-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .rank-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: var(--teal);
+    color: var(--navy);
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .metric-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--teal);
+  }
+
+  .metric-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .impact-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .impact-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), var(--green));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+
+  .priority-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .priority-critical { background: rgba(220,38,38,0.2); color: #f87171; }
+  .priority-high { background: rgba(245,197,24,0.2); color: var(--yellow); }
+  .priority-medium { background: rgba(0,180,216,0.2); color: var(--teal); }
+
   /* ── Responsive ── */
   @media (max-width: 900px) {
     header { padding: 1rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
@@ -695,6 +797,9 @@
     .status-quarters { grid-template-columns: repeat(4, 1fr); }
     .chat-window { width: calc(100vw - 40px); right: 20px; bottom: 80px; height: 500px; }
     .chat-button { right: 20px; bottom: 20px; }
+    .chart-header, .chart-row { grid-template-columns: 1.5fr 0.8fr 0.8fr 0.8fr 0.8fr; font-size: 11px; padding: 0.75rem 0.5rem; }
+    .workflow-name { font-size: 13px; }
+    .metric-value { font-size: 16px; }
   }
 </style>
 </head>
@@ -1295,9 +1400,265 @@
       </p>
     </div>
 
-    <h2 class="section-subtitle">Top 10 Automation Candidates</h2>
+    <h2 class="section-subtitle">Top 10 Automation Opportunities — Impact Analysis</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 15px;">
+      Ranked by total impact: monthly ticket volume × average resolution time. Estimated annual savings: <strong style="color: var(--teal);">4,200+ hours</strong> across all workflows.
+    </p>
+
+    <div class="automation-chart">
+      <div class="chart-header">
+        <div>Workflow</div>
+        <div style="text-align: center;">Monthly Vol.</div>
+        <div style="text-align: center;">Avg Time</div>
+        <div style="text-align: center;">Hours/Mo</div>
+        <div style="text-align: center;">Priority</div>
+      </div>
+
+      <div class="chart-row">
+        <div class="workflow-name">
+          <span class="rank-badge">1</span>
+          <span>Password Resets</span>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">180</div>
+          <div class="metric-label">tickets</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">8</div>
+          <div class="metric-label">minutes</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">24</div>
+          <div class="metric-label">hrs saved</div>
+        </div>
+        <div style="text-align: center;">
+          <span class="priority-badge priority-critical">Critical</span>
+        </div>
+      </div>
+
+      <div class="chart-row">
+        <div class="workflow-name">
+          <span class="rank-badge">2</span>
+          <span>Access Requests</span>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">150</div>
+          <div class="metric-label">tickets</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">12</div>
+          <div class="metric-label">minutes</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">30</div>
+          <div class="metric-label">hrs saved</div>
+        </div>
+        <div style="text-align: center;">
+          <span class="priority-badge priority-critical">Critical</span>
+        </div>
+      </div>
+
+      <div class="chart-row">
+        <div class="workflow-name">
+          <span class="rank-badge">3</span>
+          <span>Software Provisioning</span>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">120</div>
+          <div class="metric-label">tickets</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">15</div>
+          <div class="metric-label">minutes</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">30</div>
+          <div class="metric-label">hrs saved</div>
+        </div>
+        <div style="text-align: center;">
+          <span class="priority-badge priority-high">High</span>
+        </div>
+      </div>
+
+      <div class="chart-row">
+        <div class="workflow-name">
+          <span class="rank-badge">4</span>
+          <span>VPN Troubleshooting</span>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">100</div>
+          <div class="metric-label">tickets</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">20</div>
+          <div class="metric-label">minutes</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">33</div>
+          <div class="metric-label">hrs saved</div>
+        </div>
+        <div style="text-align: center;">
+          <span class="priority-badge priority-high">High</span>
+        </div>
+      </div>
+
+      <div class="chart-row">
+        <div class="workflow-name">
+          <span class="rank-badge">5</span>
+          <span>Email Distribution Lists</span>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">80</div>
+          <div class="metric-label">tickets</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">10</div>
+          <div class="metric-label">minutes</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">13</div>
+          <div class="metric-label">hrs saved</div>
+        </div>
+        <div style="text-align: center;">
+          <span class="priority-badge priority-high">High</span>
+        </div>
+      </div>
+
+      <div class="chart-row">
+        <div class="workflow-name">
+          <span class="rank-badge">6</span>
+          <span>Hardware Requests</span>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">60</div>
+          <div class="metric-label">tickets</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">25</div>
+          <div class="metric-label">minutes</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">25</div>
+          <div class="metric-label">hrs saved</div>
+        </div>
+        <div style="text-align: center;">
+          <span class="priority-badge priority-medium">Medium</span>
+        </div>
+      </div>
+
+      <div class="chart-row">
+        <div class="workflow-name">
+          <span class="rank-badge">7</span>
+          <span>License Management</span>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">50</div>
+          <div class="metric-label">tickets</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">15</div>
+          <div class="metric-label">minutes</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">13</div>
+          <div class="metric-label">hrs saved</div>
+        </div>
+        <div style="text-align: center;">
+          <span class="priority-badge priority-medium">Medium</span>
+        </div>
+      </div>
+
+      <div class="chart-row">
+        <div class="workflow-name">
+          <span class="rank-badge">8</span>
+          <span>Onboarding Tasks</span>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">40</div>
+          <div class="metric-label">tickets</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">45</div>
+          <div class="metric-label">minutes</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">30</div>
+          <div class="metric-label">hrs saved</div>
+        </div>
+        <div style="text-align: center;">
+          <span class="priority-badge priority-medium">Medium</span>
+        </div>
+      </div>
+
+      <div class="chart-row">
+        <div class="workflow-name">
+          <span class="rank-badge">9</span>
+          <span>Status Check Requests</span>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">90</div>
+          <div class="metric-label">tickets</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">5</div>
+          <div class="metric-label">minutes</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">8</div>
+          <div class="metric-label">hrs saved</div>
+        </div>
+        <div style="text-align: center;">
+          <span class="priority-badge priority-medium">Medium</span>
+        </div>
+      </div>
+
+      <div class="chart-row">
+        <div class="workflow-name">
+          <span class="rank-badge">10</span>
+          <span>Offboarding Tasks</span>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">35</div>
+          <div class="metric-label">tickets</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">40</div>
+          <div class="metric-label">minutes</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">23</div>
+          <div class="metric-label">hrs saved</div>
+        </div>
+        <div style="text-align: center;">
+          <span class="priority-badge priority-medium">Medium</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(0,180,216,0.1); border-radius: 8px; border-left: 4px solid var(--teal);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+          <div>
+            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 0.25rem;">Total Monthly Tickets</div>
+            <div style="font-size: 2rem; font-weight: 600; color: var(--teal);">905</div>
+          </div>
+          <div>
+            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 0.25rem;">Monthly Hours Saved</div>
+            <div style="font-size: 2rem; font-weight: 600; color: var(--green);">229</div>
+          </div>
+          <div>
+            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 0.25rem;">Annual Hours Saved</div>
+            <div style="font-size: 2rem; font-weight: 600; color: var(--yellow);">2,748</div>
+          </div>
+          <div>
+            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 0.25rem;">Capacity Reclaimed</div>
+            <div style="font-size: 2rem; font-weight: 600; color: var(--white);">1.3 FTE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-subtitle">Detailed Implementation Plans</h2>
     <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
-      Based on ticket volume analysis, these workflows represent the highest-impact opportunities for automation:
+      Each automation candidate has a defined solution approach and technology stack:
     </p>
 
     <div class="mission-grid">
