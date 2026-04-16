@@ -505,6 +505,185 @@
     color: var(--white);
   }
 
+  /* ── Chat Widget Styles ── */
+  .chat-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    z-index: 1000;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .chat-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  }
+
+  .chat-window {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 400px;
+    max-width: calc(100vw - 60px);
+    height: 600px;
+    max-height: calc(100vh - 150px);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    z-index: 999;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .chat-window.open {
+    display: flex;
+  }
+
+  .chat-header {
+    background: var(--teal);
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .chat-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: white;
+  }
+
+  .chat-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.3s;
+  }
+
+  .chat-close:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  .chat-messages {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    background: #f7fafc;
+  }
+
+  .chat-message {
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    max-width: 80%;
+    word-wrap: break-word;
+    font-size: 15px;
+  }
+
+  .chat-message.user {
+    background: var(--teal);
+    color: white;
+    margin-left: auto;
+  }
+
+  .chat-message.assistant {
+    background: white;
+    color: #333;
+    border: 1px solid #e2e8f0;
+  }
+
+  .chat-input-container {
+    padding: 1rem;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .chat-input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+  }
+
+  .chat-send {
+    padding: 0.75rem 1.5rem;
+    background: var(--teal);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    transition: opacity 0.3s;
+  }
+
+  .chat-send:hover {
+    opacity: 0.9;
+  }
+
+  .chat-send:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .suggested-questions {
+    padding: 1rem;
+    background: #edf2f7;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .suggested-questions h4 {
+    font-size: 15px;
+    color: #4a5568;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .suggested-question {
+    display: block;
+    padding: 0.5rem;
+    margin: 0.25rem 0;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    color: var(--teal);
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .suggested-question:hover {
+    background: #f7fafc;
+  }
+
   /* ── Responsive ── */
   @media (max-width: 900px) {
     header { padding: 1rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
@@ -514,6 +693,8 @@
     .goal-col { border-right: none; border-bottom: 1px solid var(--border); }
     .goals-header .gh:not(:first-child) { display: none; }
     .status-quarters { grid-template-columns: repeat(4, 1fr); }
+    .chat-window { width: calc(100vw - 40px); right: 20px; bottom: 80px; height: 500px; }
+    .chat-button { right: 20px; bottom: 20px; }
   }
 </style>
 </head>
@@ -1220,7 +1401,135 @@ function showTab(tabName) {
   // Scroll to top
   window.scrollTo(0, 0);
 }
+
+// Chat functions
+function toggleChat() {
+  const chatWindow = document.getElementById('chatWindow');
+  chatWindow.classList.toggle('open');
+  if (chatWindow.classList.contains('open')) {
+    document.getElementById('chatInput').focus();
+  }
+}
+
+function handleKeyPress(event) {
+  if (event.key === 'Enter') {
+    sendMessage();
+  }
+}
+
+function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const message = input.value.trim();
+
+  if (message === '') return;
+
+  addMessage(message, 'user');
+  input.value = '';
+
+  setTimeout(() => {
+    const response = generateResponse(message);
+    addMessage(response, 'assistant');
+  }, 500);
+}
+
+function askQuestion(question) {
+  document.getElementById('chatInput').value = question;
+  sendMessage();
+}
+
+function addMessage(text, type) {
+  const messagesContainer = document.getElementById('chatMessages');
+  const messageDiv = document.createElement('div');
+  messageDiv.className = `chat-message ${type}`;
+
+  if (type === 'assistant') {
+    messageDiv.innerHTML = `<strong>BT Assistant</strong><br>${text}`;
+  } else {
+    messageDiv.textContent = text;
+  }
+
+  messagesContainer.appendChild(messageDiv);
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function generateResponse(question) {
+  const q = question.toLowerCase();
+
+  // FY26 Goals
+  if (q.includes('goal') || q.includes('q1')) {
+    if (q.includes('status') || q.includes('complete') || q.includes('progress')) {
+      return `All 7 FY26 Q1 goals are 100% complete and on track! ✅\n\n• Digital Workforce Transformation - Ready to implement\n• AI-Native Development (VIBE) - On track for Q2\n• Project Delivery Excellence - Baseline established\n• Engineering Delivery Predictability - Analysis complete\n• Shift-Left Automation - Top 10 candidates identified\n• Cost Optimization - Pre-work complete\n• Enterprise Governance - 90%+ Adaptive Shield score achieved`;
+    }
+    if (q.includes('ai') || q.includes('digital workforce') || q.includes('automation')) {
+      return `Digital Workforce Transformation goal: Deploy AI agents to automate 8-10 workflows and reclaim 20,000+ hours of employee capacity annually.\n\nQ1: Use cases and workflows documented ✅\nQ2 Target: Deploy 2 AI agents, 25% automation coverage\nQ4 Target: 80-100% automation coverage, 20,000 hrs reclaimed`;
+    }
+    return `We're tracking 7 strategic goals across 4 key strategies: Innovate through Emerging Tech, Drive Operational Excellence, Optimize Spend, and Be The Most Trusted Cybersecurity Provider. Q1 is 100% complete with all goals on track!`;
+  }
+
+  // Engineering Delivery
+  if (q.includes('engineer') || q.includes('sprint') || q.includes('velocity') || q.includes('predictability')) {
+    if (q.includes('problem') || q.includes('issue') || q.includes('red')) {
+      return `Engineering Delivery Challenge: Portfolio Predictability at 27.4% (target: 80%)\n\n🔴 Sprint completion declining from 60.8% (Sprint 1) to 27.4% (Sprint 7)\n• Root cause: Over-commitment (avg 194 issues/sprint vs 80 completed)\n• Sprint 8: Only 22.4% completion\n• 28% of open issues unassigned\n\nQ2 Action: Right-size sprint load, balance workload, assign security issues`;
+    }
+    if (q.includes('metric') || q.includes('qbr') || q.includes('scorecard')) {
+      return `QBR Scorecard Status:\n\n🟢 Capacity Allocation: 63/27/10 (on target)\n🔴 Portfolio Predictability: 27.4% (target: 80%)\n🟡 Portfolio Visibility: 72% (target: 90%)\n⚫ 4 of 7 metrics not yet tracked (lead time, deployment frequency, change failure rate, priority stability)\n\nView the Engineering Delivery tab for complete analysis!`;
+    }
+    return `Current sprint: Sprint 9 (Day 2 of 13) - Started April 15\n\nKey metrics:\n• Sprint 8 completion: 22.4%\n• Active team: 12 members\n• Unassigned issues: 100 (28% of open)\n• Historical avg: 80 completions/sprint\n\nGoal: Improve completion rate to 80% by Q2, 90% by Q4`;
+  }
+
+  // Shift-Left
+  if (q.includes('shift') || q.includes('tier') || q.includes('ticket') || q.includes('automation cand')) {
+    return `Shift-Left Automation Strategy: Reduce Tier-1 workload by 35% through automation.\n\nTop 10 Automation Candidates (by impact):\n1. Password Resets - Self-service portal\n2. Access Requests - Automated approval workflows\n3. Software Provisioning - Self-service catalog\n4. VPN Troubleshooting - AI diagnostic bot\n5. Email Distribution Lists - Self-service mgmt\n6. Hardware Requests - Auto approval + procurement\n7. License Management - Auto reclamation\n8. Onboarding Tasks - Workflow automation\n9. Status Checks - AI chatbot\n10. Offboarding Tasks - Auto revocation\n\nQ2 target: 10% automated resolution`;
+  }
+
+  // Mission & Strategy
+  if (q.includes('mission') || q.includes('vision') || q.includes('value') || q.includes('priority')) {
+    return `BT Mission: Deliver world-class technology solutions that empower Tenable employees, accelerate business outcomes, and strengthen our security posture through innovation, automation, and continuous improvement.\n\nCore Values:\n🚀 Innovation First\n⚡ Operational Excellence\n🔒 Security by Design\n💰 Cost Optimization\n\nStrategic Priorities: Digital workforce transformation, predictable delivery, engineering excellence, shift-left automation, cost leadership, governance & risk management`;
+  }
+
+  // Cost Optimization
+  if (q.includes('cost') || q.includes('saving') || q.includes('spend')) {
+    return `Cost Optimization Goal: $435K total annual savings through platform consolidation.\n\nQ2: $15K (ARM migration)\nQ3: $100K (logging consolidation)\nQ4: $320K (Asana + MuleSoft)\n\nQ1 Status: Pre-work and planning complete ✅`;
+  }
+
+  // General help
+  if (q.includes('help') || q.includes('what can')) {
+    return `I can help you with:\n\n📊 FY26 Goals & Q1 status\n🔧 Engineering Delivery metrics & QBR Scorecard\n⚡ Shift-Left automation strategy\n🎯 Mission, vision, and strategic priorities\n💰 Cost optimization initiatives\n\nTry asking: "What are the FY26 goals?", "Show engineering metrics", "What's the shift-left strategy?", or "Tell me about cost savings"`;
+  }
+
+  // Default response
+  return `I'm here to help with Business Technology information! Ask me about:\n\n• FY26 Goals and Q1 status\n• Engineering Delivery and QBR metrics\n• Shift-Left automation strategy\n• Mission and strategic priorities\n• Cost optimization\n\nWhat would you like to know?`;
+}
 </script>
+
+<!-- Chat Widget -->
+<button class="chat-button" id="chatButton" onclick="toggleChat()">💬</button>
+
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <h3>Ask About BT</h3>
+    <button class="chat-close" onclick="toggleChat()">×</button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="suggested-questions">
+      <h4>Suggested Questions:</h4>
+      <a class="suggested-question" onclick="askQuestion('What are the FY26 goals?')">What are the FY26 goals?</a>
+      <a class="suggested-question" onclick="askQuestion('What is the Q1 status?')">What is the Q1 status?</a>
+      <a class="suggested-question" onclick="askQuestion('Show me engineering metrics')">Show me engineering metrics</a>
+      <a class="suggested-question" onclick="askQuestion('What is the shift-left strategy?')">What is the shift-left strategy?</a>
+      <a class="suggested-question" onclick="askQuestion('Tell me about cost optimization')">Tell me about cost optimization</a>
+      <a class="suggested-question" onclick="askQuestion('What is the BT mission?')">What is the BT mission?</a>
+    </div>
+    <div class="chat-message assistant">
+      <strong>BT Assistant</strong><br>
+      Hi! I'm here to help you understand Business Technology's goals, engineering metrics, and strategic initiatives. Ask me anything about FY26 goals, sprint performance, automation strategy, or our mission!
+    </div>
+  </div>
+  <div class="chat-input-container">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Ask a question..." onkeypress="handleKeyPress(event)">
+    <button class="chat-send" id="chatSend" onclick="sendMessage()">Send</button>
+  </div>
+</div>
 
 </body>
 </html>
