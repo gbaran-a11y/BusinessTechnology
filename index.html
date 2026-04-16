@@ -1089,15 +1089,15 @@
       </div>
       <div class="score-card">
         <div class="score-label">On Track</div>
-        <div class="score-num green">7</div>
+        <div class="score-num green">6</div>
       </div>
       <div class="score-card">
         <div class="score-label">At Risk</div>
-        <div class="score-num" style="color:var(--white)">0</div>
+        <div class="score-num red">1</div>
       </div>
       <div class="score-card">
         <div class="score-label">Q1 Complete</div>
-        <div class="score-num green">100%</div>
+        <div class="score-num green">86%</div>
       </div>
     </div>
   </section>
@@ -1329,14 +1329,14 @@
           <div class="qtr-item"><span class="qtr-badge">Q2</span>Adaptive Shield score &gt;= 90%.</div>
           <div class="qtr-item"><span class="qtr-badge">Q3</span>Adaptive Shield score &gt;= 90%.</div>
           <div class="qtr-item"><span class="qtr-badge">Q4</span>Adaptive Shield score &gt;= 90%.</div>
-          <div class="q1-actual">
+          <div class="q1-actual red-actual">
             <div class="q1-actual-label">Q1 Actual</div>
-            <div class="q1-actual-text">Adaptive Shield score &gt;= 90% achieved.</div>
+            <div class="q1-actual-text">NetSuite: 75% | Salesforce: 80% — Below 90% target. Remediation plan in progress.</div>
           </div>
         </div>
         <div class="status-col">
           <div class="status-quarters">
-            <div class="q-status q-green"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
+            <div class="q-status q-red"><span class="q-icon">●</span><span class="q-label">Q1</span></div>
             <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q2</span></div>
             <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q3</span></div>
             <div class="q-status q-gray"><span class="q-icon">○</span><span class="q-label">Q4</span></div>
@@ -2150,12 +2150,12 @@ function generateResponse(question) {
   // FY26 Goals
   if (q.includes('goal') || q.includes('q1')) {
     if (q.includes('status') || q.includes('complete') || q.includes('progress')) {
-      return `All 7 FY26 Q1 goals are 100% complete and on track! ✅\n\n• Digital Workforce Transformation - Ready to implement\n• AI-Native Development (VIBE) - On track for Q2\n• Project Delivery Excellence - Baseline established\n• Engineering Delivery Predictability - Analysis complete\n• Shift-Left Automation - Top 10 candidates identified\n• Cost Optimization - Pre-work complete\n• Enterprise Governance - 90%+ Adaptive Shield score achieved`;
+      return `FY26 Q1 Status: 6 of 7 goals on track\n\n✅ Digital Workforce Transformation - Ready to implement\n✅ AI-Native Development (VIBE) - On track for Q2\n✅ Project Delivery Excellence - Baseline established\n✅ Engineering Delivery Predictability - Analysis complete\n✅ Shift-Left Automation - Top 10 candidates identified\n✅ Cost Optimization - Pre-work complete\n🔴 Enterprise Governance - NetSuite 75%, Salesforce 80% (Target: 90%)`;
     }
     if (q.includes('ai') || q.includes('digital workforce') || q.includes('automation')) {
       return `Digital Workforce Transformation goal: Deploy AI agents to automate 8-10 workflows and reclaim 20,000+ hours of employee capacity annually.\n\nQ1: Use cases and workflows documented ✅\nQ2 Target: Deploy 2 AI agents, 25% automation coverage\nQ4 Target: 80-100% automation coverage, 20,000 hrs reclaimed`;
     }
-    return `We're tracking 7 strategic goals across 4 key strategies: Innovate through Emerging Tech, Drive Operational Excellence, Optimize Spend, and Be The Most Trusted Cybersecurity Provider. Q1 is 100% complete with all goals on track!`;
+    return `We're tracking 7 strategic goals across 4 key strategies: Innovate through Emerging Tech, Drive Operational Excellence, Optimize Spend, and Be The Most Trusted Cybersecurity Provider. Q1 Status: 6 of 7 goals on track, 1 at risk (Enterprise Governance).`;
   }
 
   // Engineering Delivery
