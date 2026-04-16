@@ -908,12 +908,170 @@
       <li><strong>Portfolio Visibility:</strong> 28% of open issues unassigned impacts forecasting accuracy (target: &lt;10%)</li>
     </ul>
 
-    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(0,180,216,0.1); border-radius: 8px;">
-      <h3 style="color: var(--teal); margin-bottom: 1rem;">📊 Full Analysis Available</h3>
-      <p style="color: var(--text-muted); margin-bottom: 1rem;">
-        View comprehensive sprint analysis, QBR Scorecard with 7 metrics, historical velocity trends (Sprints 1-7), team workload breakdown for all 12 members, and interactive data exploration.
+    <h2 class="section-subtitle" style="margin-top: 3rem;">QBR Scorecard — Engineering Metrics</h2>
+    <div style="background: rgba(0,180,216,0.1); border-left: 4px solid var(--teal); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+      <p style="font-size: 1rem; line-height: 1.7; color: var(--white);">
+        Quarterly Business Review metrics framework for tracking BT project health and delivery performance. Metrics align with Tenable engineering standards (February 2026).
       </p>
-      <a href="jira-analysis.html" target="_blank" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--teal); color: var(--navy); text-decoration: none; border-radius: 6px; font-weight: 600;">
+    </div>
+
+    <table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.04); border-radius: 10px; overflow: hidden; margin-bottom: 2rem;">
+      <thead style="background: var(--navy-light);">
+        <tr>
+          <th style="padding: 1rem; text-align: left; font-size: 14px; font-weight: 600; border-bottom: 2px solid var(--border);">Metric</th>
+          <th style="padding: 1rem; text-align: left; font-size: 14px; font-weight: 600; border-bottom: 2px solid var(--border);">Current Status</th>
+          <th style="padding: 1rem; text-align: left; font-size: 14px; font-weight: 600; border-bottom: 2px solid var(--border);">Target</th>
+          <th style="padding: 1rem; text-align: left; font-size: 14px; font-weight: 600; border-bottom: 2px solid var(--border);">Status</th>
+          <th style="padding: 1rem; text-align: left; font-size: 14px; font-weight: 600; border-bottom: 2px solid var(--border);">Trend</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 1rem; font-size: 15px;"><strong>Portfolio Predictability</strong></td>
+          <td style="padding: 1rem; font-size: 15px;">27.4%</td>
+          <td style="padding: 1rem; font-size: 15px;">≥80%</td>
+          <td style="padding: 1rem;"><span style="background: rgba(220,38,38,0.2); color: #f87171; padding: 4px 10px; border-radius: 4px; font-size: 14px;">🔴 Red</span></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">Declining (60.8% → 27.4%)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 1rem; font-size: 15px;"><strong>Concept-to-Value Lead Time</strong></td>
+          <td style="padding: 1rem; font-size: 15px; font-style: italic; color: var(--text-muted);">Not Tracked</td>
+          <td style="padding: 1rem; font-size: 15px;">&lt;30 days</td>
+          <td style="padding: 1rem;"><span style="background: rgba(108,117,125,0.3); color: #94a3b8; padding: 4px 10px; border-radius: 4px; font-size: 14px;">⚫ Unknown</span></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">Data gap - needs tracking</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 1rem; font-size: 15px;"><strong>Deployment Frequency</strong></td>
+          <td style="padding: 1rem; font-size: 15px; font-style: italic; color: var(--text-muted);">Not Tracked</td>
+          <td style="padding: 1rem; font-size: 15px;">Daily+</td>
+          <td style="padding: 1rem;"><span style="background: rgba(108,117,125,0.3); color: #94a3b8; padding: 4px 10px; border-radius: 4px; font-size: 14px;">⚫ Unknown</span></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">Data gap - needs tracking</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 1rem; font-size: 15px;"><strong>Change Failure Rate</strong></td>
+          <td style="padding: 1rem; font-size: 15px; font-style: italic; color: var(--text-muted);">Not Tracked</td>
+          <td style="padding: 1rem; font-size: 15px;">&lt;15%</td>
+          <td style="padding: 1rem;"><span style="background: rgba(108,117,125,0.3); color: #94a3b8; padding: 4px 10px; border-radius: 4px; font-size: 14px;">⚫ Unknown</span></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">Data gap - needs tracking</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 1rem; font-size: 15px;"><strong>Capacity Allocation</strong></td>
+          <td style="padding: 1rem; font-size: 15px;">Growth: 63%<br>Run: 27%<br>Debt: 10%</td>
+          <td style="padding: 1rem; font-size: 15px;">Growth: 60%<br>Run: 30%<br>Debt: 10%</td>
+          <td style="padding: 1rem;"><span style="background: rgba(22,163,74,0.2); color: #4ade80; padding: 4px 10px; border-radius: 4px; font-size: 14px;">🟢 Green</span></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">Well-balanced allocation</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 1rem; font-size: 15px;"><strong>Portfolio Visibility Index</strong></td>
+          <td style="padding: 1rem; font-size: 15px;">~72%</td>
+          <td style="padding: 1rem; font-size: 15px;">≥90%</td>
+          <td style="padding: 1rem;"><span style="background: rgba(245,197,24,0.2); color: var(--yellow); padding: 4px 10px; border-radius: 4px; font-size: 14px;">🟡 Yellow</span></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">100 unassigned (28% of open)</td>
+        </tr>
+        <tr>
+          <td style="padding: 1rem; font-size: 15px;"><strong>Priority Stability Index</strong></td>
+          <td style="padding: 1rem; font-size: 15px; font-style: italic; color: var(--text-muted);">Not Tracked</td>
+          <td style="padding: 1rem; font-size: 15px;">&lt;20% churn</td>
+          <td style="padding: 1rem;"><span style="background: rgba(108,117,125,0.3); color: #94a3b8; padding: 4px 10px; border-radius: 4px; font-size: 14px;">⚫ Unknown</span></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">Data gap - needs tracking</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-subtitle">Sprint Completion History (Sprints 1-8)</h2>
+    <table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.04); border-radius: 10px; overflow: hidden; margin-bottom: 2rem;">
+      <thead style="background: var(--navy-light);">
+        <tr>
+          <th style="padding: 1rem; text-align: left; font-size: 14px; font-weight: 600; border-bottom: 2px solid var(--border);">Sprint</th>
+          <th style="padding: 1rem; text-align: left; font-size: 14px; font-weight: 600; border-bottom: 2px solid var(--border);">Dates</th>
+          <th style="padding: 1rem; text-align: left; font-size: 14px; font-weight: 600; border-bottom: 2px solid var(--border);">Committed</th>
+          <th style="padding: 1rem; text-align: left; font-size: 14px; font-weight: 600; border-bottom: 2px solid var(--border);">Completed</th>
+          <th style="padding: 1rem; text-align: left; font-size: 14px; font-weight: 600; border-bottom: 2px solid var(--border);">Completion %</th>
+          <th style="padding: 1rem; text-align: left; font-size: 14px; font-weight: 600; border-bottom: 2px solid var(--border);">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 1rem; font-size: 15px;"><strong>Sprint 1</strong></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">Jan 2026</td>
+          <td style="padding: 1rem; font-size: 15px;">142</td>
+          <td style="padding: 1rem; font-size: 15px;">86</td>
+          <td style="padding: 1rem; font-size: 15px;">60.8%</td>
+          <td style="padding: 1rem;"><span style="background: rgba(245,197,24,0.2); color: var(--yellow); padding: 4px 10px; border-radius: 4px; font-size: 14px;">🟡 Yellow</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 1rem; font-size: 15px;"><strong>Sprint 2</strong></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">Jan 2026</td>
+          <td style="padding: 1rem; font-size: 15px;">163</td>
+          <td style="padding: 1rem; font-size: 15px;">87</td>
+          <td style="padding: 1rem; font-size: 15px;">53.4%</td>
+          <td style="padding: 1rem;"><span style="background: rgba(220,38,38,0.2); color: #f87171; padding: 4px 10px; border-radius: 4px; font-size: 14px;">🔴 Red</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 1rem; font-size: 15px;"><strong>Sprint 3</strong></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">Feb 2026</td>
+          <td style="padding: 1rem; font-size: 15px;">180</td>
+          <td style="padding: 1rem; font-size: 15px;">84</td>
+          <td style="padding: 1rem; font-size: 15px;">46.7%</td>
+          <td style="padding: 1rem;"><span style="background: rgba(220,38,38,0.2); color: #f87171; padding: 4px 10px; border-radius: 4px; font-size: 14px;">🔴 Red</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 1rem; font-size: 15px;"><strong>Sprint 4</strong></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">Feb 2026</td>
+          <td style="padding: 1rem; font-size: 15px;">199</td>
+          <td style="padding: 1rem; font-size: 15px;">81</td>
+          <td style="padding: 1rem; font-size: 15px;">40.7%</td>
+          <td style="padding: 1rem;"><span style="background: rgba(220,38,38,0.2); color: #f87171; padding: 4px 10px; border-radius: 4px; font-size: 14px;">🔴 Red</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 1rem; font-size: 15px;"><strong>Sprint 5</strong></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">Mar 2026</td>
+          <td style="padding: 1rem; font-size: 15px;">220</td>
+          <td style="padding: 1rem; font-size: 15px;">86</td>
+          <td style="padding: 1rem; font-size: 15px;">39.1%</td>
+          <td style="padding: 1rem;"><span style="background: rgba(220,38,38,0.2); color: #f87171; padding: 4px 10px; border-radius: 4px; font-size: 14px;">🔴 Red</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 1rem; font-size: 15px;"><strong>Sprint 6</strong></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">Mar 2026</td>
+          <td style="padding: 1rem; font-size: 15px;">228</td>
+          <td style="padding: 1rem; font-size: 15px;">63</td>
+          <td style="padding: 1rem; font-size: 15px;">27.6%</td>
+          <td style="padding: 1rem;"><span style="background: rgba(220,38,38,0.2); color: #f87171; padding: 4px 10px; border-radius: 4px; font-size: 14px;">🔴 Red</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 1rem; font-size: 15px;"><strong>Sprint 7</strong></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">Mar 2026</td>
+          <td style="padding: 1rem; font-size: 15px;">228</td>
+          <td style="padding: 1rem; font-size: 15px;">74</td>
+          <td style="padding: 1rem; font-size: 15px;">32.4%</td>
+          <td style="padding: 1rem;"><span style="background: rgba(220,38,38,0.2); color: #f87171; padding: 4px 10px; border-radius: 4px; font-size: 14px;">🔴 Red</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 1rem; font-size: 15px;"><strong>Sprint 8</strong></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">Apr 3-14, 2026</td>
+          <td style="padding: 1rem; font-size: 15px;">156</td>
+          <td style="padding: 1rem; font-size: 15px;">35</td>
+          <td style="padding: 1rem; font-size: 15px;">22.4%</td>
+          <td style="padding: 1rem;"><span style="background: rgba(220,38,38,0.2); color: #f87171; padding: 4px 10px; border-radius: 4px; font-size: 14px;">🔴 Red</span></td>
+        </tr>
+        <tr style="background: rgba(255,255,255,0.08);">
+          <td style="padding: 1rem; font-size: 15px;"><strong>Average (S1-S7)</strong></td>
+          <td style="padding: 1rem; font-size: 14px; color: var(--text-muted);">—</td>
+          <td style="padding: 1rem; font-size: 15px;"><strong>194</strong></td>
+          <td style="padding: 1rem; font-size: 15px;"><strong>80</strong></td>
+          <td style="padding: 1rem; font-size: 15px;"><strong>41.5%</strong></td>
+          <td style="padding: 1rem;"><span style="background: rgba(220,38,38,0.2); color: #f87171; padding: 4px 10px; border-radius: 4px; font-size: 14px;">🔴 Red</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(0,180,216,0.1); border-radius: 8px;">
+      <h3 style="color: var(--teal); margin-bottom: 1rem;">📊 Interactive JIRA Analysis</h3>
+      <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 15px;">
+        View the full interactive report with team workload breakdown for all 12 members, sprint filtering, issue type analysis, and AI-powered chat agent for data exploration.
+      </p>
+      <a href="jira-analysis.html" target="_blank" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--teal); color: var(--navy); text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 15px;">
         Open Full JIRA Analysis Report →
       </a>
     </div>
