@@ -7,22 +7,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --black:       #000000;
-    --gray-50:     #FAFAFA;
-    --gray-100:    #F5F5F5;
-    --gray-200:    #E5E5E5;
-    --gray-300:    #D4D4D4;
-    --gray-400:    #A3A3A3;
-    --gray-500:    #737373;
-    --gray-600:    #525252;
-    --gray-700:    #404040;
-    --gray-800:    #262626;
-    --gray-900:    #171717;
+    --navy:        #0A1128;
+    --navy-light:  #1C2541;
+    --navy-lighter:#2D3E5F;
+    --teal:        #00B4D8;
+    --teal-light:  #06B6D4;
     --white:       #FFFFFF;
-    --accent:      #000000;
+    --text-muted:  #94A3B8;
+    --border:      rgba(255,255,255,0.1);
+    --gray-50:     rgba(255,255,255,0.04);
+    --gray-100:    rgba(255,255,255,0.08);
     --green:       #10B981;
     --red:         #EF4444;
     --yellow:      #F59E0B;
+    --black:       #000000;
   }
 
   *, *::before, *::after {
@@ -32,8 +30,8 @@
   }
 
   body {
-    background: var(--white);
-    color: var(--black);
+    background: var(--navy);
+    color: var(--white);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 16px;
     line-height: 1.6;
@@ -44,8 +42,8 @@
 
   /* ── Header ── */
   header {
-    background: var(--white);
-    border-bottom: 1px solid var(--gray-200);
+    background: var(--navy-light);
+    border-bottom: 1px solid var(--border);
     padding: 1.5rem 4rem;
     display: flex;
     align-items: center;
@@ -54,7 +52,7 @@
     top: 0;
     z-index: 100;
     backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(28, 37, 65, 0.95);
   }
 
   .header-left {
@@ -66,7 +64,7 @@
   .logo {
     font-size: 20px;
     font-weight: 700;
-    color: var(--black);
+    color: var(--teal);
     letter-spacing: -0.02em;
     display: flex;
     align-items: center;
@@ -76,20 +74,20 @@
   .header-title {
     font-size: 15px;
     font-weight: 500;
-    color: var(--gray-600);
+    color: var(--white);
   }
 
   .header-meta {
     font-size: 14px;
-    color: var(--gray-500);
+    color: var(--text-muted);
     text-align: right;
     font-weight: 500;
   }
 
   /* ── Tab Navigation ── */
   .tab-nav {
-    background: var(--white);
-    border-bottom: 1px solid var(--gray-200);
+    background: var(--navy-light);
+    border-bottom: 1px solid var(--border);
     padding: 0 4rem;
     display: flex;
     gap: 0.5rem;
@@ -98,7 +96,7 @@
   .tab-button {
     background: none;
     border: none;
-    color: var(--gray-500);
+    color: var(--text-muted);
     font-family: 'Inter', sans-serif;
     font-size: 15px;
     font-weight: 500;
@@ -110,13 +108,13 @@
   }
 
   .tab-button:hover {
-    color: var(--black);
+    color: var(--white);
     background: var(--gray-50);
   }
 
   .tab-button.active {
-    color: var(--black);
-    border-bottom-color: var(--black);
+    color: var(--teal);
+    border-bottom-color: var(--teal);
     font-weight: 600;
   }
 
@@ -138,8 +136,8 @@
   /* ── Hero ── */
   .hero {
     padding: 4rem 4rem 3rem;
-    background: var(--white);
-    border-bottom: 1px solid var(--gray-200);
+    background: var(--navy);
+    border-bottom: 1px solid var(--border);
   }
 
   .hero h1 {
@@ -148,17 +146,17 @@
     letter-spacing: -0.03em;
     line-height: 1.1;
     margin-bottom: 1rem;
-    color: var(--black);
+    color: var(--white);
   }
 
   .hero h1 span {
-    color: var(--gray-500);
+    color: var(--teal);
     font-weight: 400;
   }
 
   .hero-sub {
     font-size: 18px;
-    color: var(--gray-600);
+    color: var(--text-muted);
     max-width: 700px;
     margin-bottom: 0;
     line-height: 1.6;
@@ -174,7 +172,7 @@
   .section-title {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--black);
+    color: var(--white);
     margin-bottom: 2rem;
     letter-spacing: -0.02em;
   }
@@ -182,7 +180,7 @@
   .section-subtitle {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--black);
+    color: var(--white);
     margin: 3rem 0 1.5rem;
     letter-spacing: -0.01em;
   }
@@ -196,29 +194,29 @@
   }
 
   .mission-card {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
+    background: var(--navy-light);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 2.5rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 
   .mission-card:hover {
-    border-color: var(--black);
+    border-color: var(--teal);
     transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 180, 216, 0.15);
   }
 
   .mission-card h3 {
     font-size: 1.25rem;
-    color: var(--black);
+    color: var(--teal);
     margin-bottom: 1rem;
     font-weight: 600;
   }
 
   .mission-card p {
-    color: var(--gray-600);
+    color: var(--text-muted);
     line-height: 1.7;
     font-size: 15px;
   }
@@ -232,23 +230,23 @@
   }
 
   .score-card {
-    background: var(--gray-50);
-    border: 1px solid var(--gray-200);
+    background: var(--navy-light);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 2rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .score-card:hover {
-    background: var(--white);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    background: var(--navy-lighter);
+    box-shadow: 0 4px 12px rgba(0, 180, 216, 0.2);
     transform: translateY(-2px);
   }
 
   .score-label {
     font-size: 13px;
     font-weight: 600;
-    color: var(--gray-500);
+    color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 0.75rem;
@@ -258,7 +256,7 @@
     font-size: 3rem;
     font-weight: 700;
     line-height: 1;
-    color: var(--black);
+    color: var(--white);
   }
   .score-num.green { color: var(--green); }
   .score-num.red   { color: var(--red); }
@@ -270,12 +268,12 @@
     gap: 8px;
     font-size: 13px;
     font-weight: 600;
-    color: var(--gray-600);
+    color: var(--teal);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 2rem;
     padding: 8px 16px;
-    background: var(--gray-100);
+    background: var(--gray-50);
     border-radius: 8px;
   }
 
@@ -290,28 +288,28 @@
   .goal-row {
     display: grid;
     grid-template-columns: 240px 1fr 1fr 180px;
-    background: var(--white);
-    border: 1px solid var(--gray-200);
+    background: var(--navy-light);
+    border: 1px solid var(--border);
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .goal-row:hover {
-    border-color: var(--gray-300);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border-color: var(--teal);
+    box-shadow: 0 4px 12px rgba(0, 180, 216, 0.15);
   }
 
   .goal-col {
     padding: 2rem;
-    border-right: 1px solid var(--gray-200);
+    border-right: 1px solid var(--border);
   }
   .goal-col:last-child { border-right: none; }
 
   .goal-name {
     font-size: 17px;
     font-weight: 600;
-    color: var(--black);
+    color: var(--white);
     line-height: 1.4;
     margin-bottom: 0.5rem;
   }
@@ -319,7 +317,7 @@
   .goal-target {
     font-size: 13px;
     font-weight: 500;
-    color: var(--gray-500);
+    color: var(--text-muted);
     margin-top: 0.5rem;
     text-transform: uppercase;
     letter-spacing: 0.03em;
@@ -327,7 +325,7 @@
 
   .value-text {
     font-size: 15px;
-    color: var(--gray-600);
+    color: var(--text-muted);
     line-height: 1.6;
   }
 
@@ -338,7 +336,7 @@
     display: flex;
     gap: 10px;
     font-size: 15px;
-    color: var(--gray-600);
+    color: var(--text-muted);
     margin-bottom: 0.75rem;
     line-height: 1.5;
   }
@@ -346,8 +344,8 @@
   .qtr-badge {
     font-size: 12px;
     font-weight: 600;
-    color: var(--black);
-    background: var(--gray-100);
+    color: var(--white);
+    background: var(--gray-50);
     padding: 4px 10px;
     border-radius: 6px;
     flex-shrink: 0;
@@ -358,12 +356,13 @@
   .q1-actual {
     margin-top: 1.25rem;
     padding: 1rem 1.25rem;
-    background: var(--gray-50);
+    background: rgba(16, 185, 129, 0.1);
     border-left: 3px solid var(--green);
     border-radius: 8px;
   }
   .q1-actual.red-actual {
     border-left-color: var(--red);
+    background: rgba(239, 68, 68, 0.1);
   }
 
   .q1-actual-label {
@@ -378,7 +377,7 @@
 
   .q1-actual-text {
     font-size: 15px;
-    color: var(--gray-700);
+    color: var(--white);
     line-height: 1.6;
   }
 
@@ -389,12 +388,12 @@
     margin-top: 0.75rem;
     font-size: 14px;
     font-weight: 600;
-    color: var(--black);
+    color: var(--teal);
     text-decoration: none;
-    border-bottom: 1px solid var(--gray-300);
+    border-bottom: 1px solid transparent;
     transition: border-color 0.2s;
   }
-  .q1-link:hover { border-bottom-color: var(--black); }
+  .q1-link:hover { border-bottom-color: var(--teal); }
   .q1-link::after { content: '↗'; font-size: 11px; }
 
   /* ── Status column ── */
@@ -441,8 +440,8 @@
     color: white;
   }
   .q-gray   {
-    background: var(--gray-100);
-    color: var(--gray-400);
+    background: var(--gray-50);
+    color: var(--text-muted);
   }
 
   .q-icon { font-size: 14px; }
@@ -451,7 +450,7 @@
   .goals-header {
     display: grid;
     grid-template-columns: 240px 1fr 1fr 180px;
-    background: var(--gray-50);
+    background: var(--navy-lighter);
     padding: 1rem 0;
     border-radius: 8px;
     margin-bottom: 1rem;
@@ -463,7 +462,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--gray-500);
+    color: var(--teal);
   }
 
   /* ── Metric cards for Engineering Delivery ── */
@@ -475,16 +474,16 @@
   }
 
   .metric-box {
-    background: var(--gray-50);
-    border: 1px solid var(--gray-200);
+    background: var(--navy-light);
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 2rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .metric-box:hover {
-    background: var(--white);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    background: var(--navy-lighter);
+    box-shadow: 0 4px 12px rgba(0, 180, 216, 0.15);
     transform: translateY(-2px);
   }
 
@@ -851,7 +850,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--white);
+    background: var(--navy);
     z-index: 10000;
     display: flex;
     align-items: center;
@@ -863,18 +862,18 @@
   }
 
   .password-box {
-    background: var(--white);
+    background: var(--navy-light);
     padding: 4rem;
     border-radius: 24px;
-    border: 1px solid var(--gray-200);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     max-width: 480px;
     width: 90%;
     text-align: center;
   }
 
   .password-box h2 {
-    color: var(--black);
+    color: var(--teal);
     font-size: 2.5rem;
     margin-bottom: 0.75rem;
     border: none;
@@ -884,7 +883,7 @@
   }
 
   .password-box p {
-    color: var(--gray-600);
+    color: var(--text-muted);
     margin-bottom: 2.5rem;
     font-size: 16px;
     line-height: 1.6;
@@ -893,10 +892,10 @@
   .password-input {
     width: 100%;
     padding: 1rem 1.25rem;
-    border: 2px solid var(--gray-200);
+    border: 2px solid var(--border);
     border-radius: 12px;
-    background: var(--white);
-    color: var(--black);
+    background: var(--navy);
+    color: var(--white);
     font-size: 17px;
     margin-bottom: 1rem;
     font-family: inherit;
@@ -905,15 +904,15 @@
 
   .password-input:focus {
     outline: none;
-    border-color: var(--black);
-    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
+    border-color: var(--teal);
+    box-shadow: 0 0 0 4px rgba(0, 180, 216, 0.15);
   }
 
   .password-submit {
     width: 100%;
     padding: 1rem 1.25rem;
-    background: var(--black);
-    color: var(--white);
+    background: var(--teal);
+    color: var(--navy);
     border: none;
     border-radius: 12px;
     font-size: 17px;
@@ -1024,10 +1023,10 @@
 <!-- Tab Navigation -->
 <nav class="tab-nav">
   <button class="tab-button active" onclick="showTab('mission')">Business Technology Mission</button>
-  <button class="tab-button" onclick="showTab('portfolio')">Portfolio</button>
   <button class="tab-button" onclick="showTab('goals')">FY26 Goals</button>
   <button class="tab-button" onclick="showTab('engineering')">Engineering Delivery</button>
   <button class="tab-button" onclick="showTab('shiftleft')">Shift-Left</button>
+  <button class="tab-button" onclick="showTab('portfolio')">Portfolio</button>
 </nav>
 
 <!-- TAB 1: Mission -->
@@ -1077,50 +1076,7 @@
   </div>
 </div>
 
-<!-- TAB 2: Portfolio -->
-<div id="portfolio" class="tab-content">
-  <section class="hero">
-    <h1>Portfolio<br><span>Projects & Initiatives</span></h1>
-    <p class="hero-sub">Strategic initiatives, roadmap, and delivery tracking</p>
-  </section>
-
-  <div class="content-section">
-    <h2 class="section-title">HR Projects — Roadmap</h2>
-    <div style="background: var(--gray-50); border-left: 4px solid var(--black); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
-      <p style="font-size: 1rem; line-height: 1.8; color: var(--white);">
-        Active HR projects and initiatives with timeline, milestones, and delivery tracking.
-      </p>
-    </div>
-
-    <div style="background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 2rem;">
-      <div style="padding: 1rem 1.5rem; background: var(--navy-light); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-        <h3 style="margin: 0; font-size: 16px; color: var(--white);">Project Timeline (Gantt Chart)</h3>
-        <a href="gantt.pdf" target="_blank" style="color: var(--teal); text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 0.5rem;">
-          Open Full Screen ↗
-        </a>
-      </div>
-      <div style="position: relative; width: 100%; height: 800px;">
-        <iframe
-          src="gantt.pdf"
-          style="width: 100%; height: 100%; border: none;"
-          title="HR Projects Gantt Chart">
-        </iframe>
-      </div>
-    </div>
-
-    <div style="background: var(--gray-50); border-left: 4px solid var(--black); padding: 1.5rem; border-radius: 8px;">
-      <h3 style="color: var(--yellow); margin-bottom: 0.75rem; font-size: 16px;">📌 Next Steps</h3>
-      <ul style="list-style: none; padding-left: 0; color: var(--text-muted);">
-        <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">• Review project timelines and dependencies</li>
-        <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">• Validate resource allocation across initiatives</li>
-        <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">• Identify and mitigate delivery risks</li>
-        <li style="padding: 0.5rem 0;">• Update stakeholders on milestone progress</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- TAB 3: FY26 Goals -->
+<!-- TAB 2: FY26 Goals -->
 <div id="goals" class="tab-content">
   <section class="hero">
     <h1>FY26 Goals<br><span>Q1 Status</span></h1>
@@ -1649,9 +1605,9 @@
       </p>
     </div>
 
-    <h2 class="section-subtitle">Top 10 Automation Opportunities — Impact Analysis</h2>
+    <h2 class="section-subtitle">Top 10 Incident Reduction Priorities</h2>
     <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 15px;">
-      Ranked by total impact: monthly ticket volume × average resolution time. Estimated annual savings: <strong style="color: var(--teal);">4,200+ hours</strong> across all workflows.
+      Based on Q4 FY25 & Q1 FY26 analysis (3,342 total incidents). Ranked by business impact and automation potential. <strong style="color: var(--teal);">Target: Reclaim ~20% of non-discretionary effort</strong> through systematic reduction.
     </p>
 
     <div class="automation-chart">
@@ -1666,18 +1622,18 @@
       <div class="chart-row">
         <div class="workflow-name">
           <span class="rank-badge">1</span>
-          <span>Password Resets</span>
+          <span>CPQ to NetSuite Integration</span>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">180</div>
+          <div class="metric-value">108</div>
           <div class="metric-label">tickets</div>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">8</div>
+          <div class="metric-value">35</div>
           <div class="metric-label">minutes</div>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">24</div>
+          <div class="metric-value">63</div>
           <div class="metric-label">hrs saved</div>
         </div>
         <div style="text-align: center;">
@@ -1688,18 +1644,18 @@
       <div class="chart-row">
         <div class="workflow-name">
           <span class="rank-badge">2</span>
-          <span>Access Requests</span>
+          <span>Product & Subscription Visibility</span>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">150</div>
+          <div class="metric-value">50</div>
           <div class="metric-label">tickets</div>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">12</div>
+          <div class="metric-value">45</div>
           <div class="metric-label">minutes</div>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">30</div>
+          <div class="metric-value">38</div>
           <div class="metric-label">hrs saved</div>
         </div>
         <div style="text-align: center;">
@@ -1710,18 +1666,18 @@
       <div class="chart-row">
         <div class="workflow-name">
           <span class="rank-badge">3</span>
-          <span>Software Provisioning</span>
+          <span>Documentation & Knowledge Gaps</span>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">120</div>
-          <div class="metric-label">tickets</div>
+          <div class="metric-value">80</div>
+          <div class="metric-label">escalations</div>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">15</div>
+          <div class="metric-value">20</div>
           <div class="metric-label">minutes</div>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">30</div>
+          <div class="metric-value">27</div>
           <div class="metric-label">hrs saved</div>
         </div>
         <div style="text-align: center;">
@@ -1732,18 +1688,18 @@
       <div class="chart-row">
         <div class="workflow-name">
           <span class="rank-badge">4</span>
-          <span>VPN Troubleshooting</span>
+          <span>Manual Customer Merge</span>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">100</div>
+          <div class="metric-value">42</div>
           <div class="metric-label">tickets</div>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">20</div>
+          <div class="metric-value">25</div>
           <div class="metric-label">minutes</div>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">33</div>
+          <div class="metric-value">18</div>
           <div class="metric-label">hrs saved</div>
         </div>
         <div style="text-align: center;">
@@ -1754,18 +1710,18 @@
       <div class="chart-row">
         <div class="workflow-name">
           <span class="rank-badge">5</span>
-          <span>Email Distribution Lists</span>
+          <span>Salesforce Support Requests</span>
         </div>
         <div style="text-align: center;">
           <div class="metric-value">80</div>
           <div class="metric-label">tickets</div>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">10</div>
+          <div class="metric-value">30</div>
           <div class="metric-label">minutes</div>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">13</div>
+          <div class="metric-value">40</div>
           <div class="metric-label">hrs saved</div>
         </div>
         <div style="text-align: center;">
@@ -1776,18 +1732,18 @@
       <div class="chart-row">
         <div class="workflow-name">
           <span class="rank-badge">6</span>
-          <span>Hardware Requests</span>
+          <span>Access & Permissions</span>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">60</div>
+          <div class="metric-value">120</div>
           <div class="metric-label">tickets</div>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">25</div>
+          <div class="metric-value">12</div>
           <div class="metric-label">minutes</div>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">25</div>
+          <div class="metric-value">24</div>
           <div class="metric-label">hrs saved</div>
         </div>
         <div style="text-align: center;">
@@ -1798,6 +1754,50 @@
       <div class="chart-row">
         <div class="workflow-name">
           <span class="rank-badge">7</span>
+          <span>Software Provisioning</span>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">60</div>
+          <div class="metric-label">tickets</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">15</div>
+          <div class="metric-label">minutes</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">15</div>
+          <div class="metric-label">hrs saved</div>
+        </div>
+        <div style="text-align: center;">
+          <span class="priority-badge priority-medium">Medium</span>
+        </div>
+      </div>
+
+      <div class="chart-row">
+        <div class="workflow-name">
+          <span class="rank-badge">8</span>
+          <span>Password Resets</span>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">100</div>
+          <div class="metric-label">tickets</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">8</div>
+          <div class="metric-label">minutes</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">13</div>
+          <div class="metric-label">hrs saved</div>
+        </div>
+        <div style="text-align: center;">
+          <span class="priority-badge priority-medium">Medium</span>
+        </div>
+      </div>
+
+      <div class="chart-row">
+        <div class="workflow-name">
+          <span class="rank-badge">9</span>
           <span>License Management</span>
         </div>
         <div style="text-align: center;">
@@ -1819,63 +1819,19 @@
 
       <div class="chart-row">
         <div class="workflow-name">
-          <span class="rank-badge">8</span>
-          <span>Onboarding Tasks</span>
-        </div>
-        <div style="text-align: center;">
-          <div class="metric-value">40</div>
-          <div class="metric-label">tickets</div>
-        </div>
-        <div style="text-align: center;">
-          <div class="metric-value">45</div>
-          <div class="metric-label">minutes</div>
-        </div>
-        <div style="text-align: center;">
-          <div class="metric-value">30</div>
-          <div class="metric-label">hrs saved</div>
-        </div>
-        <div style="text-align: center;">
-          <span class="priority-badge priority-medium">Medium</span>
-        </div>
-      </div>
-
-      <div class="chart-row">
-        <div class="workflow-name">
-          <span class="rank-badge">9</span>
-          <span>Status Check Requests</span>
-        </div>
-        <div style="text-align: center;">
-          <div class="metric-value">90</div>
-          <div class="metric-label">tickets</div>
-        </div>
-        <div style="text-align: center;">
-          <div class="metric-value">5</div>
-          <div class="metric-label">minutes</div>
-        </div>
-        <div style="text-align: center;">
-          <div class="metric-value">8</div>
-          <div class="metric-label">hrs saved</div>
-        </div>
-        <div style="text-align: center;">
-          <span class="priority-badge priority-medium">Medium</span>
-        </div>
-      </div>
-
-      <div class="chart-row">
-        <div class="workflow-name">
           <span class="rank-badge">10</span>
-          <span>Offboarding Tasks</span>
-        </div>
-        <div style="text-align: center;">
-          <div class="metric-value">35</div>
-          <div class="metric-label">tickets</div>
+          <span>VPN & Network Issues</span>
         </div>
         <div style="text-align: center;">
           <div class="metric-value">40</div>
+          <div class="metric-label">tickets</div>
+        </div>
+        <div style="text-align: center;">
+          <div class="metric-value">20</div>
           <div class="metric-label">minutes</div>
         </div>
         <div style="text-align: center;">
-          <div class="metric-value">23</div>
+          <div class="metric-value">13</div>
           <div class="metric-label">hrs saved</div>
         </div>
         <div style="text-align: center;">
@@ -1886,20 +1842,20 @@
       <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(0,180,216,0.1); border-radius: 8px; border-left: 4px solid var(--teal);">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
           <div>
-            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 0.25rem;">Total Monthly Tickets</div>
-            <div style="font-size: 2rem; font-weight: 600; color: var(--teal);">905</div>
+            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 0.25rem;">Total Monthly Incidents</div>
+            <div style="font-size: 2rem; font-weight: 600; color: var(--teal);">730</div>
           </div>
           <div>
-            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 0.25rem;">Monthly Hours Saved</div>
-            <div style="font-size: 2rem; font-weight: 600; color: var(--green);">229</div>
+            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 0.25rem;">Monthly Hours Reclaimed</div>
+            <div style="font-size: 2rem; font-weight: 600; color: var(--green);">264</div>
           </div>
           <div>
             <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 0.25rem;">Annual Hours Saved</div>
-            <div style="font-size: 2rem; font-weight: 600; color: var(--yellow);">2,748</div>
+            <div style="font-size: 2rem; font-weight: 600; color: var(--yellow);">3,168</div>
           </div>
           <div>
             <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 0.25rem;">Capacity Reclaimed</div>
-            <div style="font-size: 2rem; font-weight: 600; color: var(--white);">1.3 FTE</div>
+            <div style="font-size: 2rem; font-weight: 600; color: var(--white);">1.5 FTE</div>
           </div>
         </div>
       </div>
@@ -1926,59 +1882,60 @@
       </div>
     </div>
 
-    <h2 class="section-subtitle">Detailed Implementation Plans</h2>
+    <h2 class="section-subtitle">Detailed Reduction Strategies</h2>
     <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
-      Each automation candidate has a defined solution approach and technology stack:
+      Each priority has a defined approach to eliminate systemic bottlenecks and reduce incident volume:
     </p>
 
     <div class="mission-grid">
       <div class="mission-card">
-        <h3>1. Password Resets</h3>
-        <p><strong>Volume:</strong> High frequency<br><strong>Solution:</strong> Self-service portal with MFA verification</p>
+        <h3>1. CPQ to NetSuite Integration</h3>
+        <p><strong>Impact:</strong> Eliminates hundreds of system-generated junk tickets<br><strong>Solution:</strong> Upstream validation in Salesforce + MuleSoft mapping audit<br><strong>Trend:</strong> ✓ Down 46% Q4→Q1</p>
       </div>
       <div class="mission-card">
-        <h3>2. Access Requests</h3>
-        <p><strong>Volume:</strong> High frequency<br><strong>Solution:</strong> Automated approval workflows with manager delegation</p>
+        <h3>2. Product & Subscription Visibility</h3>
+        <p><strong>Impact:</strong> 6.5-day avg resolution time<br><strong>Solution:</strong> Auto-reconciliation script + improved documentation<br><strong>Volume:</strong> ~150 incidents/quarter</p>
       </div>
       <div class="mission-card">
-        <h3>3. Software Provisioning</h3>
-        <p><strong>Volume:</strong> Medium-high<br><strong>Solution:</strong> Self-service catalog with auto-provisioning</p>
+        <h3>3. Documentation & Knowledge Gaps</h3>
+        <p><strong>Impact:</strong> Increased MTTR + "brain drain" from senior escalations<br><strong>Solution:</strong> AI contextual search + 3-min lessons learned template<br><strong>Goal:</strong> Empower Tier 1/2 independently</p>
       </div>
       <div class="mission-card">
-        <h3>4. VPN Troubleshooting</h3>
-        <p><strong>Volume:</strong> Medium<br><strong>Solution:</strong> AI-powered diagnostic bot with common fix automation</p>
+        <h3>4. Manual Customer Merge</h3>
+        <p><strong>Impact:</strong> Data integrity for C-Suite reporting<br><strong>Solution:</strong> Automated deduplication + source validation<br><strong>Volume:</strong> 125/quarter, ✓ down 24% Q4→Q1</p>
       </div>
       <div class="mission-card">
-        <h3>5. Email Distribution Lists</h3>
-        <p><strong>Volume:</strong> Medium<br><strong>Solution:</strong> Self-service management portal</p>
+        <h3>5. Salesforce Support Requests</h3>
+        <p><strong>Impact:</strong> High-touch manual work (6.5 days avg)<br><strong>Solution:</strong> Shift work to Customer Care + Billings via improved docs</p>
       </div>
       <div class="mission-card">
-        <h3>6. Hardware Requests</h3>
-        <p><strong>Volume:</strong> Medium<br><strong>Solution:</strong> Automated approval + procurement integration</p>
+        <h3>6. Access & Permissions</h3>
+        <p><strong>Volume:</strong> ~120/month<br><strong>Solution:</strong> Automated approval workflows with manager delegation</p>
       </div>
       <div class="mission-card">
-        <h3>7. License Management</h3>
-        <p><strong>Volume:</strong> Low-medium<br><strong>Solution:</strong> Automated reclamation + self-service assignment</p>
+        <h3>7. Software Provisioning</h3>
+        <p><strong>Volume:</strong> ~60/month<br><strong>Solution:</strong> Self-service catalog with auto-provisioning</p>
       </div>
       <div class="mission-card">
-        <h3>8. Onboarding Tasks</h3>
-        <p><strong>Volume:</strong> Steady<br><strong>Solution:</strong> Workflow automation with milestone tracking</p>
+        <h3>8. Password Resets</h3>
+        <p><strong>Volume:</strong> ~100/month<br><strong>Solution:</strong> Self-service portal with MFA verification</p>
       </div>
       <div class="mission-card">
-        <h3>9. Status Checks</h3>
-        <p><strong>Volume:</strong> High frequency<br><strong>Solution:</strong> AI chatbot with real-time system integration</p>
+        <h3>9. License Management</h3>
+        <p><strong>Volume:</strong> ~50/month<br><strong>Solution:</strong> Automated reclamation + self-service assignment</p>
       </div>
       <div class="mission-card">
-        <h3>10. Offboarding Tasks</h3>
-        <p><strong>Volume:</strong> Steady<br><strong>Solution:</strong> Automated revocation workflow</p>
+        <h3>10. VPN & Network Issues</h3>
+        <p><strong>Volume:</strong> ~40/month<br><strong>Solution:</strong> AI-powered diagnostic bot with common fix automation</p>
       </div>
     </div>
 
-    <h2 class="section-subtitle">Quarterly Milestones</h2>
+    <h2 class="section-subtitle">Q2 FY26 Roadmap & Next Steps</h2>
     <ul class="value-list" style="max-width: 800px;">
-      <li><strong>Q2 (Apr-Jun 2026):</strong> Deploy first 2 automation solutions (password reset + access requests). Target: 10% automated resolution rate.</li>
-      <li><strong>Q3 (Jul-Sep 2026):</strong> Expand to 4 additional workflows (software provisioning, VPN troubleshooting, email lists, hardware requests). Target: 20% automated resolution + 10% ticket reduction.</li>
-      <li><strong>Q4 (Oct-Dec 2026):</strong> Complete remaining 4 workflows (license mgmt, onboarding, status checks, offboarding). Target: 35% automated resolution + 20% ticket reduction.</li>
+      <li><strong>Assign Owners:</strong> Assign owners to the 4 primary workstreams (CPQ Integration, Product Visibility, Customer Merge, Documentation) and define success metrics for each.</li>
+      <li><strong>Track Reduction:</strong> Measure incident volume reduction to demonstrate improved project throughput and velocity of the BT Team.</li>
+      <li><strong>Listen to Learn:</strong> Use a continuous improvement approach with BT Leads to ensure new validations don't slow down sprint velocity.</li>
+      <li><strong>Target Impact:</strong> Reclaim ~20% of non-discretionary effort currently consumed by these systemic friction points, redirecting capacity to strategic revenue-driving initiatives.</li>
     </ul>
 
     <h2 class="section-subtitle">Expected Business Impact</h2>
@@ -2009,6 +1966,74 @@
       <a href="jira-analysis.html#issue-types" target="_blank" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--teal); color: var(--navy); text-decoration: none; border-radius: 6px; font-weight: 600;">
         View Issue Type Analysis →
       </a>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 6: Portfolio -->
+<div id="portfolio" class="tab-content">
+  <section class="hero">
+    <h1>Portfolio<br><span>Strategic Projects & Roadmap</span></h1>
+    <p class="hero-sub">Active initiatives, milestones, and resource allocation across Business Technology</p>
+  </section>
+
+  <div class="content-section">
+    <h2 class="section-title">BT Portfolio Overview</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 15px;">
+      Comprehensive view of all Business Technology projects, strategic initiatives, and delivery timeline.
+    </p>
+
+    <div style="background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 3rem;">
+      <div style="padding: 1rem 1.5rem; background: var(--navy-light); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="margin: 0; font-size: 16px; color: var(--white);">BT Project Portfolio</h3>
+        <a href="bt-portfolio.pdf" target="_blank" style="color: var(--teal); text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 0.5rem;">
+          Open Full Screen ↗
+        </a>
+      </div>
+      <div style="position: relative; width: 100%; height: 800px;">
+        <iframe
+          src="bt-portfolio.pdf"
+          style="width: 100%; height: 100%; border: none;"
+          title="BT Portfolio">
+        </iframe>
+      </div>
+    </div>
+
+    <h2 class="section-subtitle">HR Projects Timeline</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 15px;">
+      Human Resources projects Gantt chart showing key milestones and dependencies.
+    </p>
+
+    <div style="background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 3rem;">
+      <div style="padding: 1rem 1.5rem; background: var(--navy-light); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="margin: 0; font-size: 16px; color: var(--white);">HR Projects Gantt Chart</h3>
+        <a href="hr-gantt.pdf" target="_blank" style="color: var(--teal); text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 0.5rem;">
+          Open Full Screen ↗
+        </a>
+      </div>
+      <div style="position: relative; width: 100%; height: 800px;">
+        <iframe
+          src="hr-gantt.pdf"
+          style="width: 100%; height: 100%; border: none;"
+          title="HR Projects Gantt">
+        </iframe>
+      </div>
+    </div>
+
+    <h2 class="section-subtitle">Portfolio Health Metrics</h2>
+    <div class="mission-grid">
+      <div class="mission-card">
+        <h3>Active Projects</h3>
+        <p><strong>Total:</strong> Multiple streams across Engineering, HR, and Strategic Initiatives<br><strong>Status:</strong> Tracking on schedule</p>
+      </div>
+      <div class="mission-card">
+        <h3>Resource Allocation</h3>
+        <p><strong>Engineering:</strong> 12 team members<br><strong>Focus:</strong> Balanced across Growth, Run, and Debt reduction</p>
+      </div>
+      <div class="mission-card">
+        <h3>Delivery Predictability</h3>
+        <p><strong>Q1 Target:</strong> Improve sprint completion to 80%<br><strong>Action:</strong> Right-sizing workload and velocity-based planning</p>
+      </div>
     </div>
   </div>
 </div>
@@ -2161,7 +2186,7 @@ function generateResponse(question) {
 
   // Portfolio
   if (q.includes('portfolio') || q.includes('project') || q.includes('roadmap')) {
-    return `The Portfolio tab is currently being set up to track:\n\n• Active projects and initiatives\n• Strategic roadmap and milestones\n• Resource allocation\n• Delivery tracking\n\nContent coming soon! Check back for project portfolio updates.`;
+    return `Portfolio Tab — Strategic Projects & Roadmap:\n\n📊 BT Portfolio: Comprehensive view of all Business Technology projects and strategic initiatives\n📅 HR Projects: Gantt chart showing HR project timelines and milestones\n🎯 Portfolio Health: Active projects, resource allocation, and delivery predictability metrics\n\nView the Portfolio tab for interactive project tracking and timeline visualizations!`;
   }
 
   // General help
